@@ -2,12 +2,11 @@
 
 namespace app\assets_b;
 
-use yii\web\AssetBundle;
 
 /**
  * Class JqueryMigrateAsset
  */
-class JqueryMigrateAsset extends AssetBundle
+class JqueryMigrateAsset extends Asset
 {
     public $basePath = '@webroot/assets_b/common';
 

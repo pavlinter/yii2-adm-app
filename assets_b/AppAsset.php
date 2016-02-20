@@ -4,12 +4,11 @@ namespace app\assets_b;
 
 use kartik\icons\Icon;
 use Yii;
-use yii\web\AssetBundle;
 
 /**
  * Class AppAsset
  */
-class AppAsset extends AssetBundle
+class AppAsset extends Asset
 {
     public $basePath = '@webroot/assets_b/common';
 

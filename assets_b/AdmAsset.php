@@ -2,12 +2,10 @@
 
 namespace app\assets_b;
 
-use yii\web\AssetBundle;
-
 /**
  * Class AdmAsset
  */
-class AdmAsset extends AssetBundle
+class AdmAsset extends Asset
 {
     public $basePath = '@webroot/assets_b/common';
 

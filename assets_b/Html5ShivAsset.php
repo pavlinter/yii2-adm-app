@@ -2,12 +2,11 @@
 
 namespace app\assets_b;
 
-use yii\web\AssetBundle;
 
 /**
  * Class Html5ShivAsset
  */
-class Html5ShivAsset extends AssetBundle
+class Html5ShivAsset extends Asset
 {
     public $basePath = '@webroot/assets_b/common';
 

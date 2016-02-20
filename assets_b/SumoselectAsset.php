@@ -3,12 +3,11 @@
 namespace app\assets_b;
 
 use Yii;
-use yii\web\AssetBundle;
 
 /**
  * Class SumoselectAsset
  */
-class SumoselectAsset extends AssetBundle
+class SumoselectAsset extends Asset
 {
     public $basePath = '@webroot/assets_b/common';
 
