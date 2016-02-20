@@ -18,4 +18,12 @@ class JqueryMigrateAsset extends Asset
     public $depends = [
         'yii\web\JqueryAsset',
     ];
+
+    /**
+     * @inheritdoc
+     */
+    /*public function init()
+    {
+        parent::init();
+    }*/
 }

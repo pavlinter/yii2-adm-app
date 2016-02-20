@@ -27,11 +27,15 @@ class AppAsset extends Asset
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
+        //'yii\bootstrap\BootstrapThemeAsset',
     ];
 
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
-        Icon::map(Yii::$app->getView(), Icon::FA);
         parent::init();
+        Icon::map(Yii::$app->getView(), Icon::FA);
     }
 }

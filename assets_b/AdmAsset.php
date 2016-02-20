@@ -18,4 +18,12 @@ class AdmAsset extends Asset
     public $depends = [
         'pavlinter\adm\AdmAsset',
     ];
+
+    /**
+     * @inheritdoc
+     */
+    /*public function init()
+    {
+        parent::init();
+    }*/
 }

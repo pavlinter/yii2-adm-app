@@ -25,8 +25,11 @@ class SumoselectAsset extends Asset
         'yii\web\JqueryAsset',
     ];
 
-    public function init()
+    /**
+     * @inheritdoc
+     */
+    /*public function init()
     {
         parent::init();
-    }
+    }*/
 }

@@ -19,4 +19,12 @@ class Html5ShivAsset extends Asset
     public $js = [
         'js/html5shiv.min.js',
     ];
+
+    /**
+     * @inheritdoc
+     */
+    /*public function init()
+    {
+        parent::init();
+    }*/
 }
