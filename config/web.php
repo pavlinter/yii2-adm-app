@@ -13,11 +13,10 @@ if (YII_ENV_DEV) {
     $params = require(__DIR__ . '/params.php');
     $db = require(__DIR__ . '/db.php');
 }
-$langCode = require(__DIR__ . '/languages.php');
 
 $config = [
     'name' => 'My Application',
-    'id' => 'app-core',
+    'id' => 'adm-app',
     'basePath' => dirname(__DIR__),
     'bootstrap' => [
         'log',
@@ -172,13 +171,6 @@ $config = [
         ],
         'urlManager' => [
             'class'=>'app\components\UrlManager', //https://github.com/pavlinter/yii2-url-manager
-            'enableLang' => true,
-            'langBegin' => $langCode,
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'ruleConfig' => [
-                'class' => '\pavlinter\urlmanager\UrlRule',
-            ],
             'rules' => [
                 '' => 'admpages/default/main',
                 'page/<alias:([A-Za-z0-9_-])+>' => 'admpages/default/index',
@@ -223,9 +215,10 @@ $config = [
             'appendTimestamp' => true,
             'bundles' => [
                 'yii\bootstrap\BootstrapAsset' => [
-                    'basePath' => '@webroot/assets_b/common',
-                    'baseUrl' => '@web/assets_b/common',
-                    'sourcePath' => null,   // do not publish the bundle
+                    'class' => 'app\assets_b\BootstrapAsset',
+                ],
+                'yii\bootstrap\BootstrapThemeAsset' => [
+                    'class' => 'app\assets_b\BootstrapThemeAsset',
                 ],
             ],
         ],
