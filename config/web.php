@@ -13,6 +13,7 @@ if (YII_ENV_DEV) {
     $params = require(__DIR__ . '/params.php');
     $db = require(__DIR__ . '/db.php');
 }
+$langCode = require(__DIR__ . '/languages.php');
 
 $config = [
     'name' => 'My Application',
@@ -50,22 +51,20 @@ $config = [
                 'manager' => [
                     'userClass' => 'app\models\User',
                     'userSearchClass' => 'app\core\adm\models\UserSearch',
-                    /*
-                    'loginFormClass' => 'pavlinter\adm\models\LoginForm',
-                    'authItemClass' => 'pavlinter\adm\models\AuthItem',
-                    'authItemSearchClass' => 'pavlinter\adm\models\AuthItemSearch',
-                    'authRuleClass' => 'pavlinter\adm\models\AuthRule',
-                    'authRuleSearchClass' => 'pavlinter\adm\models\AuthRuleSearch',
-                    'authItemChildClass' => 'pavlinter\adm\models\AuthItemChild',
-                    'authItemChildSearchClass' => 'pavlinter\adm\models\AuthItemChildSearch',
-                    'authAssignmentClass' => 'pavlinter\adm\models\AuthAssignment',
-                    'authAssignmentSearchClass' => 'pavlinter\adm\models\AuthAssignmentSearch',
-                    'languageClass' => 'pavlinter\adm\models\Language',
-                    'languageSearchClass' => 'pavlinter\adm\models\LanguageSearch',
-                    'sourceMessageClass' => 'pavlinter\adm\models\SourceMessage',
-                    'sourceMessageSearchClass' => 'pavlinter\adm\models\SourceMessageSearch',
-                    'messageClass' => 'pavlinter\adm\models\Message',
-                    */
+                    'loginFormClass' => 'app\core\adm\models\LoginForm',
+                    'authItemClass' => 'app\core\adm\models\AuthItem',
+                    'authItemSearchClass' => 'app\core\adm\models\AuthItemSearch',
+                    'authRuleClass' => 'app\core\adm\models\AuthRule',
+                    'authRuleSearchClass' => 'app\core\adm\models\AuthRuleSearch',
+                    'authItemChildClass' => 'app\core\adm\models\AuthItemChild',
+                    'authItemChildSearchClass' => 'app\core\adm\models\AuthItemChildSearch',
+                    'authAssignmentClass' => 'app\core\adm\models\AuthAssignment',
+                    'authAssignmentSearchClass' => 'app\core\adm\models\AuthAssignmentSearch',
+                    'languageClass' => 'app\core\adm\models\Language',
+                    'languageSearchClass' => 'app\core\adm\models\LanguageSearch',
+                    'sourceMessageClass' => 'app\core\adm\models\SourceMessage',
+                    'sourceMessageSearchClass' => 'app\core\adm\models\SourceMessageSearch',
+                    'messageClass' => 'app\core\adm\models\Message',
                 ],
             ],
             'controllerMap' => [
@@ -167,7 +166,7 @@ $config = [
         'urlManager' => [
             'class'=>'app\components\UrlManager', //https://github.com/pavlinter/yii2-url-manager
             'enableLang' => true,
-            'langBegin' => ['en','ru', 'lv'],
+            'langBegin' => $langCode,
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'ruleConfig' => [
