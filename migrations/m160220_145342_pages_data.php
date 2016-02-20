@@ -1,9 +1,11 @@
 <?php
 
-use yii\db\Schema;
 use yii\db\Migration;
 
-class m150309_104532_pages_data extends Migration
+/**
+ * Class m160220_145342_pages_data
+ */
+class m160220_145342_pages_data extends Migration
 {
     public $rolesTranslations = [
         'AdmRoot' => 'Root',
@@ -16,7 +18,16 @@ class m150309_104532_pages_data extends Migration
         'Adm-Pages' => 'Pages',
     ];
 
-    public function up()
+    /**
+     * This method contains the logic to be executed when applying this migration.
+     * This method differs from [[up()]] in that the DB logic implemented here will
+     * be enclosed within a DB transaction.
+     * Child classes may implement this method instead of [[up()]] if the DB logic
+     * needs to be within a transaction.
+     * @return boolean return a false value to indicate the migration fails
+     * and should not proceed further. All other return values mean the migration succeeds.
+     */
+    public function safeUp()
     {
         $this->batchInsert('{{%page}}', ['id', 'id_parent', 'layout', 'type', 'weight', 'created_at', 'updated_at'],[
             [
@@ -79,21 +90,27 @@ class m150309_104532_pages_data extends Migration
         $this->batchInsert('{{%page_lang}}', ['page_id', 'language_id', 'name', 'title', 'alias', 'text'],[
             [1, 1, 'Menu 1', 'Menu 1', null, null],
             [1, 2, 'Menu 1', 'Menu 1', null, null],
+            [1, 3, 'Menu 1', 'Menu 1', null, null],
 
             [2, 1, 'Menu 2', 'Menu 2', null, null],
             [2, 2, 'Menu 2', 'Menu 2', null, null],
+            [2, 3, 'Menu 2', 'Menu 2', null, null],
 
             [3, 1, 'Menu 3', 'Menu 3', null, null],
             [3, 2, 'Menu 3', 'Menu 3', null, null],
+            [3, 3, 'Menu 3', 'Menu 3', null, null],
 
             [4, 1, 'Main Page', 'Main Page', 'main', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque non felis ligula. Maecenas at nunc velit. Vestibulum ornare augue odio, non iaculis massa laoreet ac. Curabitur gravida blandit interdum. Suspendisse ligula erat, blandit non molestie ac, ullamcorper nec ligula. Phasellus a lacus quis augue placerat lacinia. Sed pretium rutrum auctor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris nec dui non turpis porta convallis ut bibendum urna. Cras sagittis dapibus lacus, et interdum magna feugiat vitae.'],
             [4, 2, 'Main Page', 'Main Page', 'main', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque non felis ligula. Maecenas at nunc velit. Vestibulum ornare augue odio, non iaculis massa laoreet ac. Curabitur gravida blandit interdum. Suspendisse ligula erat, blandit non molestie ac, ullamcorper nec ligula. Phasellus a lacus quis augue placerat lacinia. Sed pretium rutrum auctor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris nec dui non turpis porta convallis ut bibendum urna. Cras sagittis dapibus lacus, et interdum magna feugiat vitae.'],
+            [4, 3, 'Main Page', 'Main Page', 'main', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque non felis ligula. Maecenas at nunc velit. Vestibulum ornare augue odio, non iaculis massa laoreet ac. Curabitur gravida blandit interdum. Suspendisse ligula erat, blandit non molestie ac, ullamcorper nec ligula. Phasellus a lacus quis augue placerat lacinia. Sed pretium rutrum auctor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris nec dui non turpis porta convallis ut bibendum urna. Cras sagittis dapibus lacus, et interdum magna feugiat vitae.'],
 
             [5, 1, 'About', 'About', 'about', 'Etiam sit amet sagittis odio, et ultrices metus. Integer lacinia, libero eu ultricies lacinia, nunc lacus accumsan turpis, vitae feugiat magna quam ac nulla. Sed posuere ipsum sed nisl rhoncus suscipit. Suspendisse varius elit mauris, eget accumsan mauris accumsan vel. Sed lobortis, nunc ac fermentum cursus, leo quam tristique lectus, non mollis lorem ex in libero. Donec hendrerit congue convallis. Praesent sed nibh interdum, finibus nisl nec, sodales urna. Suspendisse laoreet ac neque at condimentum. Nunc ac tortor et est mollis condimentum. Nam auctor purus at mi scelerisque scelerisque. Fusce id convallis mauris. Fusce malesuada mattis laoreet. Quisque fermentum, risus eu blandit laoreet, felis lacus tincidunt erat, a dignissim felis leo at urna. Ut sit amet ligula tortor. Proin mattis nunc lectus.'],
             [5, 2, 'About', 'About', 'about', 'Etiam sit amet sagittis odio, et ultrices metus. Integer lacinia, libero eu ultricies lacinia, nunc lacus accumsan turpis, vitae feugiat magna quam ac nulla. Sed posuere ipsum sed nisl rhoncus suscipit. Suspendisse varius elit mauris, eget accumsan mauris accumsan vel. Sed lobortis, nunc ac fermentum cursus, leo quam tristique lectus, non mollis lorem ex in libero. Donec hendrerit congue convallis. Praesent sed nibh interdum, finibus nisl nec, sodales urna. Suspendisse laoreet ac neque at condimentum. Nunc ac tortor et est mollis condimentum. Nam auctor purus at mi scelerisque scelerisque. Fusce id convallis mauris. Fusce malesuada mattis laoreet. Quisque fermentum, risus eu blandit laoreet, felis lacus tincidunt erat, a dignissim felis leo at urna. Ut sit amet ligula tortor. Proin mattis nunc lectus.'],
+            [5, 3, 'About', 'About', 'about', 'Etiam sit amet sagittis odio, et ultrices metus. Integer lacinia, libero eu ultricies lacinia, nunc lacus accumsan turpis, vitae feugiat magna quam ac nulla. Sed posuere ipsum sed nisl rhoncus suscipit. Suspendisse varius elit mauris, eget accumsan mauris accumsan vel. Sed lobortis, nunc ac fermentum cursus, leo quam tristique lectus, non mollis lorem ex in libero. Donec hendrerit congue convallis. Praesent sed nibh interdum, finibus nisl nec, sodales urna. Suspendisse laoreet ac neque at condimentum. Nunc ac tortor et est mollis condimentum. Nam auctor purus at mi scelerisque scelerisque. Fusce id convallis mauris. Fusce malesuada mattis laoreet. Quisque fermentum, risus eu blandit laoreet, felis lacus tincidunt erat, a dignissim felis leo at urna. Ut sit amet ligula tortor. Proin mattis nunc lectus.'],
 
             [6, 1, 'Contact', 'Contact', 'contact', 'Curabitur congue augue ligula, vel ullamcorper ligula laoreet sed. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque eget sollicitudin elit, sit amet ultrices erat. Nulla ut pulvinar mauris. Vestibulum imperdiet gravida finibus. Nunc venenatis, orci a euismod molestie, massa quam consequat tellus, venenatis congue mauris tortor vel elit. Donec ac lacinia elit.'],
             [6, 2, 'Contact', 'Contact', 'contact', 'Curabitur congue augue ligula, vel ullamcorper ligula laoreet sed. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque eget sollicitudin elit, sit amet ultrices erat. Nulla ut pulvinar mauris. Vestibulum imperdiet gravida finibus. Nunc venenatis, orci a euismod molestie, massa quam consequat tellus, venenatis congue mauris tortor vel elit. Donec ac lacinia elit.'],
+            [6, 3, 'Contact', 'Contact', 'contact', 'Curabitur congue augue ligula, vel ullamcorper ligula laoreet sed. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque eget sollicitudin elit, sit amet ultrices erat. Nulla ut pulvinar mauris. Vestibulum imperdiet gravida finibus. Nunc venenatis, orci a euismod molestie, massa quam consequat tellus, venenatis congue mauris tortor vel elit. Donec ac lacinia elit.'],
         ]);
 
         foreach ($this->rolesTranslations as $role => $transl) {
@@ -116,7 +133,16 @@ class m150309_104532_pages_data extends Migration
         ]);
     }
 
-    public function down()
+    /**
+     * This method contains the logic to be executed when removing this migration.
+     * This method differs from [[down()]] in that the DB logic implemented here will
+     * be enclosed within a DB transaction.
+     * Child classes may implement this method instead of [[up()]] if the DB logic
+     * needs to be within a transaction.
+     * @return boolean return a false value to indicate the migration fails
+     * and should not proceed further. All other return values mean the migration succeeds.
+     */
+    public function safeDown()
     {
         $this->delete('{{%page}}', "id IN (1,2,3,4,5,6)");
         $this->delete('{{%source_message}}', "category='adm/sumoselect/items' AND message IN ('" . implode("','", array_keys($this->rolesTranslations)) . "')");

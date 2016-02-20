@@ -3,9 +3,21 @@
 use yii\db\Schema;
 use yii\db\Migration;
 
+/**
+ * Class m151130_083545_contact_msg
+ */
 class m151130_083545_contact_msg extends Migration
 {
-    public function up()
+    /**
+     * This method contains the logic to be executed when applying this migration.
+     * This method differs from [[up()]] in that the DB logic implemented here will
+     * be enclosed within a DB transaction.
+     * Child classes may implement this method instead of [[up()]] if the DB logic
+     * needs to be within a transaction.
+     * @return boolean return a false value to indicate the migration fails
+     * and should not proceed further. All other return values mean the migration succeeds.
+     */
+    public function safeUp()
     {
         $tableOptions = null;
         if ($this->db->driverName === 'mysql') {
@@ -24,20 +36,18 @@ class m151130_083545_contact_msg extends Migration
         ], $tableOptions);
     }
 
-    public function down()
+    /**
+     * This method contains the logic to be executed when removing this migration.
+     * This method differs from [[down()]] in that the DB logic implemented here will
+     * be enclosed within a DB transaction.
+     * Child classes may implement this method instead of [[up()]] if the DB logic
+     * needs to be within a transaction.
+     * @return boolean return a false value to indicate the migration fails
+     * and should not proceed further. All other return values mean the migration succeeds.
+     */
+    public function safeDown()
     {
         $this->dropTable('{{%contact_msg}}');
         return false;
     }
-
-    /*
-    // Use safeUp/safeDown to run migration code within a transaction
-    public function safeUp()
-    {
-    }
-
-    public function safeDown()
-    {
-    }
-    */
 }
