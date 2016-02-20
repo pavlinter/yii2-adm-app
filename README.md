@@ -1,7 +1,7 @@
-Yii 2 Core Application Template (Adm cms)
+Yii 2 Adm Application Template (Adm cms)
 ===================================================
 
-composer create-project --prefer-dist --stability=dev pavlinter/yii2-app-core projectName
+composer create-project --prefer-dist --stability=dev pavlinter/yii2-adm-app projectName
 
  - yii migrate --migrationPath=@vendor/pavlinter/yii2-adm/adm/migrations
  - yii migrate --migrationPath=@vendor/pavlinter/yii2-adm-pages/admpages/migrations
