@@ -1,7 +1,7 @@
 {
-  "name": "pavlinter/yii2-app-core",
-  "description": "Yii 2 Core Application Template",
-  "keywords": ["yii2", "framework", "core-app", "application", "template"],
+  "name": "pavlinter/yii2-adm-app",
+  "description": "Yii 2 Adm Application Template",
+  "keywords": ["yii2", "framework", "adm-app", "application", "template"],
   "type": "project",
   "license": "BSD-3-Clause",
   "authors": [
@@ -11,8 +11,8 @@
     }
   ],
   "support": {
-    "issues": "https://github.com/pavlinter/yii2-app-core/issues",
-    "source": "https://github.com/pavlinter/yii2-app-core"
+    "issues": "https://github.com/pavlinter/yii2-adm-app/issues",
+    "source": "https://github.com/pavlinter/yii2-adm-app"
   },
   "minimum-stability": "stable",
   "require": {
