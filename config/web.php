@@ -163,6 +163,13 @@ $config = [
             'class' => 'yii\rbac\DbManager',
             //'cache' => 'cache', //this enables RBAC caching
         ],
+        'shortcodes' => [
+            'class' => 'app\components\Shortcode',
+            'callbacks' => [
+                //'lastphotos' => ['frontend\widgets\lastPhoto\lastPhoto', 'widget'],
+                //'video' => function($attrs, $content, $tag){},
+            ]
+        ],
         'urlManager' => [
             'class'=>'app\components\UrlManager', //https://github.com/pavlinter/yii2-url-manager
             'enableLang' => true,

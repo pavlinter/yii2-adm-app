@@ -10,6 +10,8 @@ namespace app\modules;
  * @property \app\components\Display $display
  * @property \app\components\UrlManager $urlManager
  * @property \app\components\I18N $i18n
+ * @property \app\components\Shortcode $shortcodes
+ *
  */
 class Application extends \yii\web\Application
 {
