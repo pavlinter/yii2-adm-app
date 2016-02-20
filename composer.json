@@ -1,0 +1,65 @@
+{
+  "name": "pavlinter/yii2-app-core",
+  "description": "Yii 2 Core Application Template",
+  "keywords": ["yii2", "framework", "core-app", "application", "template"],
+  "type": "project",
+  "license": "BSD-3-Clause",
+  "authors": [
+    {
+      "name": "Pavels Radajevs",
+      "email": "pavlinter@gmail.com"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/pavlinter/yii2-app-core/issues",
+    "source": "https://github.com/pavlinter/yii2-app-core"
+  },
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=5.4.0",
+    "yiisoft/yii2": "*",
+    "yiisoft/yii2-bootstrap": "*",
+    "yiisoft/yii2-swiftmailer": "*",
+
+    "pavlinter/yii2-adm": "1.*",
+    "pavlinter/yii2-display-image2": "0.*",
+    "pavlinter/yii2-adm-pages": "1.*",
+    "pavlinter/yii2-adm-params": "1.*",
+    "pavlinter/yii2-adm-email-config": "2.*",
+    "kartik-v/yii2-icons": "1.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "app\\": [
+        ""
+      ]
+    }
+  },
+  "require-dev": {
+    "yiisoft/yii2-codeception": "*",
+    "yiisoft/yii2-debug": "*",
+    "yiisoft/yii2-gii": "*",
+    "yiisoft/yii2-faker": "*"
+  },
+  "config": {
+    "process-timeout": 1800
+  },
+  "extra": {
+    "yii\\composer\\Installer::postCreateProject": {
+      "setPermission": [
+        {
+          "runtime": "0777",
+          "web/assets": "0777",
+          "yii": "0755"
+        }
+      ],
+      "generateCookieValidationKey": [
+        "config/web.php"
+      ]
+    },
+    "asset-installer-paths": {
+      "npm-asset-library": "vendor/npm",
+      "bower-asset-library": "vendor/bower"
+    }
+  }
+}
