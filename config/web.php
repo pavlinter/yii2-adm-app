@@ -159,7 +159,7 @@ $config = [
             'enableAutoLogin' => true,
         ],
         'authManager' => [
-            'class' => 'yii\rbac\DbManager',
+            'class' => 'app\components\DbManager',
             //'cache' => 'cache', //this enables RBAC caching
         ],
         'shortcodes' => [
@@ -212,6 +212,7 @@ $config = [
             ],
         ],
         'assetManager' => [
+            'class' => 'app\components\AssetManager',
             'appendTimestamp' => true,
             'bundles' => [
                 'yii\bootstrap\BootstrapAsset' => [
@@ -223,6 +224,7 @@ $config = [
             ],
         ],
         'view' => [
+            'class' => 'app\components\View',
             'title' => 'My title',
             'theme' => [
                 'pathMap' => [
@@ -233,16 +235,16 @@ $config = [
             ],
         ],
         'request' => [
+            'class' => 'app\components\Request',
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'FONQ3Oh7wxcvVI1ioWvnZ6gJzwjyBV6xU',
         ],
-        /*'response' => [
-            'on beforeSend' => function ($event) {
-
-
-            },
-        ],*/
+        'response' => [
+            'class' => 'app\components\Response',
+            //'on beforeSend' => function ($event) {},
+        ],
         'formatter' => [
+            'class' => 'app\components\Formatter',
             'datetimeFormat' => 'dd.MM.yyyy HH:mm:ss', // change Yii::$app->params['formatter.mysql.datetimeFormat']
             'dateFormat' => 'dd.MM.yyyy', // change Yii::$app->params['formatter.mysql.dateFormat']
             'decimalSeparator' => ',',
@@ -253,16 +255,24 @@ $config = [
             'class' => 'app\components\Display',
         ],
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            'class' => 'app\components\FileCache',
         ],
         'errorHandler' => [
+            'class' => 'app\components\ErrorHandler',
             'errorAction' => 'site/error',
         ],
         'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
+            'class' => 'app\components\Mailer',
             'viewPath' => '@app/mail',
         ],
+        'security' => [
+            'class' => 'app\components\Security'
+        ],
+        'session' => [
+            'class' => 'app\components\Session'
+        ],
         'log' => [
+            'class' => 'app\components\Dispatcher',
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [

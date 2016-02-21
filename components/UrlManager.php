@@ -3,7 +3,7 @@
 namespace app\components;
 
 /**
- *
+ * Class UrlManager
  */
 class UrlManager extends \pavlinter\urlmanager\UrlManager
 {
