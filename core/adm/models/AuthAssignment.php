@@ -2,6 +2,7 @@
 
 namespace app\core\adm\models;
 
+use app\base\ModelArrayableTrait;
 use app\models\User;
 use Yii;
 
@@ -17,7 +18,7 @@ use Yii;
  */
 class AuthAssignment extends \pavlinter\adm\models\AuthAssignment
 {
-
+    use ModelArrayableTrait;
     /**
      * @return \yii\db\ActiveQuery
      */

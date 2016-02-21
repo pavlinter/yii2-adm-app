@@ -3,6 +3,7 @@
 
 namespace app\core\adm\models;
 
+use app\base\ModelArrayableTrait;
 use Yii;
 
 /**
@@ -18,5 +19,5 @@ use Yii;
  */
 class Language extends \pavlinter\adm\models\Language
 {
-
+    use ModelArrayableTrait;
 }

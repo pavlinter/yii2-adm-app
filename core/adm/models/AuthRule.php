@@ -2,6 +2,7 @@
 
 namespace app\core\adm\models;
 
+use app\base\ModelArrayableTrait;
 use Yii;
 
 
@@ -17,6 +18,7 @@ use Yii;
  */
 class AuthRule extends \pavlinter\adm\models\AuthRule
 {
+    use ModelArrayableTrait;
     /**
      * @return \yii\db\ActiveQuery
      */

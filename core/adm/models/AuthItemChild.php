@@ -2,6 +2,7 @@
 
 namespace app\core\adm\models;
 
+use app\base\ModelArrayableTrait;
 use Yii;
 
 /**
@@ -15,6 +16,7 @@ use Yii;
  */
 class AuthItemChild extends \pavlinter\adm\models\AuthItemChild
 {
+    use ModelArrayableTrait;
     /**
      * @return \yii\db\ActiveQuery
      */

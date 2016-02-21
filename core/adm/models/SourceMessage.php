@@ -2,6 +2,7 @@
 
 namespace app\core\adm\models;
 
+use app\base\ModelArrayableTrait;
 use Yii;
 
 /**
@@ -28,6 +29,7 @@ use Yii;
  */
 class SourceMessage extends \pavlinter\adm\models\SourceMessage
 {
+    use ModelArrayableTrait;
     /**
      * @return \yii\db\ActiveQuery
      */

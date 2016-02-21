@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\base\ModelArrayableTrait;
 use Yii;
 
 /**
@@ -9,6 +10,7 @@ use Yii;
  */
 class User extends \pavlinter\adm\models\User
 {
+    use ModelArrayableTrait;
     const STATUS_NOT_APPROVED = 1;
 
     /**

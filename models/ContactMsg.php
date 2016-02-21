@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\base\ModelArrayableTrait;
 use Yii;
 
 /**
@@ -17,7 +18,7 @@ use Yii;
  */
 class ContactMsg extends \yii\db\ActiveRecord
 {
-
+    use ModelArrayableTrait;
     /**
      * @inheritdoc
      */
