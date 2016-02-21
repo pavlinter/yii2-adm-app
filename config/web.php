@@ -17,6 +17,7 @@ if (YII_ENV_DEV) {
 $config = [
     'name' => 'My Application',
     'id' => 'adm-app',
+    'timeZone' => 'Europe/Riga',
     'basePath' => dirname(__DIR__),
     'bootstrap' => [
         'log',
