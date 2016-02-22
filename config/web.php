@@ -163,7 +163,7 @@ $config = [
             'class' => 'app\components\DbManager',
             //'cache' => 'cache', //this enables RBAC caching
         ],
-        'shortcodes' => [
+        'shortcode' => [
             'class' => 'app\components\Shortcode',
             'callbacks' => require(__DIR__ . '/shortcodes.php'),
         ],
