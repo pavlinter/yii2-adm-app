@@ -165,10 +165,7 @@ $config = [
         ],
         'shortcodes' => [
             'class' => 'app\components\Shortcode',
-            'callbacks' => [
-                //'lastphotos' => ['frontend\widgets\lastPhoto\lastPhoto', 'widget'],
-                //'video' => function($attrs, $content, $tag){},
-            ]
+            'callbacks' => require(__DIR__ . '/shortcodes.php'),
         ],
         'urlManager' => [
             'class'=>'app\components\UrlManager', //https://github.com/pavlinter/yii2-url-manager
