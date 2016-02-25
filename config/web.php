@@ -14,6 +14,10 @@ if (YII_ENV_DEV) {
     $db = require(__DIR__ . '/db.php');
 }
 
+Yii::$container->set('yii\validators\NumberValidator', [
+    'class' => 'app\base\validators\NumberValidator',
+]);
+
 $config = [
     'name' => 'My Application',
     'id' => 'adm-app',
