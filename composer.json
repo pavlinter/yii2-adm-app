@@ -26,7 +26,8 @@
     "pavlinter/yii2-adm-pages": "1.*",
     "pavlinter/yii2-adm-params": "1.*",
     "pavlinter/yii2-adm-email-config": "2.*",
-    "kartik-v/yii2-icons": "1.*"
+    "kartik-v/yii2-icons": "1.*",
+    "pavlinter/yii2-dot": "1.*"
   },
   "autoload": {
     "psr-4": {
