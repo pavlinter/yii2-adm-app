@@ -14,5 +14,5 @@ use Yii;
  */
 class BooleanColumn extends \pavlinter\adm\widgets\BooleanColumn
 {
-    
+
 }
