@@ -1,6 +1,6 @@
 <?php
 
-namespace app\behaviors;
+namespace app\filters;
 
 use Yii;
 
