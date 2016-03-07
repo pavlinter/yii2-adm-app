@@ -6,7 +6,7 @@
 return function ($config) {
     $startPath = Yii::$app->request->get('startPath');
     if ($startPath) {
-        $startPath = Yii::getAlias('@webroot') . '/files' . DIRECTORY_SEPARATOR . strtr($startPath, '::', '/');
+        $startPath = Yii::getAlias('@webroot') . '/files' . DIRECTORY_SEPARATOR . str_replace('::', '/',$startPath);
     }
     $config['roots'] = [];
     if(Yii::$app->user->can('Adm-FilesRoot')) {
