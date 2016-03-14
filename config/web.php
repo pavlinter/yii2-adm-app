@@ -28,6 +28,7 @@ $config = [
         'debug',
         'urlManager',
         'i18n',
+        'gii',
     ],
     'on beforeRequest' => function ($event) {
         $params = \pavlinter\admparams\models\Params::bootstrap();
@@ -38,6 +39,10 @@ $config = [
         'debug' => [
             'class' => 'yii\debug\Module',
             'allowedIPs' => ['127.0.0.1', '::1']
+        ],
+        'gii' => [
+            'class' => 'app\modules\admgii\Module',
+            'allowedIPs' => ['127.0.0.1', '::1'],
         ],
         'adm' => [
             'class' => 'pavlinter\adm\Adm',
