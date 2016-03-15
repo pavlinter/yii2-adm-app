@@ -36,6 +36,6 @@ class AppAsset extends Asset
     public function init()
     {
         parent::init();
-        Icon::map(Yii::$app->getView(), Icon::FA);
+        //Icon::map(Yii::$app->getView(), Icon::FA);
     }
 }
