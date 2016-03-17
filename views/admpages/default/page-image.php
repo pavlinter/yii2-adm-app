@@ -4,7 +4,7 @@ use pavlinter\admpages\Module;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model \pavlinter\admpages\models\Page */
+/* @var $model app\core\admpages\models\Page */
 
 Module::getInstance()->layout = Module::getInstance()->pageLayout;
 $this->title = $model->title;
