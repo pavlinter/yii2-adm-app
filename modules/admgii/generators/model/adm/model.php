@@ -293,9 +293,9 @@ foreach ($modelLangClassObj->attributes() as $attribute){
             return;
         }
         $options = ArrayHelper::merge([
-            'level' => (isset($options['level']) ? $options['level'] : 0),
+            'level' => ArrayHelper::remove($options, 'level', 0),
             'lastLink' => false,
-            'url' => ['index'],
+            'url' => ArrayHelper::remove($options, 'url', ['index']),
         ], $options);
         $options['level']++;
 

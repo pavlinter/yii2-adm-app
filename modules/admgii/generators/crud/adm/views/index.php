@@ -155,14 +155,14 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
                 'width' => '120px',
                 'buttons' => [
                     'copy' => function ($url, $model, $key) {
-                        $url = Url::current(['create', 'copy_id' => $model->id]);
+                        $url = Url::current(['create', 'copy_id' => $model->id<?= $generator->ifParent(", 'id_parent' => \$model->" . $generator->getParentColumn()) ?>]);
                         return Html::a('<span class="fa fa-copy"></span>', $url, [
                             'title' => <?= $generator->generateString('Copy', ['dot' => false, 'subcategory' => 'titles', 'dropN' => true,]) ?>,
                             'data-pjax' => '0',
                         ]);
                     },
                     'files' => function ($url, $model, $key) {
-                        $url = Url::current(['files', 'id' => $model->id]);
+                        $url = Url::current(['files', 'id' => $model->id<?= $generator->ifParent(", 'id_parent' => \$model->" . $generator->getParentColumn()) ?>]);
                         return Html::a('<span class="fa fa-cloud-download"></span>', $url, [
                             'title' => <?= $generator->generateString('Files', ['dot' => false, 'subcategory' => 'titles', 'dropN' => true,]) ?>,
                             'data-pjax' => '0',
@@ -177,14 +177,14 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
                         ]);
                     },
                     'update' => function ($url, $model, $key) {
-                        $url = Url::current(['update', 'id' => $model->id]);
+                        $url = Url::current(['update', 'id' => $model->id<?= $generator->ifParent(", 'id_parent' => \$model->" . $generator->getParentColumn()) ?>]);
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
                             'title' => Yii::t('yii', 'Update'),
                             'data-pjax' => '0',
                         ]);
                     },
                     'delete' => function ($url, $model, $key) {
-                        $url = Url::current(['delete', 'id' => $model->id]);
+                        $url = Url::current(['delete', 'id' => $model->id<?= $generator->ifParent(", 'id_parent' => \$model->" . $generator->getParentColumn()) ?>]);
                         return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
                             'title' => Yii::t('yii', 'Delete', ['dot' => false]),
                             'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?', ['dot' => false]),
@@ -193,7 +193,7 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
                         ]);
                     },
                     'view' => function ($url, $model, $key) {
-                        $url = Url::current(['view', 'id' => $model->id]);
+                        $url = Url::current(['view', 'id' => $model->id<?= $generator->ifParent(", 'id_parent' => \$model->" . $generator->getParentColumn()) ?>]);
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
                             'title' => Yii::t('yii', 'View', ['dot' => false]),
                             'data-pjax' => '0',

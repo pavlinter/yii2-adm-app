@@ -61,9 +61,11 @@ class Module extends \yii\base\Module implements AdmBootstrapInterface
             });
         }
 
-        $this->leftMenu = $adm->params['left-menu'];
-        $this->checkMenu($adm);
-
+        $adm->on($adm::EVENT_INIT_LEFT_MENU, function ($event)  {
+            $adm = $event->sender;
+            $this->leftMenu = $adm->params['left-menu'];
+            $this->checkMenu($adm);
+        });
     }
 
     /**
@@ -129,13 +131,16 @@ class Module extends \yii\base\Module implements AdmBootstrapInterface
         ],], $options);
     }
 
+    /**
+     * @param $adm
+     */
     public function checkMenu($adm)
     {
         /* @var $model \app\modules\admhidemenu\models\SettingsForm */
         $model = $this->manager->createSettingsForm();
         if (is_array($model->items)) {
             $items = $model->items;
-            $leftMenuItems = $adm->params['left-menu'];
+            $leftMenuItems = $this->leftMenu;
 
             foreach ($leftMenuItems as $leftMenuitem => $leftMenuItem) {
                 if(isset($items[$leftMenuitem])){
