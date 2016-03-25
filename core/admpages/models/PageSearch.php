@@ -41,7 +41,7 @@ class PageSearch extends Page
      */
     public function search($params,$id_parent)
     {
-        /* @var \pavlinter\admpages\Module $module */
+        /* @var \pavlinter\admpages2\Module $module */
         $module = Yii::$app->getModule('admpages');
         $pageTable      = static::tableName();
         $pageLangTable  = forward_static_call(array($module->manager->pageLangClass, 'tableName'));

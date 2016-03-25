@@ -2,7 +2,7 @@
 
 use kartik\grid\GridView;
 use pavlinter\adm\Adm;
-use pavlinter\admpages\Module;
+use pavlinter\admpages2\Module;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
@@ -84,7 +84,6 @@ Yii::$app->i18n->resetDot();
             ],
             [
                 'attribute' => 'layout',
-                'vAlign' => 'middle',
                 'hAlign' => 'center',
                 'vAlign' => 'middle',
                 'filterType' => GridView::FILTER_SELECT2,

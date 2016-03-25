@@ -108,7 +108,7 @@ $config = [
             'class'=>'\kartik\grid\Module',
         ],
         'admpages' => [
-            'class' => 'pavlinter\admpages\Module',
+            'class' => 'pavlinter\admpages2\Module',
             'pageLayouts' => function ($m) {
                 return [
                     'main' => $m::t('layouts', 'Main Page', ['dot' => false]),
@@ -235,7 +235,7 @@ $config = [
             'title' => 'My title',
             'theme' => [
                 'pathMap' => [
-                    '@vendor/pavlinter/yii2-adm-pages/admpages/views' => '@app/views/admpages',
+                    '@vendor/pavlinter/yii2-adm-pages/admpages2/views' => '@app/views/admpages',
                     '@vendor/pavlinter/yii2-adm/adm/views' => '@app/core/adm/views',
                     '@vendor/mihaildev/yii2-elfinder/views' => '@app/core/elfinder/views',
                 ],

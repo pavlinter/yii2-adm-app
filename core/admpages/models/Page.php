@@ -40,25 +40,11 @@ use Yii;
  * @property string $url
  * @property string $text
  *
- * @property \pavlinter\admpages\models\PageLang[] $translations
+ * @property \pavlinter\admpages2\models\PageLang[] $translations
  * @property Page $parent
  * @property Page[] $childs
  */
-class Page extends \pavlinter\admpages\models\Page
+class Page extends \pavlinter\admpages2\models\Page
 {
-    /**
-     * @param bool $onlyshort
-     * @return bool|string
-     */
-    public function shortText($onlyshort = false)
-    {
-        $pos = strpos($this->text, self::$textBreak);
-        if ($pos !== false) {
-            return trim(mb_substr($this->text, 0, $pos));
-        }
-        if ($onlyshort) {
-            return false;
-        }
-        return $this->text;
-    }
+
 }

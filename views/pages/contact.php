@@ -1,7 +1,7 @@
 <?php
 use app\widgets\Alert;
 use app\widgets\Captcha;
-use pavlinter\admpages\Module;
+use pavlinter\admpages2\Module;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= $this->title ?></h1>
 
-    <?= $modelPage->text() ?>
+    <?= $modelPage->text ?>
 
     <?php $form = ActiveForm::begin([
         'id' => 'contactForm',

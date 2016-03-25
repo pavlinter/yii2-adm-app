@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3a2a3e449efcaf4e7013cc827b968218",
-    "content-hash": "1c90bf0ae3af7891a67060354b10bfcc",
+    "hash": "4f54b4c87874022229f67e0407cc897f",
+    "content-hash": "c5ac2750f721c90d123581f792f0c5d9",
     "packages": [
         {
             "name": "bower-asset/animate.css",
@@ -2116,17 +2116,17 @@
             "time": "2016-01-12 09:13:53"
         },
         {
-            "name": "pavlinter/yii2-adm-pages",
-            "version": "v1.0.4",
+            "name": "pavlinter/yii2-adm-pages2",
+            "version": "v0.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/pavlinter/yii2-adm-pages.git",
-                "reference": "2ad7a5aadc120bd81e28669cda8ba8aeabe658a1"
+                "url": "https://github.com/pavlinter/yii2-adm-pages2.git",
+                "reference": "8817fc8d95a8f58e7236c881fb147d80804ff083"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pavlinter/yii2-adm-pages/zipball/2ad7a5aadc120bd81e28669cda8ba8aeabe658a1",
-                "reference": "2ad7a5aadc120bd81e28669cda8ba8aeabe658a1",
+                "url": "https://api.github.com/repos/pavlinter/yii2-adm-pages2/zipball/8817fc8d95a8f58e7236c881fb147d80804ff083",
+                "reference": "8817fc8d95a8f58e7236c881fb147d80804ff083",
                 "shasum": ""
             },
             "require": {
@@ -2148,14 +2148,14 @@
                     "email": "pavlinter@gmail.com"
                 }
             ],
-            "description": "Yii2: Adm-Pages",
+            "description": "Yii2: Adm-Pages 2",
             "keywords": [
                 "adm",
-                "adm-pages",
+                "adm-pages2",
                 "cms",
                 "yii2"
             ],
-            "time": "2015-09-15 12:10:10"
+            "time": "2016-03-24 17:05:38"
         },
         {
             "name": "pavlinter/yii2-adm-params",
