@@ -2020,16 +2020,16 @@
         },
         {
             "name": "pavlinter/yii2-adm",
-            "version": "v1.1.0",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pavlinter/yii2-adm.git",
-                "reference": "7e9e47c89334389bdef67219bdd716d868986fed"
+                "reference": "c272950da0666bd95826ddc327a03410d457aaf3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pavlinter/yii2-adm/zipball/7e9e47c89334389bdef67219bdd716d868986fed",
-                "reference": "7e9e47c89334389bdef67219bdd716d868986fed",
+                "url": "https://api.github.com/repos/pavlinter/yii2-adm/zipball/c272950da0666bd95826ddc327a03410d457aaf3",
+                "reference": "c272950da0666bd95826ddc327a03410d457aaf3",
                 "shasum": ""
             },
             "require": {
@@ -2069,7 +2069,7 @@
                 "cms",
                 "yii2"
             ],
-            "time": "2016-03-04 10:00:31"
+            "time": "2016-03-22 18:32:27"
         },
         {
             "name": "pavlinter/yii2-adm-email-config",
