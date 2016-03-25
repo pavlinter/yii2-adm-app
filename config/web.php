@@ -235,7 +235,7 @@ $config = [
             'title' => 'My title',
             'theme' => [
                 'pathMap' => [
-                    '@vendor/pavlinter/yii2-adm-pages/admpages2/views' => '@app/views/admpages',
+                    '@vendor/pavlinter/yii2-adm-pages2/admpages2/views' => '@app/views/admpages',
                     '@vendor/pavlinter/yii2-adm/adm/views' => '@app/core/adm/views',
                     '@vendor/mihaildev/yii2-elfinder/views' => '@app/core/elfinder/views',
                 ],
