@@ -1,7 +1,6 @@
 <?php
 use app\widgets\Alert;
 use app\widgets\Captcha;
-use pavlinter\admpages2\Module;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -11,7 +10,6 @@ use yii\widgets\ActiveForm;
 /* @var $model \app\models\ContactForm */
 /* @var $modelPage \app\core\admpages\models\Page */
 
-Module::getInstance()->layout = Module::getInstance()->pageLayout;
 $this->title = $modelPage->title;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
