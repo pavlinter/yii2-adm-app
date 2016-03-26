@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\core\admpages\models\Page;
 use Yii;
 use app\models\ContactForm;
 use yii\web\Controller;
@@ -28,11 +29,11 @@ class PagesController extends Controller
     }
 
     /**
-     * @param null|\app\core\admpages\models\Page $modelPage
      * @return string|\yii\web\Response
      */
-    public function actionContact($modelPage = null)
+    public function actionContact()
     {
+        $modelPage = Page::currentPage();
         $model = new ContactForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {

@@ -6,7 +6,6 @@ use pavlinter\admpages2\Module;
 /* @var $model app\core\admpages\models\Page */
 
 Module::getInstance()->layout = Module::getInstance()->pageLayout;
-$this->title = $model->title;
 $this->params['breadcrumbs'][] = $model->name;
 ?>
 <div class="adm-pages-layout-page">
