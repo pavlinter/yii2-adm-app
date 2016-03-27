@@ -121,4 +121,5 @@ class <?= $className ?> extends \yii\base\Module implements AdmBootstrapInterfac
             'SourceMessageSearch[category]' => '<?= $generator->moduleID ?>'
         ],], $options);
     }
+
 }

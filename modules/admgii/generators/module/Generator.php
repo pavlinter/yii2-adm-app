@@ -164,7 +164,7 @@ EOD;
             $this->render("module.php")
         );
 
-        $files[] = new CodeFile($modulePath . '/controllers', null);
+        $files[] = new CodeFile($modulePath . '/controllers', null); //create directory
         $files[] = new CodeFile($modulePath . '/models', null);
         $files[] = new CodeFile($modulePath . '/views', null);
 

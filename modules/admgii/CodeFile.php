@@ -92,7 +92,9 @@ class CodeFile extends Object
             }
         }
 
-        if($this->content !== null){
+        if($this->content === null){
+            FileHelper::createDirectory($this->path);
+        } else {
             if (@file_put_contents($this->path, $this->content) === false) {
                 return "Unable to write the file '{$this->path}'.";
             } else {
@@ -100,8 +102,6 @@ class CodeFile extends Object
                 @chmod($this->path, $module->newFileMode);
                 @umask($mask);
             }
-        } else {
-            FileHelper::createDirectory($this->path);
         }
 
         return true;
