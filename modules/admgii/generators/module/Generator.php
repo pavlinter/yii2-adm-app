@@ -163,6 +163,11 @@ EOD;
             $modulePath . '/' . StringHelper::basename($this->moduleClass) . '.php',
             $this->render("module.php")
         );
+
+        $files[] = new CodeFile($modulePath . '/controllers', null);
+        $files[] = new CodeFile($modulePath . '/models', null);
+        $files[] = new CodeFile($modulePath . '/views', null);
+
         if ($this->template !== 'empty') {
             $files[] = new CodeFile(
                 $modulePath . '/controllers/DefaultController.php',

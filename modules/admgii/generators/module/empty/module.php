@@ -100,4 +100,25 @@ class <?= $className ?> extends \yii\base\Module implements AdmBootstrapInterfac
         }
         return Yii::t($category, $message, $params, $language);
     }
+
+    /**
+     * @param array $options
+     * @return string
+     */
+    public static function trasnalateLink($options = [])
+    {
+        $icon = ArrayHelper::remove($options, 'icon', 'glyphicon glyphicon-globe');
+
+        if(!isset($options['class'])) {
+            $options['class'] = 'pull-right';
+        }
+        if(!isset($options['target'])) {
+            $options['target'] = '_blank';
+        }
+        \yii\helpers\Html::addCssClass($options, $icon);
+
+        return \yii\helpers\Html::a(null, ['/adm/source-message/index', '?' => [
+            'SourceMessageSearch[category]' => '<?= $generator->moduleID ?>'
+        ],], $options);
+    }
 }

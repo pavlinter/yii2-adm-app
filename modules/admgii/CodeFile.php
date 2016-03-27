@@ -10,6 +10,7 @@ namespace app\modules\admgii;
 use Yii;
 use yii\base\Object;
 use app\modules\admgii\components\DiffRendererHtmlInline;
+use yii\helpers\FileHelper;
 use yii\helpers\Html;
 
 /**
@@ -90,12 +91,17 @@ class CodeFile extends Object
                 }
             }
         }
-        if (@file_put_contents($this->path, $this->content) === false) {
-            return "Unable to write the file '{$this->path}'.";
+
+        if($this->content !== null){
+            if (@file_put_contents($this->path, $this->content) === false) {
+                return "Unable to write the file '{$this->path}'.";
+            } else {
+                $mask = @umask(0);
+                @chmod($this->path, $module->newFileMode);
+                @umask($mask);
+            }
         } else {
-            $mask = @umask(0);
-            @chmod($this->path, $module->newFileMode);
-            @umask($mask);
+            FileHelper::createDirectory($this->path);
         }
 
         return true;
