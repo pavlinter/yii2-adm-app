@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4f54b4c87874022229f67e0407cc897f",
-    "content-hash": "c5ac2750f721c90d123581f792f0c5d9",
+    "hash": "e9fbe500540688a6b3db0139318f23e7",
+    "content-hash": "26b7c06372a85344cf145236d5258dc1",
     "packages": [
         {
             "name": "bower-asset/animate.css",
@@ -138,6 +138,41 @@
                 ],
                 "bower-asset-ignore": []
             }
+        },
+        {
+            "name": "bower-asset/jquery.easing",
+            "version": "v1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jozefizso/bower-jquery-easing.git",
+                "reference": "7ddc8b25d24c78bbae8d00a3ae43bf3f274ec8b5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jozefizso/bower-jquery-easing/zipball/7ddc8b25d24c78bbae8d00a3ae43bf3f274ec8b5",
+                "reference": "7ddc8b25d24c78bbae8d00a3ae43bf3f274ec8b5",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.2.1"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "js/jquery.easing.js",
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "node_modules",
+                    "bower_components",
+                    "test",
+                    "tests"
+                ]
+            },
+            "description": "jQuery Easing plugin",
+            "keywords": [
+                "easing",
+                "jquery",
+                "jquery plugin"
+            ]
         },
         {
             "name": "bower-asset/jquery.inputmask",
@@ -388,6 +423,40 @@
                 "html"
             ],
             "time": "2013-11-30 08:25:19"
+        },
+        {
+            "name": "ezze/yii2-mobile-detect",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ezze/yii2-mobile-detect.git",
+                "reference": "e519bb70fd4f484f0be9c794993b394cd2845b08"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ezze/yii2-mobile-detect/zipball/e519bb70fd4f484f0be9c794993b394cd2845b08",
+                "reference": "e519bb70fd4f484f0be9c794993b394cd2845b08",
+                "shasum": ""
+            },
+            "require": {
+                "mobiledetect/mobiledetectlib": "2.8.*",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "ezze\\yii2\\mobiledetect\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Dmitriy Pushkov",
+                    "email": "ezze@ezze.org"
+                }
+            ],
+            "description": "Yii2 component used to detect mobile devices",
+            "time": "2015-04-08 20:59:58"
         },
         {
             "name": "fortawesome/font-awesome",
@@ -1159,22 +1228,27 @@
         },
         {
             "name": "kartik-v/yii2-widget-datepicker",
-            "version": "v1.3.7",
+            "version": "v1.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-datepicker.git",
-                "reference": "ff5a97576c49a72e0480f135d9e7ce1a18c788e6"
+                "reference": "3f7b38886e334a2c8c4262f155d98812461efd36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-datepicker/zipball/ff5a97576c49a72e0480f135d9e7ce1a18c788e6",
-                "reference": "ff5a97576c49a72e0480f135d9e7ce1a18c788e6",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-datepicker/zipball/3f7b38886e334a2c8c4262f155d98812461efd36",
+                "reference": "3f7b38886e334a2c8c4262f155d98812461efd36",
                 "shasum": ""
             },
             "require": {
                 "kartik-v/yii2-krajee-base": "~1.7"
             },
             "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.3.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "kartik\\date\\": ""
@@ -1204,7 +1278,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2016-01-10 15:14:17"
+            "time": "2016-03-29 09:44:50"
         },
         {
             "name": "kartik-v/yii2-widget-datetimepicker",
@@ -2019,6 +2093,60 @@
             "time": "2015-07-03 07:08:52"
         },
         {
+            "name": "mobiledetect/mobiledetectlib",
+            "version": "2.8.20",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/serbanghita/Mobile-Detect.git",
+                "reference": "d772569880e7becaec564274a3b93501b3fde700"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/serbanghita/Mobile-Detect/zipball/d772569880e7becaec564274a3b93501b3fde700",
+                "reference": "d772569880e7becaec564274a3b93501b3fde700",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.0.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "dev-master",
+                "johnkary/phpunit-speedtrap": "~1.0@dev",
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "Mobile_Detect.php"
+                ],
+                "psr-0": {
+                    "Detection": "namespaced/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Serban Ghita",
+                    "email": "serbanghita@gmail.com",
+                    "homepage": "http://mobiledetect.net",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Mobile_Detect is a lightweight PHP class for detecting mobile devices. It uses the User-Agent string combined with specific HTTP headers to detect the mobile environment.",
+            "homepage": "https://github.com/serbanghita/Mobile-Detect",
+            "keywords": [
+                "detect mobile devices",
+                "mobile",
+                "mobile detect",
+                "mobile detector",
+                "php mobile detect"
+            ],
+            "time": "2016-03-24 09:06:37"
+        },
+        {
             "name": "pavlinter/yii2-adm",
             "version": "v1.1.1",
             "source": {
@@ -2117,16 +2245,16 @@
         },
         {
             "name": "pavlinter/yii2-adm-pages2",
-            "version": "v0.0.0",
+            "version": "v0.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pavlinter/yii2-adm-pages2.git",
-                "reference": "8817fc8d95a8f58e7236c881fb147d80804ff083"
+                "reference": "00c47a50988eefd10075818fd8ebff61d52479b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pavlinter/yii2-adm-pages2/zipball/8817fc8d95a8f58e7236c881fb147d80804ff083",
-                "reference": "8817fc8d95a8f58e7236c881fb147d80804ff083",
+                "url": "https://api.github.com/repos/pavlinter/yii2-adm-pages2/zipball/00c47a50988eefd10075818fd8ebff61d52479b2",
+                "reference": "00c47a50988eefd10075818fd8ebff61d52479b2",
                 "shasum": ""
             },
             "require": {
@@ -2155,7 +2283,7 @@
                 "cms",
                 "yii2"
             ],
-            "time": "2016-03-24 17:05:38"
+            "time": "2016-03-26 20:51:27"
         },
         {
             "name": "pavlinter/yii2-adm-params",
@@ -2473,6 +2601,43 @@
                 "mailer"
             ],
             "time": "2015-06-06 14:19:39"
+        },
+        {
+            "name": "xj/yii2-easing-widget",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xjflyttp/yii2-easing-widget.git",
+                "reference": "ea17b3434c0ea4e2889c940a7848d1f0e1f36e2e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xjflyttp/yii2-easing-widget/zipball/ea17b3434c0ea4e2889c940a7848d1f0e1f36e2e",
+                "reference": "ea17b3434c0ea4e2889c940a7848d1f0e1f36e2e",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery.easing": "*",
+                "yiisoft/yii2": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "xj\\js\\easing\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "xjflyttp",
+                    "email": "xjflyttp@gmail.com"
+                }
+            ],
+            "description": "yii2-easing-widget",
+            "time": "2015-05-10 09:47:47"
         },
         {
             "name": "yiisoft/yii2",

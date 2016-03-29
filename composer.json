@@ -27,7 +27,9 @@
     "pavlinter/yii2-adm-params": "1.*",
     "pavlinter/yii2-adm-email-config": "2.*",
     "kartik-v/yii2-icons": "1.*",
-    "pavlinter/yii2-dot": "1.*"
+    "pavlinter/yii2-dot": "1.*",
+    "ezze/yii2-mobile-detect" : "~0.1.0",
+    "xj/yii2-easing-widget": "1.*"
   },
   "autoload": {
     "psr-4": {

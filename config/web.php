@@ -172,6 +172,9 @@ $config = [
             'class' => 'app\components\DbManager',
             //'cache' => 'cache', //this enables RBAC caching
         ],
+        'mobileDetect' => [
+            'class' => 'app\components\MobileDetect'
+        ],
         'shortcode' => [
             'class' => 'app\components\Shortcode',
             'callbacks' => require(__DIR__ . '/shortcodes.php'),
