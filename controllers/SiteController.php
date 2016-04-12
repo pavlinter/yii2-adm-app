@@ -64,6 +64,7 @@ class SiteController extends Controller
                 'class' => 'yii\captcha\CaptchaAction',
                 'backColor' => 0xFFFFFF,
                 'foreColor' => 0x2040A0,
+                'transparent' => true,
                 'minLength' => 6,
                 'maxLength' => 7,
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
