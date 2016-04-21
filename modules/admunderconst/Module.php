@@ -2,6 +2,7 @@
 
 namespace app\modules\admunderconst;
 
+use pavlinter\adm\Adm;
 use Yii;
 use pavlinter\adm\AdmBootstrapInterface;
 use yii\base\View;
@@ -67,7 +68,7 @@ class Module extends \yii\base\Module implements AdmBootstrapInterface
      */
     public function beforeAction($action)
     {
-        $adm = Yii::$app->getModule('adm');
+        $adm = Adm::register(); //required load adm,if use adm layout
         $adm->params['left-menu-active'][] = 'admunderconst';
         return parent::beforeAction($action);
     }

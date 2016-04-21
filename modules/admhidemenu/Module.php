@@ -2,6 +2,7 @@
 
 namespace app\modules\admhidemenu;
 
+use pavlinter\adm\Adm;
 use Yii;
 use pavlinter\adm\AdmBootstrapInterface;
 use yii\helpers\ArrayHelper;
@@ -73,7 +74,7 @@ class Module extends \yii\base\Module implements AdmBootstrapInterface
      */
     public function beforeAction($action)
     {
-        $adm = Yii::$app->getModule('adm');
+        $adm = Adm::register(); //required load adm,if use adm layout
         $adm->params['left-menu-active'][] = 'admhidemenu';
         return parent::beforeAction($action);
     }
