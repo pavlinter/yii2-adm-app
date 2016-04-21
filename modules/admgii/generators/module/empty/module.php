@@ -63,8 +63,8 @@ class <?= $className ?> extends \yii\base\Module implements AdmBootstrapInterfac
     public function beforeAction($action)
     {
         //if ($action->controller->id !== 'default') {
-            Yii::$app->getModule('adm'); //required load adm,if use adm layout
-            return parent::beforeAction($action) && Adm::getInstance()->user->can('AdmRoot');
+            $adm = Adm::register(); //required load adm,if use adm layout
+            return parent::beforeAction($action) && $adm->user->can('AdmRoot');
         //}
         return parent::beforeAction($action);
     }

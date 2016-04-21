@@ -201,7 +201,7 @@ if (count($pks) === 1) {
 <?php }?>
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
         }
     }
 }
