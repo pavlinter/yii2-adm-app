@@ -163,6 +163,9 @@ $config = [
         ],
     ],
     'components' => [
+        'ar' => [
+            'class' => 'app\modules\activeResponse\components\ActiveResponse',
+        ],
         'user' => [
             'class' => 'app\components\User',
             'identityClass' => 'app\models\User',
