@@ -56,6 +56,7 @@ $show = Yii::$app->request->get('show');
             [
                 'class' => 'app\widgets\BooleanColumn',
                 'attribute' => 'active',
+                'update' => ['updated_at' => time()],
                 'tableName' => $searchModel::tableName(),
                 'visible' => $show,
             ],
