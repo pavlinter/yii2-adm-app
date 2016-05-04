@@ -43,7 +43,7 @@ var activeResponse = (function ($) {
 			var always = this.array_remove(ajaxOptions, 'always', function () {
 			});
 
-			$.ajax(ajaxOptions).done(function (json) {
+			var xhr = $.ajax(ajaxOptions).done(function (json) {
 				if (json.disableActions === false) {
 					self.parseActions(json.actions);
 				}
@@ -61,6 +61,7 @@ var activeResponse = (function ($) {
 					alert('response:' + self.strip_tags(XMLHttpRequest.responseText) + ' error:' + textStatus + '. thrown:' + errorThrown);
 				}
 			});
+			return xhr;
 		},
 
 		parseActions: function (actions) {
