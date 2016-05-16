@@ -264,8 +264,8 @@ $config = [
             'thousandSeparator' => ' ',
             'currencyCode' => 'EUR',
             'numberFormatterOptions' => [
-                NumberFormatter::MIN_FRACTION_DIGITS => 0,
-                NumberFormatter::MAX_FRACTION_DIGITS => 2,
+                7 => 0, //NumberFormatter::MIN_FRACTION_DIGITS
+                6 => 2, //NumberFormatter::MAX_FRACTION_DIGITS
             ],
         ],
         'display' => [
