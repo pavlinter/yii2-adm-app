@@ -27,7 +27,7 @@ use app\helpers\Url;
 
 $childQuery = \<?= ltrim($generator->modelClass, '\\') ?>::find()->with(['childs'])->where(['<?= $generator->getParentColumn() ?>' => null]);
 if (!$model->isNewRecord) {
-    $childQuery->andWhere(['!=', 'id', $model->id])->all();
+    $childQuery->andWhere(['!=', 'id', $model->id]);
 }
 $childModels = $childQuery->all();
 
