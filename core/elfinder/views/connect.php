@@ -6,17 +6,8 @@
 use app\core\elfinder\events\ConnectEvent;
 use app\core\elfinder\MyElFinder;
 
-$elfinderPath = Yii::getAlias('@vendor/mihaildev/yii2-elfinder');
+define('ELFINDER_IMG_PARENT_URL', \mihaildev\elfinder\Assets::getPathUrl());
 
-require_once($elfinderPath . '/php/elFinderConnector.class.php');
-require_once($elfinderPath . '/php/elFinder.class.php');
-require_once($elfinderPath . '/php/elFinderVolumeDriver.class.php');
-require_once($elfinderPath . '/php/elFinderVolumeLocalFileSystem.class.php');
-require_once($elfinderPath . '/php/elFinderVolumeDropbox.class.php');
-require_once($elfinderPath . '/php/elFinderVolumeFTP.class.php');
-require_once($elfinderPath . '/php/elFinderVolumeMySQL.class.php');
-//require_once($elfinderPath . '/php/elFinderVolumeS3.class.php');
-require_once($elfinderPath . '/php/elFinderVolumeMySQL.class.php');
 
 $event = new ConnectEvent(['options' => $options]);
 Yii::$app->trigger('elfinder_connect_set_options', $event);
