@@ -46,26 +46,25 @@ foreach ($menus as $menu) {
         $Menu3[] = $item;
     }
 }
-
 if (Yii::$app->user->isGuest) {
     $Menu1[] = [
-        'label' => 'Login',
+        'label' => Yii::t("app/menu", "Login", ['dot' => false]),
         'url' => ['/site/login']
     ];
 
     $Menu1[] = [
-        'label' => 'Sign up',
+        'label' => Yii::t("app/menu", "Sign up", ['dot' => false]),
         'url' => ['/site/signup']
     ];
     $Menu1[] = [
-        'label' => 'Reset Password',
+        'label' => Yii::t("app/menu", "Reset Password", ['dot' => false]),
         'url' => ['/site/request-password-reset']
     ];
 
 
 } else {
     $Menu1[] = [
-        'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+        'label' => Yii::t("app/menu", 'Logout ({username})', ['dot' => false, 'username' => Yii::$app->user->identity->username]),
         'url' => ['/site/logout'],
         'linkOptions' => ['data-method' => 'post']
     ];
