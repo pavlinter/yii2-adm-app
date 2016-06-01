@@ -15,7 +15,9 @@ $i18n = Yii::$app->getI18n();
 
 \app\modules\admunderconst\Module::loadUnderConstruction($this);
 
-$menus = Page::find()->with(['translations','childs'])->where(['id_parent' => [1,2,3], 'active' => 1, 'visible' => 1])->orderBy(['weight' => SORT_ASC])->all();
+$menus = Page::find()->with(['translations','childs' => function ($q) {
+    $q->andWhere(['active' => 1, 'visible' => 1]);
+}])->where(['id_parent' => [1,2,3], 'active' => 1, 'visible' => 1])->orderBy(['weight' => SORT_ASC])->all();
 $Menu1 = [];
 $Menu2 = [];
 $Menu3 = [];
