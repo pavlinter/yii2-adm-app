@@ -18,7 +18,7 @@ class ContactMsgSearch extends ContactMsg
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'viewed'], 'integer'],
             [['from_email', 'to_email', 'subject', 'text', 'created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -46,7 +46,7 @@ class ContactMsgSearch extends ContactMsg
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => [
-                'defaultOrder' => [],
+                'defaultOrder' => ['id' => SORT_DESC],
             ],
         ]);
 
@@ -56,6 +56,7 @@ class ContactMsgSearch extends ContactMsg
 
         $query->andFilterWhere([
             'id' => $this->id,
+            'viewed' => $this->viewed,
         ]);
 
         $query->andFilterWhere(['like', 'from_email', $this->from_email])

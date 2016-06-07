@@ -26,11 +26,11 @@ Yii::$app->i18n->resetDot();
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'kartik\grid\SerialColumn'],
 			[
 				'attribute' => 'id',
 				'format' => 'text',
 				'width' => '70px',
+				'hAlign' => 'center',
 			],
 			[
 				'attribute' => 'from_email',
@@ -55,44 +55,9 @@ Yii::$app->i18n->resetDot();
 				'hAlign' => 'center',
 			],
 			[
+				'class' => 'app\widgets\BooleanColumn',
 				'attribute' => 'viewed',
-				'width' => '50px',
-				'vAlign' => 'middle',
-				'hAlign' => 'center',
-				'format' => 'raw',
-				'value' => function ($model) {
-
-					if ($model->viewed) {
-						$label = Html::tag('span', '', [
-							'class' => 'ic glyphicon glyphicon-ok text-success',
-						]);
-					} else {
-						$label = Html::tag('span', '', [
-							'class' => 'ic glyphicon glyphicon-remove text-danger',
-						]);
-					}
-
-					return \pavlinter\buttons\AjaxButton::widget([
-						'label' => $label,
-						'encodeLabel' => false,
-						'options' => [
-							'class' => 'btn btn-primary',
-						],
-						'ajaxOptions' => [
-							'url' => Url::to('viewed'),
-							'data' => [
-								'id' => $model->id,
-							],
-							'done' => 'function(data){
-                                if(data.r){
-                                	var $icon = $("#" + abId).find(".ic");
-                                    $icon.removeAttr("class");
-                                    $icon.addClass(data.class);
-                                }
-                            }',
-						],
-					]);
-				},
+				'tableName' => $searchModel::tableName(),
 			],
             [
                 'class' => '\kartik\grid\ActionColumn',

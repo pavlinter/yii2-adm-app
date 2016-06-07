@@ -41,26 +41,6 @@ class ContactMsgController extends Controller
     }
 
     /**
-     * @throws NotFoundHttpException
-     */
-    public function actionViewed() {
-
-        $id = Yii::$app->request->post('id');
-        $model = $this->findModel($id);
-        $json['r'] = 1;
-        if ($model->viewed) {
-            $model->viewed = 0;
-            $json['class'] = 'ic glyphicon glyphicon-remove text-danger';
-        } else {
-            $model->viewed = 1;
-            $json['class'] = 'ic glyphicon glyphicon-ok text-success';
-        }
-        $model->save(false);
-
-        return Json::encode($json);
-    }
-
-    /**
      * Lists all ContactMsg models.
      * @return mixed
      */

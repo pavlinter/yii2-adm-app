@@ -13,6 +13,7 @@ use Yii;
  * @property string $to_email
  * @property string $subject
  * @property string $text
+ * @property string $viewed
  * @property string $created_at
  * @property string $updated_at
  */
@@ -79,6 +80,7 @@ class ContactMsg extends \yii\db\ActiveRecord
             'to_email' => Yii::t('model/contact_msg', 'To Email'),
             'subject' => Yii::t('model/contact_msg', 'Subject'),
             'text' => Yii::t('model/contact_msg', 'Text'),
+            'viewed' => Yii::t('model/contact_msg', 'Viewed'),
             'created_at' => Yii::t('model/contact_msg', 'Created At'),
             'updated_at' => Yii::t('model/contact_msg', 'Updated At'),
         ];
