@@ -1,6 +1,6 @@
 <?php
+use app\helpers\Url;
 use yii\helpers\Html;
-use yii\helpers\Url;
 
 /**
  * @var \yii\web\View $this
@@ -12,6 +12,9 @@ if (Yii::$app->params['html.canonical'] === true) {
     $this->registerLinkTag(['rel' => 'canonical', 'href' => Url::canonical()]);
 } else if(Yii::$app->params['html.canonical'] !== false){
     $this->registerLinkTag(['rel' => 'canonical', 'href' => Yii::$app->params['html.canonical']]);
+}
+if (Yii::$app->request->getPathInfo() != 'site/login') {
+    Url::remember(Url::current());
 }
 ?>
 <?php $this->beginPage() ?>
