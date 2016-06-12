@@ -104,7 +104,9 @@ class SiteController extends Controller
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
+            /* @var $user User */
+            $user = $model->signup();
+            if ($user) {
                 Yii::$app->getSession()->setFlash('success', Yii::t("app/signup", "Check your email for further instructions."));
                 return $this->refresh();
             }
