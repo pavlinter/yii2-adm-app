@@ -168,7 +168,7 @@ class SiteController extends Controller
         $message = Yii::t("app/signup", "Your account already approved");
 
         if (!empty($token)) {
-
+            /* @var $user User */
             $user = User::findOne([
                 'password_reset_token' => $token,
                 'status' => User::STATUS_NOT_APPROVED,
@@ -177,7 +177,7 @@ class SiteController extends Controller
             if ($user) {
                 $user->status = User::STATUS_ACTIVE;
                 $user->removePasswordResetToken();
-                if ($user->save()) {
+                if ($user->save(false)) {
                     $message = Yii::t("app/signup", "Your account successfully approved!");
                     Yii::$app->getSession()->setFlash('success', $message);
                     return $this->redirect(['login']);
