@@ -40,7 +40,7 @@ class DefaultController extends Controller
         /* @var $model \app\modules\admhidemenu\models\SettingsForm */
         $model = $module->manager->createSettingsForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
                 Yii::$app->getSession()->setFlash('success', Adm::t('','Data successfully changed!'));
                 return Adm::redirect(['index']);

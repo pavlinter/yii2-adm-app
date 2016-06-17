@@ -12,7 +12,7 @@ use yii\base\Model;
  */
 class SettingsForm extends Model
 {
-    public $items;
+    public $items = [];
 
     public function init()
     {
@@ -37,6 +37,9 @@ class SettingsForm extends Model
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     public function itemsFilter($attribute, $params)
     {
 
@@ -69,8 +72,11 @@ class SettingsForm extends Model
     /**
      * @return bool
      */
-    public function save()
+    public function save($validate = true)
     {
+        if ($validate && !$this->validate()) {
+            return false;
+        }
         return ParamsManager::getInstance()->manager->staticParams('change', Module::getInstance()->settingsKey, $this->getAttributes());
     }
 }

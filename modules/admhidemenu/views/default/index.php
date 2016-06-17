@@ -3,6 +3,7 @@ use app\modules\admhidemenu\Module;
 use kartik\checkbox\CheckboxX;
 use pavlinter\adm\Adm;
 use pavlinter\buttons\InputButton;
+use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -11,6 +12,9 @@ use yii\widgets\ActiveForm;
 $m = Module::getInstance();
 $adm = Yii::$app->getModule('adm');
 $items = $m->leftMenu;
+if (!$items) {
+    $items = Adm::getInstance()->params['left-menu'];
+}
 \app\modules\admhidemenu\StyleAsset::register($this);
 ?>
 
@@ -34,7 +38,17 @@ $items = $m->leftMenu;
             ?>
 
             <div class="flex-item">
-                <?= $form->field($model, 'items[' . $itemName . ']', ['template' => '{input}{label}'])->label($item['label'])->widget(CheckboxX::classname(), ['pluginOptions'=>['threeState' => false]]); ?>
+                <?php
+                $label = '';
+                if (isset($item['items'])) {
+                    $label = '';
+                } else {
+
+                }
+
+                ?>
+
+                <?= $form->field($model, 'items[' . $itemName . ']', ['template' => '{input}{label}'])->label(Html::a($item['label'], $item['url']))->widget(CheckboxX::classname(), ['pluginOptions'=>['threeState' => false]]); ?>
                 <?php if (isset($item['items'])) {?>
 
                     <?php foreach ($item['items'] as $child) {?>
@@ -45,7 +59,7 @@ $items = $m->leftMenu;
                                     $model->items[$child['key']] = 1;
                                 }
                                 ?>
-                                <?= $form->field($model, 'items[' . $child['key'] . ']', ['template' => '{input}{label}'])->label($child['label'])->widget(CheckboxX::classname(), ['pluginOptions'=>['threeState' => false]]); ?>
+                                <?= $form->field($model, 'items[' . $child['key'] . ']', ['template' => '{input}{label}'])->label(Html::a($child['label'], $child['url']))->widget(CheckboxX::classname(), ['pluginOptions'=>['threeState' => false]]); ?>
                             </div>
                         <?php }?>
                     <?php }?>

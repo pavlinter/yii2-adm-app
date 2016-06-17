@@ -54,7 +54,7 @@ class Module extends \yii\base\Module implements AdmBootstrapInterface
                         [
                             'key' => 'admhidemenu',
                             'label' => '<span>' . self::t('', 'Root Tools') . '</span>',
-                            'url' => ['/admhidemenu']
+                            'url' => ['/admhidemenu/default/index']
                         ]
                     ],
                     'encodeLabels' => false,
@@ -139,21 +139,23 @@ class Module extends \yii\base\Module implements AdmBootstrapInterface
     {
         /* @var $model \app\modules\admhidemenu\models\SettingsForm */
         $model = $this->manager->createSettingsForm();
+
         if (is_array($model->items)) {
+
             $items = $model->items;
             $leftMenuItems = $this->leftMenu;
 
-            foreach ($leftMenuItems as $leftMenuitem => $leftMenuItem) {
-                if(isset($items[$leftMenuitem])){
-                    if (!$items[$leftMenuitem]) {
-                        unset($leftMenuItems[$leftMenuitem]);
-                    } elseif (isset($leftMenuItems[$leftMenuitem]['items'])){
+            foreach ($leftMenuItems as $key => $item) {
+                if(isset($items[$key])){
+                    if (!$items[$key]) {
+                        unset($leftMenuItems[$key]);
+                    } elseif (isset($leftMenuItems[$key]['items'])){
 
-                        foreach ($leftMenuItems[$leftMenuitem]['items'] as $k => $child) {
+                        foreach ($leftMenuItems[$key]['items'] as $k => $child) {
                             if(isset($child['key'])){
                                 if(isset($items[$child['key']])){
                                     if (!$items[$child['key']]) {
-                                        unset($leftMenuItems[$leftMenuitem]['items'][$k]);
+                                        unset($leftMenuItems[$key]['items'][$k]);
                                     }
                                 }
                             }
