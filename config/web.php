@@ -194,7 +194,7 @@ $config = [
             'access' => function () {
                 return !Yii::$app->user->isGuest && Yii::$app->user->can('Adm-Transl');
             },
-            'dialog' => 'bs',
+            'dialog' => 'mp',
             'router' => '/adm/source-message/dot-translation',
             'categoryUrl' => '@web/{lang}/adm/source-message/index?SourceMessageSearch[category]={category}',
             'translations' => [
