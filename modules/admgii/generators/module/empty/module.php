@@ -19,6 +19,8 @@ namespace <?= $ns ?>;
 use Yii;
 use pavlinter\adm\Adm;
 use pavlinter\adm\AdmBootstrapInterface;
+use yii\web\ForbiddenHttpException;
+use yii\web\NotFoundHttpException;
 
 /**
  * Class Module
@@ -50,10 +52,9 @@ class <?= $className ?> extends \yii\base\Module implements AdmBootstrapInterfac
      */
     public function loading($adm)
     {
-
         $adm->params['left-menu']['<?= $generator->moduleID ?>'] = [
-            'label' => '<i class="fa fa-hdd-o"></i><span>' . self::t('', '<?= $generator->moduleID ?>') . '</span>',
-            'url' => ['/<?= $generator->moduleID ?>']
+            'label' => '<i class="fa fa-hdd-o"></i><span>' . static::t('menu', '<?= $generator->moduleID ?>') . '</span>',
+            'url' => ['/<?= $generator->moduleID ?>/default/index']
         ];
     }
 
@@ -62,11 +63,18 @@ class <?= $className ?> extends \yii\base\Module implements AdmBootstrapInterfac
      */
     public function beforeAction($action)
     {
+        if (!parent::beforeAction($action)) {
+            //throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
+            return false;
+        }
+
         //if ($action->controller->id !== 'default') {
             $adm = Adm::register(); //required load adm,if use adm layout
-            return parent::beforeAction($action) && $adm->user->can('AdmRoot');
+            if(!($adm->user->can('AdmRoot') || $adm->user->can('AdmAdmin'))){
+                throw new ForbiddenHttpException('You are not allowed to access this page.');
+            }
         //}
-        return parent::beforeAction($action);
+        return true;
     }
 
     /**
@@ -122,4 +130,11 @@ class <?= $className ?> extends \yii\base\Module implements AdmBootstrapInterfac
         ],], $options);
     }
 
+    /**
+     * @return self
+     */
+    public static function getInst()
+    {
+        return Yii::$app->getModule('<?= $generator->moduleID ?>');
+    }
 }
