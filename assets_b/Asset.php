@@ -7,7 +7,7 @@ namespace app\assets_b;
  */
 class Asset extends \yii\web\AssetBundle
 {
-    public $forcePublish;
+    public $forcePublish = false;
 
     /**
      * @inheritdoc
