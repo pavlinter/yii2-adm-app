@@ -761,7 +761,7 @@ class Generator extends \yii\gii\Generator
             $tableSchema = $this->getTableSchema();
             if($tableSchema){
                 foreach ($tableSchema->columns as $column) {
-                    if($column->comment == 'parent' || $column->comment == 'id_parent'){
+                    if($column->comment == 'parent' || $column->comment == 'id_parent' || $column->comment == 'parent_id'){
                         $parent = $column->name;
                         break;
                     }
