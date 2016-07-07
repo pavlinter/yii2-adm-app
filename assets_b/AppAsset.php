@@ -28,6 +28,7 @@ class AppAsset extends Asset
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
         //'yii\bootstrap\BootstrapThemeAsset',
+        //'yii\web\JqueryAsset',
     ];
 
     /**
