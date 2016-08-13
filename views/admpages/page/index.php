@@ -123,18 +123,14 @@ Yii::$app->i18n->resetDot();
                 'hAlign' => 'center',
             ],
             [
-                'class' => '\kartik\grid\BooleanColumn',
+                'class' => 'pavlinter\adm\widgets\BooleanColumn',
                 'attribute' => 'active',
-                'width' => '50px',
-                'vAlign' => 'middle',
-                'hAlign' => 'center',
-                'filterType' => GridView::FILTER_SELECT2,
-                'filterWidgetOptions' => [
-                    'options' => ['placeholder' => Module::t('','Select ...', ['dot' => false])],
-                    'pluginOptions' => [
-                        'allowClear' => true
-                    ],
-                ],
+                'tableName' => $searchModel::tableName(),
+            ],
+            [
+                'class' => 'pavlinter\adm\widgets\BooleanColumn',
+                'attribute' => 'visible',
+                'tableName' => $searchModel::tableName(),
             ],
             [
                 'class' => '\kartik\grid\ActionColumn',
