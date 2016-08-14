@@ -21,7 +21,7 @@
     "yiisoft/yii2-bootstrap": "*",
     "yiisoft/yii2-swiftmailer": "*",
 
-    "pavlinter/yii2-adm": "1.*",
+    "pavlinter/yii2-adm": "v2.0.1beta",
     "pavlinter/yii2-display-image2": "0.*",
     "pavlinter/yii2-adm-pages2": "0.*",
     "pavlinter/yii2-adm-params": "1.*",
