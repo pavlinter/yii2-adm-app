@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 /* @var $modelPage \app\core\admpages\models\Page */
 
 $this->title = $modelPage->title;
-$this->params['breadcrumbs'][] = $this->title;
+Yii::$app->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="contact-page">
 
