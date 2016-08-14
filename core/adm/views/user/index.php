@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use pavlinter\adm\Adm;
 
 /* @var $this yii\web\View */
-/* @var $model pavlinter\adm\models\UserSearch */
+/* @var $model app\core\adm\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 Yii::$app->i18n->disableDot();
 $this->title = Adm::t('user', 'Users');
@@ -31,10 +31,10 @@ Yii::$app->i18n->resetDot();
                 'attribute' => 'role',
                 'vAlign' => 'middle',
                 'value' => function ($model, $key, $index, $widget) {
-                    return $model::roles($model->role);
+                    return $model::roles_list($model->role);
                 },
                 'filterType' => GridView::FILTER_SELECT2,
-                'filter'=> $searchModel::roles(),
+                'filter'=> $searchModel::roles_list(),
                 'filterWidgetOptions' => [
                     'pluginOptions' => ['allowClear' =>true ],
                 ],
@@ -45,10 +45,10 @@ Yii::$app->i18n->resetDot();
                 'attribute' => 'status',
                 'vAlign' => 'middle',
                 'value' => function ($model, $key, $index, $widget) {
-                    return $model::status($model->status);
+                    return $model::status_list($model->status);
                 },
                 'filterType' => GridView::FILTER_SELECT2,
-                'filter'=> $searchModel::status(),
+                'filter'=> $searchModel::status_list(),
                 'filterWidgetOptions' => [
                     'pluginOptions' => ['allowClear' =>true ],
                 ],

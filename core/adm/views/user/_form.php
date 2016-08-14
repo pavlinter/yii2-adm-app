@@ -8,7 +8,7 @@ use yii\helpers\Url;
 use pavlinter\adm\Adm;
 
 /* @var $this yii\web\View */
-/* @var $model pavlinter\adm\models\User */
+/* @var $model app\models\User */
 /* @var $form yii\widgets\ActiveForm */
 /* @var $dynamicModel yii\base\DynamicModel */
 /* @var $authItems array */
@@ -118,7 +118,7 @@ foreach ($authItemsChildArr as $authItemsChild) {
             <div class="col-xs-12 col-sm-4 col-md-4">
                 <?php
                 echo $form->field($model, 'status')->widget(Select2::classname(), [
-                    'data' => $model::status(),
+                    'data' => $model::status_list(),
                     'options' => ['placeholder' => Adm::t('','Select ...', ['dot' => false])],
                     'pluginOptions' => [
 

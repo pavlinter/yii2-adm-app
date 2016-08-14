@@ -11,7 +11,6 @@ use Yii;
 class User extends \pavlinter\adm\models\User
 {
     use ModelArrayableTrait;
-    const STATUS_NOT_APPROVED = 1;
 
     /**
      * @inheritdoc
@@ -22,33 +21,11 @@ class User extends \pavlinter\adm\models\User
             [['username'], 'unique'],
             [['email'], 'email'],
 
-            ['status', 'default', 'value' => self::STATUS_NOT_APPROVED],
-            ['status', 'in', 'range' => array_keys(static::status())],
+            ['status', 'default', 'value' => static::STATUS_NOT_APPROVED],
+            ['status', 'in', 'range' => array_keys(static::status_list())],
 
-            ['role', 'default', 'value' => self::ROLE_USER],
-            ['role', 'in', 'range' => array_keys(static::roles())],
+            ['role', 'default', 'value' => static::ROLE_USER],
+            ['role', 'in', 'range' => array_keys(static::roles_list())],
         ];
-    }
-
-    /**
-     * @param null $key
-     * @param null $default
-     * @return array|null
-     */
-    public static function status($key = null, $default = null)
-    {
-        $status = [
-            self::STATUS_ACTIVE => Yii::t('adm/user', 'Active Status', ['dot' => false]),
-            self::STATUS_NOT_APPROVED => Yii::t('adm/user', 'Not Approved Status', ['dot' => false]),
-            self::STATUS_DELETED => Yii::t('adm/user', 'Deleted Status', ['dot' => false]),
-        ];
-        if ($key !== null) {
-            if (isset($status[$key])) {
-                return $status[$key];
-            }
-            return $default;
-        }
-
-        return $status;
     }
 }
