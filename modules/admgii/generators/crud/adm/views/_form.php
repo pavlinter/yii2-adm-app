@@ -75,7 +75,7 @@ $childsData = [];
 <div class="row">
         <?php foreach ($columnNames as $i => $attribute) {
             if (in_array($attribute, $safeAttributes)) {
-                if($generator->getParentColumn() == $attribute){
+                if(in_array($attribute, [$generator->getParentColumn(), 'active', 'weight'])){
                     continue;
                 }
                 echo $generator->generateActiveField($attribute, ['fix' => true]);
@@ -142,6 +142,17 @@ $childsData = [];
     <?php }?>
 
 <?php }}?>
+
+
+
+    <div class="row">
+<?php if (in_array('weight', $columnNames)) {?>
+<?= "\t\t" . $generator->generateActiveField('weight', ['fix' => true]); ?>
+<?php }?><?php if (in_array('active', $columnNames)) {?>
+<?= $generator->generateActiveField('active', ['fix' => true]); ?>
+<?php }?>
+</div>
+
 
     <div class="form-group">
         <?= "<?= " ?> InputButton::widget([
