@@ -13,7 +13,7 @@ $m = Module::getInstance();
 $adm = Yii::$app->getModule('adm');
 $items = $m->leftMenu;
 if (!$items) {
-    $items = Adm::getInstance()->params['left-menu'];
+    $items = Adm::getInst()->params['left-menu'];
 }
 \app\modules\admhidemenu\StyleAsset::register($this);
 ?>

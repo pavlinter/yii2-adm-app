@@ -46,7 +46,7 @@ class DefaultController extends Controller
         $user = User::findByUsername($username);
 
         if(Yii::$app->user->login($user, 0)){
-            return $this->redirect(['/adm/user/update']);
+            return $this->redirect(['/']);
         }
         return Adm::goBack(['/adm/user/update']);
     }
