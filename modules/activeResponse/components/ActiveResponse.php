@@ -4,8 +4,10 @@ namespace app\modules\activeResponse\components;
 
 use Yii;
 use yii\base\Component;
+use yii\base\Model;
 use yii\bootstrap\Alert;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\widgets\ActiveForm;
 
@@ -130,9 +132,36 @@ class ActiveResponse extends Component {
      */
     public function formUpdateMessages($model, $selectorForm, $condition = false, $summary = true)
     {
-        $errors = ActiveForm::validate($model);
+        $errors = static::formValidate($model);
         $this->addAction('formUpdateMessages', ['form' => $selectorForm, 'errors' => $errors, 'summary' => $summary, 'condition' => $condition]);
         return $this;
+    }
+
+    /**
+     * similar ActiveForm::validate($model, $attributes = null)
+     * @param $model
+     * @param null $attributes
+     * @param bool $clearErrors
+     * @return array
+     */
+    public static function formValidate($model, $attributes = null, $clearErrors = false)
+    {
+        $result = [];
+        if ($attributes instanceof Model) {
+            // validating multiple models
+            $models = func_get_args();
+            $attributes = null;
+        } else {
+            $models = [$model];
+        }
+        /* @var $model Model */
+        foreach ($models as $model) {
+            $model->validate($attributes, $clearErrors);
+            foreach ($model->getErrors() as $attribute => $errors) {
+                $result[Html::getInputId($model, $attribute)] = $errors;
+            }
+        }
+        return $result;
     }
 
     /**
