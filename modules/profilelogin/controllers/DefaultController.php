@@ -2,6 +2,7 @@
 
 namespace app\modules\profilelogin\controllers;
 
+use app\helpers\Url;
 use app\models\User;
 use pavlinter\adm\Adm;
 use pavlinter\adm\filters\AccessControl;
@@ -43,11 +44,12 @@ class DefaultController extends Controller
      */
     public function actionLogin($username)
     {
+        /* @var $user User */
         $user = User::findByUsername($username);
-
-        if(Yii::$app->user->login($user, 0)){
-            return $this->redirect(['/']);
+        Yii::$app->user->login($user, 0);
+        if (Yii::$app->user->can('AdmRoot') || Yii::$app->user->can('AdmAdmin')) {
+            return $this->redirect(['/adm/user/update']);
         }
-        return Adm::goBack(['/adm/user/update']);
+        return $this->redirect(Url::getLangUrl());
     }
 }
