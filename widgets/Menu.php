@@ -13,6 +13,8 @@ use yii\helpers\Url;
 class Menu extends \yii\widgets\Menu
 {
     public $linkTemplate = '<a href="{url}"{attr}>{label}</a>';
+
+    public $encodeLabels = false;
     /**
      * Renders the content of a menu item.
      * Note that the container and the sub-menus are not rendered here.
