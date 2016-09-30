@@ -88,7 +88,6 @@ if (Yii::$app->user->isGuest) {
         echo \app\widgets\Menu::widget([
             'options' => ['class' => 'core-langs'],
             'items' => $i18n->menuItems(),
-            'encodeLabels' => false,
         ]);
 
         echo Nav::widget([
