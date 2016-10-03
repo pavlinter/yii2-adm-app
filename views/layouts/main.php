@@ -99,6 +99,8 @@ if (Yii::$app->user->isGuest) {
     ?>
 </header>
 
+<?php $this->trigger('afterHeader'); ?>
+
 <div class="<?= Yii::$app->params['html.wrapperClass'] ?> container">
     <?= Breadcrumbs::widget([
         'links' => Yii::$app->params['breadcrumbs'],
@@ -108,6 +110,8 @@ if (Yii::$app->user->isGuest) {
 
     <?= $content ?>
 </div>
+
+<?php $this->trigger('beforeFooter'); ?>
 
 <footer class="footer">
     <div class="container">
