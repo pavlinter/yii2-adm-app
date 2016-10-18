@@ -75,6 +75,12 @@ if (Yii::$app->user->isGuest) {
 
 <?php $this->beginContent('@webroot/views/layouts/base.php'); ?>
 
+<?php \richardfan\widget\JSRegister::begin(['position' => $this::POS_HEAD]) ?>
+<script>
+    var isMobile = <?= Yii::$app->mobileDetect->isMobile() ? "true" : "false" ?>;
+</script>
+<?php \richardfan\widget\JSRegister::end() ?>
+
 <header>
     <?php
     NavBar::begin([

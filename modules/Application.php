@@ -24,6 +24,7 @@ namespace app\modules;
  * @property \app\components\Session $session
  * @property \app\components\Dispatcher $log
  * @property \app\components\Connection $db
+ * @property \app\components\MobileDetect $mobileDetect
  * @property \app\modules\activeResponse\components\ActiveResponse $ar
  *
  */
