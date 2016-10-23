@@ -184,9 +184,6 @@ $config = [
         ],
         'urlManager' => [
             'class'=>'app\components\UrlManager', //https://github.com/pavlinter/yii2-url-manager
-            'normalizer' => [
-                'class' => 'yii\web\UrlNormalizer',
-            ],
             'rules' => [
                 '' => 'admpages/default/main',
                 'page/<alias:([A-Za-z0-9_-])+>' => 'admpages/default/index',

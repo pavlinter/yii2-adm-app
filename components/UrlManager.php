@@ -16,4 +16,8 @@ class UrlManager extends \pavlinter\urlmanager\UrlManager
     public $ruleConfig = [
         'class' => '\pavlinter\urlmanager\UrlRule',
     ];
+
+    public $normalizer = [
+        'class' => 'yii\web\UrlNormalizer',
+    ];
 }
