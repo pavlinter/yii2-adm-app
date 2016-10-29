@@ -2,16 +2,16 @@
 
 namespace app\controllers;
 
-use app\models\PasswordResetRequestForm;
-use app\models\ResetPasswordForm;
-use app\models\SignupForm;
+use app\models\form\LoginForm;
+use app\models\form\PasswordResetRequestForm;
+use app\models\form\ResetPasswordForm;
+use app\models\form\SignupForm;
 use app\models\User;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
 
 /**
  * Class SiteController

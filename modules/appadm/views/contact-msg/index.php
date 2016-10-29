@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use pavlinter\adm\Adm;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\ContactMsgSearch */
+/* @var $searchModel app\models\search\ContactMsgSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 Yii::$app->i18n->disableDot();

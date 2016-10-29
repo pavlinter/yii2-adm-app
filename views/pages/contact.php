@@ -7,7 +7,7 @@ use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $form yii\widgets\ActiveForm */
-/* @var $model \app\models\ContactForm */
+/* @var $model \app\models\form\ContactForm */
 /* @var $modelPage \app\core\admpages\models\Page */
 
 $this->title = $modelPage->title;

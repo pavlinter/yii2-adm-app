@@ -3,8 +3,8 @@
 namespace app\controllers;
 
 use app\core\admpages\models\Page;
+use app\models\form\ContactForm;
 use Yii;
-use app\models\ContactForm;
 use yii\web\Controller;
 
 /**
