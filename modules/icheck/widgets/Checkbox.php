@@ -21,6 +21,8 @@ class Checkbox extends iCheckOptions
 
 	public $labelOptions = [];
 
+	public $textOptions = [];
+
 	public function init()
 	{
 		parent::init();
@@ -47,7 +49,9 @@ class Checkbox extends iCheckOptions
 		} else {
 			$checkbox = Html::checkbox($this->name, $this->value, $this->options);
 			if ($this->label) {
-				$checkbox = Html::tag('label', $checkbox . ' ' . $this->label, $this->labelOptions);
+				$tag = ArrayHelper::remove($this->textOptions, 'tag', 'span');
+				$text = Html::tag($tag, $this->label, $this->textOptions);
+				$checkbox = Html::tag('label', $checkbox . ' ' . $text, $this->labelOptions);
 			}
 		}
 
