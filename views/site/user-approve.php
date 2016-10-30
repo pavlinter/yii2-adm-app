@@ -5,7 +5,7 @@ use yii\bootstrap\Alert;
 /* @var $message string */
 
 $this->title = Yii::t("app/signup", "User approval", ['dot' => false]);
-$this->params['breadcrumbs'][] = $this->title;
+Yii::$app->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-user-approve">
     <?php

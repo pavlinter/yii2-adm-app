@@ -8,7 +8,7 @@ use yii\bootstrap\ActiveForm;
 /* @var $model \app\models\form\SignupForm */
 
 $this->title = Yii::t("app/signup", "Registration", ['dot' => false]);
-$this->params['breadcrumbs'][] = $this->title;
+Yii::$app->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-signup">
     <h1><?= Html::encode($this->title) ?></h1>
