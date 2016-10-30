@@ -45,6 +45,14 @@ class Checkbox extends iCheckOptions
 		$this->registerScript($view);
 
 		if ($this->hasModel()) {
+			if ($this->label) {
+			    $label = $this->label;
+			} else {
+				$label = Html::encode($this->model->getAttributeLabel(Html::getAttributeName($this->attribute)));
+			}
+			$tag = ArrayHelper::remove($this->textOptions, 'tag', 'span');
+			$text = Html::tag($tag, $label, $this->textOptions);
+			$this->options['label'] = $text;
 			$checkbox = Html::activeCheckbox($this->model, $this->attribute, $this->options);
 		} else {
 			$checkbox = Html::checkbox($this->name, $this->value, $this->options);
