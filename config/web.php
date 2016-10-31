@@ -201,25 +201,21 @@ $config = [
                 'app*' => [
                     'class' => 'app\components\DbMessageSource',
                     'forceTranslation' => true,
-                    'autoInsert' => true,
                     'dotMode' => true,
                 ],
                 'model*' => [
                     'class' => 'pavlinter\translation\DbMessageSource',
                     'forceTranslation' => true,
-                    'autoInsert' => true,
                     'dotMode' => false,
                 ],
                 'adm*' => [
                     'class' => 'pavlinter\translation\DbMessageSource',
                     'forceTranslation' => true,
-                    'autoInsert' => true,
                     'dotMode' => true,
                 ],
                 'modelAdm*' => [
                     'class' => 'pavlinter\translation\DbMessageSource',
                     'forceTranslation' => true,
-                    'autoInsert' => true,
                     'dotMode' => false,
                 ],
             ],
