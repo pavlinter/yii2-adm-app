@@ -23,6 +23,7 @@ $config = [
     'id' => 'adm-app',
     'timeZone' => 'Europe/Riga',
     'basePath' => dirname(__DIR__),
+    'layout' => '/main',
     'bootstrap' => [
         'log',
         'debug',
