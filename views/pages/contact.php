@@ -25,8 +25,8 @@ Yii::$app->params['breadcrumbs'][] = $this->title;
             'class' => 'form contactForm',
         ],
     ]);
-    echo Yii::t("app/contacts", "Thank you for contacting us. We will respond to you as soon as possible.", ['dot' => '.']);
-    echo Yii::t("app/contacts", "There was an error sending email.", ['dot' => '.']);
+    echo Yii::t("app/contact", "Thank you for contacting us. We will respond to you as soon as possible.", ['dot' => '.']);
+    echo Yii::t("app/contact", "There was an error sending email.", ['dot' => '.']);
     ?>
 
     <?= Alert::widget() ?>
@@ -42,8 +42,8 @@ Yii::$app->params['breadcrumbs'][] = $this->title;
             ]) ?>
 
             <p>
-                <?= Html::submitInput(Yii::t("app/contacts", "Send", ['dot' => false]), ['class' => 'btn btn-primary']) ?>
-                <?= Yii::t("app/contacts", "Send", ['dot' => '.']) ?>
+                <?= Html::submitInput(Yii::t("app/contact", "Send", ['dot' => false]), ['class' => 'btn btn-primary']) ?>
+                <?= Yii::t("app/contact", "Send", ['dot' => '.']) ?>
             </p>
         </div>
     </div>

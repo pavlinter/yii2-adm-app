@@ -62,8 +62,8 @@ class ContactForm extends Model
 
         $model = new ContactMsg();
 
-        $subject = Yii::t("app/contacts", "Message from {site}", ['dot' => false, 'name' => $this->name, 'email' => $this->email, 'body' => $this->body, 'phone' => $this->phone, 'site' => Yii::$app->name,]);
-        $body = Yii::t("app/contacts", "Contact message<br/>Name: {name}<br/>Email: {email}<br/>Phone: {phone}<br/>Message: {body}", ['dot' => false, 'name' => $this->name, 'email' => $this->email, 'body' => $this->body, 'phone' => $this->phone]);
+        $subject = Yii::t("app/contact", "Message from {site}", ['dot' => false, 'name' => $this->name, 'email' => $this->email, 'body' => $this->body, 'phone' => $this->phone, 'site' => Yii::$app->name,]);
+        $body = Yii::t("app/contact", "Contact message<br/>Name: {name}<br/>Email: {email}<br/>Phone: {phone}<br/>Message: {body}", ['dot' => false, 'name' => $this->name, 'email' => $this->email, 'body' => $this->body, 'phone' => $this->phone]);
 
         if ($model) {
             $model->from_email = $this->email;
