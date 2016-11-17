@@ -23,6 +23,9 @@ namespace <?= $generator->ns ?>;
 <?php if ($generator->isLang || $modelLangClassName){ ?>
 use app\core\adm\models\Language;
 <?php } ?>
+<?php if ($generator->modelClassQueryUse){ ?>
+use <?= $generator->modelClassQueryUse ?>;
+<?php } ?>
 use yii\helpers\ArrayHelper;
 use app\helpers\Url;
 use app\base\ModelArrayableTrait;
@@ -324,4 +327,83 @@ foreach ($modelLangClassObj->attributes() as $attribute){
         }
     }
 <?php }?>
+
+    /**
+     * @param bool $exception
+     * @return bool
+     * @throws \yii\web\ForbiddenHttpException
+     */
+    public function checkOwn($exception = true)
+    {
+        if ($exception) {
+            if ($this->user_id !== Yii::$app->user->getId()) {
+                throw new \yii\web\ForbiddenHttpException('You are not allowed to access this page.');
+            }
+        } else {
+            if ($this->user_id !== Yii::$app->user->getId()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * @param $model
+     * @param bool $exception
+     * @return bool
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public static function checkModel($model, $exception = true)
+    {
+        if ($exception) {
+            if ($model === null) {
+                throw new \yii\web\NotFoundHttpException(Yii::t('yii', 'Page not found.'));
+            }
+        } else {
+            if ($model === null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * @param $status
+     * @param bool $exception
+     * @return bool
+     * @throws \yii\web\ForbiddenHttpException
+     */
+    public function checkStatus($status , $exception = true)
+    {
+        $status = (array)$status;
+        if ($exception) {
+            if (!in_array($this->status, $status)) {
+                throw new \yii\web\ForbiddenHttpException('You are not allowed.');
+            }
+        } else {
+            if (!in_array($this->status, $status)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * @param bool $exception
+     * @return bool
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function checkActive($exception = true)
+    {
+        if ($exception) {
+            if (!$this->active) {
+                throw new \yii\web\NotFoundHttpException(Yii::t('yii', 'Page not found.'));
+            }
+        } else {
+            if (!$this->active) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

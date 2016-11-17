@@ -25,6 +25,8 @@ class Generator extends \app\modules\admgii\Generator
     public $tableName;
     public $modelClass;
     public $modelClassQuery = true;
+    public $modelClassQueryNs; //private
+    public $modelClassQueryUse; //private
     public $modelLangClass;
     public $baseClass = 'yii\db\ActiveRecord';
     public $generateRelations = true;
@@ -201,6 +203,10 @@ class Generator extends \app\modules\admgii\Generator
                 'rules' => $this->generateRules($tableSchema),
                 'relations' => isset($relations[$className]) ? $relations[$className] : [],
             ];
+
+            $this->modelClassQueryNs = $this->ns . '\query';
+            $this->modelClassQueryUse = $this->modelClassQueryNs . '\\' . $className . 'Query';
+
             $files[] = new CodeFile(
                 Yii::getAlias('@' . str_replace('\\', '/', $this->ns)) . '/' . $className . '.php',
                 $this->render('model.php', $params)
@@ -208,7 +214,7 @@ class Generator extends \app\modules\admgii\Generator
 
             if ($this->modelClassQuery) {
                 $files[] = new CodeFile(
-                    Yii::getAlias('@' . str_replace('\\', '/', $this->ns)) . '/' . $className . 'Query.php',
+                    Yii::getAlias('@' . str_replace('\\', '/', $this->modelClassQueryUse)) . '.php',
                     $this->render('modelScopes.php', $params)
                 );
             }

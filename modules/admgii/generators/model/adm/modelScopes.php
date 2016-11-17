@@ -16,7 +16,7 @@
 echo "<?php\n";
 ?>
 
-namespace <?= $generator->ns ?>;
+namespace <?= $generator->modelClassQueryNs ?>;
 
 use Yii;
 use yii\db\ActiveQuery;
