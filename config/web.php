@@ -13,6 +13,7 @@ if (YII_ENV_DEV) {
     $params = require(__DIR__ . '/params.php');
     $db = require(__DIR__ . '/db.php');
 }
+require(__DIR__ . '/aliases.php');
 
 Yii::$container->set('yii\validators\NumberValidator', [
     'class' => 'app\base\validators\NumberValidator',
