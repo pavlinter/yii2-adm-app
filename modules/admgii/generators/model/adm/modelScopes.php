@@ -58,7 +58,7 @@ class <?= $className ?>Query extends ActiveQuery
      */
     public function own()
     {
-        $this->orderBy(['user_id' => Yii::$app->user->getId()]);
+        $this->andWhere(['user_id' => Yii::$app->user->getId()]);
         return $this;
     }
 }
