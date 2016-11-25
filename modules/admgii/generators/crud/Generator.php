@@ -54,6 +54,9 @@ class Generator extends \yii\gii\Generator
         if (!isset($this->templates['adm'])) {
             $this->templates['adm'] = '@admgii/generators/crud/adm';
         }
+        if (!isset($this->templates['frontend'])) {
+            $this->templates['frontend'] = '@admgii/generators/crud/frontend';
+        }
         $this->templates['default'] = Yii::getAlias('@vendor/yiisoft/yii2-gii/generators/crud/default');
         parent::init();
     }
