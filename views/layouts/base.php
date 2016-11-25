@@ -13,7 +13,13 @@ if (Yii::$app->params['html.canonical'] === true) {
 } else if(Yii::$app->params['html.canonical'] !== false){
     $this->registerLinkTag(['rel' => 'canonical', 'href' => Yii::$app->params['html.canonical']]);
 }
-if (Yii::$app->request->getPathInfo() != 'site/login') {
+if (!in_array(Yii::$app->controller->getRoute(), [
+    'site/login',
+    'site/signup',
+    'site/request-password-reset',
+    'site/reset-password',
+    'site/user-approve',
+])) {
     Url::remember(Url::current());
 }
 ?>
