@@ -55,14 +55,19 @@ class Storage extends \yii\base\Component
         $this->clear($name);
     }
 
+
     /**
      * @param $dir
-     * @param $name
-     * @param bool|true $removeCacheDir
+     * @param null $name
+     * @param bool $removeCacheDir
+     * @param bool $generateNewName
      * @return bool
+     * @throws \yii\base\ErrorException
      */
-    public function moveFileTo($dir, $name = null, $removeCacheDir = true)
+    public function moveFileTo($dir, $name = null, $removeCacheDir = true, $generateNewName = true)
     {
+        $dir = Yii::getAlias($dir);
+        FileHelper::createDirectory($dir);
         if ($name !== null) {
             $this->setName($name);
         }
@@ -73,8 +78,16 @@ class Storage extends \yii\base\Component
         $files = FileHelper::findFiles($path);
 
         if ($files) {
-            foreach ($files as $file) {
-                rename($file, Yii::getAlias($dir) . '/' . basename($file));
+            if ($generateNewName) {
+                foreach ($files as $file) {
+                    $ext = pathinfo($file, PATHINFO_EXTENSION);
+                    $newFileName = strtr(uniqid(hash('crc32b', rand()), true), ['.' => '']) . '.' . $ext;
+                    copy($file, $dir . '/' . $newFileName);
+                }
+            } else {
+                foreach ($files as $file) {
+                    copy($file, $dir . '/' . basename($file));
+                }
             }
             if ($removeCacheDir) {
                 FileHelper::removeDirectory($path);
@@ -84,6 +97,37 @@ class Storage extends \yii\base\Component
         return false;
     }
 
+    /**
+     * @param null $name
+     * @return array
+     */
+    public function getCloudFiles($name = null)
+    {
+        if ($name !== null) {
+            $this->setName($name);
+        }
+
+        $this->buildId();
+
+        $path = $this->getPath();
+        $files = FileHelper::findFiles($path);
+        return $files;
+    }
+
+    /**
+     * @param null $name
+     * @return array
+     */
+    public function getWebCloudFiles($name = null)
+    {
+        $files = $this->getCloudFiles($name);
+        $path = $this->getPath();
+        $webPath = $this->getWebPath();
+        foreach ($files as $i => $file) {
+            $files[$i] = str_replace($path, $webPath, $file);
+        }
+        return $files;
+    }
 
     /**
      * @param null $name

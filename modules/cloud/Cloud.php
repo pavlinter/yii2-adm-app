@@ -10,14 +10,35 @@ use yii\helpers\ArrayHelper;
  *
  * //create new space
  * Cloud::getInst()->storage->setName('own-session-name');
- * Cloud::getInst()->storage->getPath();
+ * $uploadPath = Cloud::getInst()->storage->getPath();
+ * $file = \yii\web\UploadedFile::getInstanceByName($fileName);
+ * $file->saveAs($uploadPath . $file->name);
  *
  * //move files
  * Cloud::getInst()->storage->moveFileAndClear('@webroot/new-place', 'own-session-name');
  * Cloud::getInst()->storage->moveFileTo('@webroot/new-place', 'own-session-name');
  *
  * //widgets
+ * echo \app\modules\cloud\widgets\DropZone::widget([
+ *      'uploadUrl' => ['/site/upload-photo'],
+ *      'removeUrl' => ['/site/remove-upload-photo'],
+ *      'files' => [
+ *          [
+ *              'url' => 'url to image',
+ *              'name' => 'image name',
+ *              'size' => 'image size',
+ *          ],
+ *      ],
+ *      //'cloudFilesName' => 'own-session-name',
+ *      'pluginOptions' => [
+ *          'maxFilesize' => 4, //4mb
+ *          'maxFiles' => 6,
+ *      ],
+ *      'pluginEvents' => [],
+ * ]);
  *
+ * or
+ * (походу не работает)
  * \app\modules\cloud\widgets\FineUploader::widget([
  *     'name' => 'own-session-name',
  *     'filesPath' => '@webroot/path-to-saved-files',
