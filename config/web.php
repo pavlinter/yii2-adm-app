@@ -232,6 +232,9 @@ $config = [
                 'yii\bootstrap\BootstrapThemeAsset' => [
                     'class' => 'app\assets_b\BootstrapThemeAsset',
                 ],
+                'kartik\icons\FontAwesomeAsset' => [
+                    'depends' => [], //https://github.com/kartik-v/yii2-icons/issues/24
+                ],
             ],
         ],
         'view' => [
