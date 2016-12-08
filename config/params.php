@@ -14,5 +14,5 @@ return [
     'user.passwordResetTokenExpire' => 3600,
     'formatter.mysql.datetimeFormat' => '%d.%m.%Y %h:%i:%s',
     'formatter.mysql.dateFormat' => '%d.%m.%Y',
-    'google.map.api.key' => '',
+    'google.map.api.key' => 'AIzaSyBQjADnK8nMksFzwLUMKVJz0d3KxWdQU3A',
 ];
