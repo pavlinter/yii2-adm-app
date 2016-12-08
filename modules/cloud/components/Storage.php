@@ -4,6 +4,7 @@ namespace app\modules\cloud\components;
 
 use app\modules\cloud\Cloud;
 use Yii;
+use yii\base\InvalidParamException;
 use yii\helpers\FileHelper;
 
 /**
@@ -166,11 +167,18 @@ class Storage extends \yii\base\Component
         }
         return $this->id;
     }
+
     /**
+     * @param null $name
      * @return string
+     * @throws \yii\base\Exception
      */
-    public function getPath()
+    public function getPath($name = null)
     {
+        if ($name) {
+            $this->setName($name);
+        }
+
         $path = Cloud::getInst()->cloudPath . $this->getId() . '/';
         FileHelper::createDirectory($path);
         return $path;
@@ -214,6 +222,35 @@ class Storage extends \yii\base\Component
     public function hash($path)
     {
         return sprintf('%x', crc32($path . Yii::getVersion()));
+    }
+
+
+    public function removeOldDir($remove_after = null)
+    {
+        $module = Cloud::getInst();
+        $dir = $module->cloudPath;
+        if ($remove_after === null) {
+            $remove_after = $module->remove_after;
+        }
+
+
+        $handle = opendir($dir);
+        if ($handle === false) {
+            throw new InvalidParamException("Unable to open directory: $dir");
+        }
+        $now   = time();
+        while (($file = readdir($handle)) !== false) {
+            if ($file === '.' || $file === '..') {
+                continue;
+            }
+            $path = $dir . DIRECTORY_SEPARATOR . $file;
+            if (is_dir($path)) {
+                if ($now - filemtime($path) >= $remove_after) { // 60 * 60 * 24 * 2 == 2 days
+                    FileHelper::removeDirectory($path);
+                }
+            }
+        }
+        closedir($handle);
     }
 
 }

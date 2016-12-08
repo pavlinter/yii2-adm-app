@@ -17,7 +17,7 @@ use yii\helpers\Url;
  *
  * echo \app\modules\cloud\widgets\DropZone::widget([
  *      'uploadUrl' => ['/site/upload-photo'],
- *      'removeUrl' => ['/site/remove-upload-photo'],
+ *      'removeUrl' => ['/site/remove-upload-photo'], //not need if use 'cloudFilesName'
  *      'files' => [
  *          [
  *              'url' => 'url to image',
@@ -91,6 +91,14 @@ class DropZone extends \yii\base\Widget
         if (empty($this->uploadUrl)) {
             throw new InvalidConfigException('The "uploadUrl" property must be set.');
         }
+
+
+        if ($this->cloudFilesName && $this->removeUrl === null) {
+            $this->removeUrl = ['/cloud/dropzone/remove', '?' => [
+                'name' => $this->cloudFilesName,
+            ]];
+        }
+
 
         if ($this->removeUrl) {
             $this->removeUrl = Url::to($this->removeUrl);

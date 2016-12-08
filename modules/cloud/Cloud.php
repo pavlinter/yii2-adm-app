@@ -9,8 +9,7 @@ use yii\helpers\ArrayHelper;
  * @property \app\modules\cloud\components\Storage $storage
  *
  * //create new space
- * Cloud::getInst()->storage->setName('own-session-name');
- * $uploadPath = Cloud::getInst()->storage->getPath();
+ * $uploadPath = Cloud::getInst()->storage->getPath('own-session-name');
  * $file = \yii\web\UploadedFile::getInstanceByName($fileName);
  * $file->saveAs($uploadPath . $file->name);
  *
@@ -56,7 +55,7 @@ class Cloud extends \yii\base\Module
 
     public $cloudPath = '@webroot/cloud_cache';
 
-
+    public $remove_after = 172800; //remove old dir after 2 days (60*60*24*2)
     /**
      * @inheritdoc
      */
