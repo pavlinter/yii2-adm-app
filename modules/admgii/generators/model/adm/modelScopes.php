@@ -56,6 +56,27 @@ class <?= $className ?>Query extends ActiveQuery
     /**
      * @inheritdoc
      */
+    public function pk($id)
+    {
+        $this->orderBy(['id' => $id]);
+        return $this;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function byAlias($alias, $public = true)
+    {
+        if ($public) {
+            $this->innerJoinWith(['translation'])->published();
+        }
+        $this->andWhere(['alias' => $alias]);
+        return $this;
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function own()
     {
         $this->andWhere(['user_id' => Yii::$app->user->getId()]);

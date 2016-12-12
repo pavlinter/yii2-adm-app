@@ -327,7 +327,7 @@ foreach ($modelLangClassObj->attributes() as $attribute){
         }
     }
 <?php }?>
-
+<?php if (!$generator->isLang){ ?>
     /**
      * @param bool $exception
      * @return bool
@@ -386,4 +386,5 @@ foreach ($modelLangClassObj->attributes() as $attribute){
         }
         return true;
     }
+<?php }?>
 }
