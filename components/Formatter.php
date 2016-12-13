@@ -9,6 +9,19 @@ use Yii;
  */
 class Formatter extends \yii\i18n\Formatter
 {
+
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        if ($this->timeZone === null) {
+            $this->timeZone = Yii::$app->timeZone;
+            $this->defaultTimeZone = Yii::$app->timeZone;
+        }
+        parent::init();
+    }
+
     /**
      * @param $price
      * @param int|null $decimal
