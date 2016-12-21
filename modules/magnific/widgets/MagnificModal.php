@@ -138,14 +138,7 @@ class MagnificModal extends \yii\base\Widget
         if ($this->toggleButton !== false) {
             echo Html::endTag('div');
         }
-
-        if ($this->toggleButton !== false) {
-            if (!$this->toggleButton['disabled']) {
-                $this->registerScript();
-            }
-        } else {
-            $this->registerScript();
-        }
+        $this->registerScript();
     }
 
 
@@ -198,11 +191,20 @@ class MagnificModal extends \yii\base\Widget
         $view = $this->getView();
 
         $options = ArrayHelper::merge($this->defaultPluginOptions, $this->pluginOptions);
+        
         $js = 'jQuery("' . $this->selector . '").magnificPopup(' . Json::encode($options) . ');';
+
+        if ($this->toggleButton !== false) {
+            if ($this->toggleButton['disabled']) {
+                $js = '';
+            }
+        }
+
         if ($this->toggleButton === false) {
             $js .= 'jQuery("' . $this->selector . '").attr("href", "#' . $this->popupOptions['id'] . '")';
         }
-        MagnificThemeAsset::register($view);
+
+        MagnificThemeAsset::register($this->getView());
         MagnificModalAsset::register($view);
         $view->registerJs($js);
     }
