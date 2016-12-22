@@ -61,14 +61,14 @@ class ContactForm extends Model
     {
 
         $model = new ContactMsg();
-        
+
         $subject = "Message from {site}";
         $body = 'Contact message';
         $paramsText = [
-            'Name' => 'name',
-            'Email' => 'email',
-            'Phone' => 'phone',
-            'Message' => 'body',
+            'name' => 'Name',
+            'email' => 'Email',
+            'phone' => 'Phone',
+            'body' => 'Message',
         ];
         $params = [
             'name' => $this->name,
@@ -76,8 +76,8 @@ class ContactForm extends Model
             'body' => $this->body,
             'phone' => $this->phone
         ];
-        foreach ($paramsText as $label => $placeholder) {
-            $body .= "<br/>" . $label . ": {" . $placeholder ."}";
+        foreach ($paramsText as $placeholder => $label) {
+            $body .= "<br/>" . $label . ": {" . $placeholder . "}";
         }
         $params['site'] = Yii::$app->name;
         $params['dot'] = false;
