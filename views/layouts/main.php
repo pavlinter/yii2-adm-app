@@ -85,7 +85,7 @@ if (Yii::$app->user->isGuest) {
     <?php
     NavBar::begin([
         'brandLabel' => 'My Company',
-        'brandUrl' => Yii::$app->homeUrl,
+        'brandUrl' => $baseUrl,
         'options' => [
             'class' => 'navbar-inverse',
         ],
