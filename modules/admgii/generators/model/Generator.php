@@ -860,70 +860,27 @@ class Generator extends \app\modules\admgii\Generator
     /**
      * @return int|null|string
      */
-    public function getNameComment()
+    public function getNameAttribute()
     {
-        $class = $this->ns . '\\' . $this->modelClass;
-        $schema = $class::getTableSchema();
+        $tableSchema = $this->getTableSchema();
 
-        foreach ($schema->columns as $name => $column) {
-            if($column->comment === 'name'){
-                return $name;
+        if($tableSchema){
+            foreach ($tableSchema->columns as $column) {
+                if(in_array($column->comment, ['name', 'title'])){
+                    return $column->name;
+                }
             }
         }
 
-        if($this->isLang && $this->modelLangClass){
+        if($this->modelLangClass){
             $classLang = $this->modelLangClass;
             $schema = $classLang::getTableSchema();
             foreach ($schema->columns as $name => $column) {
-                if($column->comment === 'name'){
-                    return $name;
+                if(in_array($column->comment, ['name', 'title'])){
+                    return $column->name;
                 }
             }
         }
-        return null;
-    }
-
-    /**
-     * @return int|null|string
-     */
-    public function getNameAttribute()
-    {
-        $name = $this->getNameComment();
-        if ($name !== null) {
-            return $name;
-        }
-        
-        $class = $this->ns . '\\' . $this->modelClass;
-        $columnNames = $class::getTableSchema()->getColumnNames();
-        foreach ($columnNames as $name) {
-            if (!strcasecmp($name, 'name') || !strcasecmp($name, 'title')) {
-                return $name;
-            }
-        }
-        $classLang = $this->modelLangClass;
-        $columnNames = $classLang::getTableSchema()->getColumnNames();
-        foreach ($columnNames as $name) {
-            if (!strcasecmp($name, 'name') || !strcasecmp($name, 'title')) {
-                return $name;
-            }
-        }
-
-        if($this->isLang && $this->modelLangClass) {
-            /* @var $class \yii\db\ActiveRecord */
-            $classLang = new $this->modelLangClass;
-            $behaviors = $class->getBehaviors();
-            foreach ($behaviors as $behaviorName => $behavior) {
-                if ($behavior instanceof \pavlinter\translation\TranslationBehavior) {
-                    foreach (['name', 'title'] as $name) {
-                        if (in_array($name, $behavior->translationAttributes)) {
-                            return $name;
-                        }
-                    }
-
-                }
-            }
-        }
-        $pk = $class::primaryKey();
-        return $pk[0];
+        return 'id';
     }
 }
