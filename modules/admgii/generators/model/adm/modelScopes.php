@@ -67,8 +67,9 @@ class <?= $className ?>Query extends ActiveQuery
      */
     public function byAlias($alias, $public = true)
     {
+        $this->innerJoinWith(['translation']);
         if ($public) {
-            $this->innerJoinWith(['translation'])->published();
+            $this->active();
         }
         $this->andWhere(['alias' => $alias]);
         return $this;
