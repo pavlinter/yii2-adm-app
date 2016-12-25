@@ -227,7 +227,7 @@ foreach ($modelLangClassObj->attributes() as $attribute){
         if ($url === true) {
             $url = ['/admpages/default/index'];
         }
-        return $this->getTranslation($id_language)->url($url, $key);
+        return $this->getOneTranslation($id_language)->url($url, $key);
     } */
 
     /**

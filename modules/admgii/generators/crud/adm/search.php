@@ -64,7 +64,10 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
      */
     public function search($params<?= $generator->ifParent(', $id_parent') ?>)
     {
-        $query = static::find();
+        $query = static::find()
+            ->from(['t' => static::tableName()])
+            ->with(['translation']);
+            //->innerJoin(['tl'=> PageLang::tableName()],'tl.page_id=t.id AND tl.language_id=:language_id',[':language_id' => Yii::$app->getI18n()->getId()]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -80,9 +83,9 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
 <?php if ($generator->getParentColumn()) {?>
         if ($id_parent !== false) {
             if (empty($id_parent)) {
-                $query->where(['<?= $generator->getParentColumn() ?>' => null]);
+                $query->where(['t.<?= $generator->getParentColumn() ?>' => null]);
             } else {
-                $query->where(['<?= $generator->getParentColumn() ?>' => $id_parent]);
+                $query->where(['t.<?= $generator->getParentColumn() ?>' => $id_parent]);
             }
         }
 <?php }?>
@@ -90,6 +93,9 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
+
+        //$dataProvider->sort->attributes['name']['asc'] = ['tl.name' => SORT_ASC];
+        //$dataProvider->sort->attributes['name']['desc'] = ['tl.name' => SORT_DESC];
 
         <?= implode("\n        ", $searchConditions) ?>
 
