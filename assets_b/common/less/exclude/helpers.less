@@ -761,12 +761,14 @@
 .pr-50i{ padding-right: 50px !important;}
 
 .row-for-loop (@i) when (@i > 0) {
-  .row-for-@{i}{
-    margin-left: ~"-@{i}px";
-    margin-right: ~"-@{i}px";
-    >[class*=col-]{
-      padding-left: ~"@{i}px";
-      padding-right: ~"@{i}px";
+  .row{
+    &.row-for-@{i}{
+      margin-left: ~"-@{i}px";
+      margin-right: ~"-@{i}px";
+      >[class*=col-]{
+        padding-left: ~"@{i}px";
+        padding-right: ~"@{i}px";
+      }
     }
   }
   .row-for-loop(@i - 2);
