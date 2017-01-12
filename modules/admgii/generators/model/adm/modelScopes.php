@@ -58,7 +58,7 @@ class <?= $className ?>Query extends ActiveQuery
      */
     public function pk($id)
     {
-        $this->orderBy(['id' => $id]);
+        $this->andWhere(['id' => $id]);
         return $this;
     }
 
