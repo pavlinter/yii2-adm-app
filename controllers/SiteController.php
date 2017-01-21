@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\helpers\Url;
 use app\models\form\LoginForm;
 use app\models\form\PasswordResetRequestForm;
 use app\models\form\ResetPasswordForm;
@@ -94,7 +95,7 @@ class SiteController extends Controller
     {
         Yii::$app->user->logout();
 
-        return $this->goHome();
+        return $this->redirect(Url::getLangUrl());
     }
 
     /**
