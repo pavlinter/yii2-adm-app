@@ -305,6 +305,7 @@ $config = [
                     'levels' => ['error'],
                     'except' => [
                         'yii\web\HttpException:404',
+                        'yii\web\HttpException:403', //Forbidden
                         'yii\i18n\PhpMessageSource*',
                         'yii\i18n\I18N*',
                     ],

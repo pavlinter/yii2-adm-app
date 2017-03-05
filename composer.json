@@ -22,7 +22,7 @@
     "yiisoft/yii2-swiftmailer": "*",
 
     "pavlinter/yii2-adm": "2.0.*",
-    "pavlinter/yii2-display-image2": "0.*",
+    "pavlinter/yii2-display-image2": "2.*",
     "pavlinter/yii2-adm-pages2": "0.*",
     "pavlinter/yii2-adm-params": "1.*",
     "pavlinter/yii2-adm-email-config": "2.*",
