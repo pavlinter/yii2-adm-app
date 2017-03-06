@@ -52,6 +52,7 @@ $config = [
                 'appadm',
                 'admpages',
                 'admunderconst',
+                'admevents',
                 'admgoogletools',
                 'admlivechat',
                 'admparams',
@@ -90,6 +91,9 @@ $config = [
         ],
         'appadm' => [
             'class' => 'app\modules\appadm\Module',
+        ],
+        'admevents' => [
+            'class' => 'app\modules\admevents\Module',
         ],
         'admgoogletools' => [
             'class' => 'app\modules\admgoogletools\Module',

@@ -8,6 +8,8 @@ use yii\helpers\Html;
  */
 \app\modules\admgoogletools\Module::loadGoogleTools();
 \app\modules\admlivechat\Module::loadLiveChat();
+\app\modules\admevents\Module::loadEvents();
+
 if (Yii::$app->params['html.canonical'] === true) {
     $this->registerLinkTag(['rel' => 'canonical', 'href' => Url::canonical()]);
 } else if(Yii::$app->params['html.canonical'] !== false){
@@ -32,6 +34,7 @@ if (!in_array(Yii::$app->controller->getRoute(), [
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <?php $this->trigger("head") ?>
 </head>
 <?= Html::beginTag('body', Yii::$app->params['html.bodyOptions']) ?>
     <?php $this->beginBody() ?>
