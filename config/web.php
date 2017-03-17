@@ -1,5 +1,5 @@
 <?php
-//version 0.0.3
+//version 0.0.4
 if (YII_ENV_DEV) {
     $params = \yii\helpers\ArrayHelper::merge(
         require(__DIR__ . '/params.php'),
@@ -240,7 +240,7 @@ $config = [
                     'class' => 'app\assets_b\BootstrapThemeAsset',
                 ],
                 'kartik\icons\FontAwesomeAsset' => [
-                    'depends' => [], //https://github.com/kartik-v/yii2-icons/issues/24
+                    'publishOptions' => [], //bug
                 ],
             ],
         ],
