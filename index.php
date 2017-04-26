@@ -1,5 +1,6 @@
 <?php
 if($_SERVER['SERVER_ADDR'] == '127.0.0.1') {
+    defined('IS_LOCALHOST') or define('IS_LOCALHOST', true);
     defined('YII_DEBUG') or define('YII_DEBUG', true);
     defined('YII_ENV') or define('YII_ENV', 'dev');
 
@@ -11,6 +12,7 @@ if($_SERVER['SERVER_ADDR'] == '127.0.0.1') {
         require(__DIR__ . '/config/web-local.php')
     );
 } else {
+    defined('IS_LOCALHOST') or define('IS_LOCALHOST', false);
     defined('YII_DEBUG') or define('YII_DEBUG', true);
     defined('YII_ENV') or define('YII_ENV', 'prod');
 
@@ -21,6 +23,3 @@ if($_SERVER['SERVER_ADDR'] == '127.0.0.1') {
 }
 
 (new \app\modules\Application($config))->run();
-
-
-
