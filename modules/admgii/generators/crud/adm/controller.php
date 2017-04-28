@@ -90,8 +90,16 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
         */
 
         $model = $this->findModel($id);
-        \yii\helpers\FileHelper::createDirectory(Yii::getAlias('@webroot/files/data/<?= strtolower($modelClass) ?>/' . $id . '/main'));
-        $startPath = 'data::<?= strtolower($modelClass) ?>::' . $id . '::main';
+
+        $dirs = ['main'];
+        foreach ($dirs as $dir) {
+            \yii\helpers\FileHelper::createDirectory(Yii::getAlias('@webroot/files/data/<?= strtolower($modelClass) ?>/' . $id . '/' . $dir));
+        }
+        $startPathDir = '';
+        if(count($dirs) == 1){
+            $startPathDir = '::' . $dirs['0'];
+        }
+        $startPath = 'data::<?= strtolower($modelClass) ?>::' . $id . $startPathDir;
 
         $elfinderData = [];
         $elfinderData['w'] = 1600;

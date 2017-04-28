@@ -179,7 +179,7 @@ $childsData = [];
             'options' => ['class' => 'btn btn-primary'],
             'input' => 'adm-redirect',
             'name' => 'redirect',
-            'value' => Url::current(['index']),
+            'value' => Url::current(['index', 'id' => null]),
             'formSelector' => $form,
         ]);?>
 
