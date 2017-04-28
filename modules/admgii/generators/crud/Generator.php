@@ -35,6 +35,7 @@ use yii\web\Controller;
  */
 class Generator extends \yii\gii\Generator
 {
+    public $admAuto;
     public $modelClass;
     public $moduleID;
     public $controllerClass;
