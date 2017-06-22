@@ -9,3 +9,7 @@ composer create-project --prefer-dist --stability=dev pavlinter/yii2-adm-app pro
  - yii migrate --migrationPath=@vendor/pavlinter/yii2-adm-email-config/admeconfig/migrations
  
  - yii migrate --migrationPath=@app/migrations
+ 
+ 
+ - npm install
+ - gulp watch
