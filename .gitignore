@@ -29,3 +29,6 @@ composer.phar
 phpunit.phar
 # local phpunit config
 /phpunit.xml
+
+# node modules dir
+/node_modules
