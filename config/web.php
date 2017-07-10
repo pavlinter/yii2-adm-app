@@ -1,5 +1,5 @@
 <?php
-//version 0.0.7
+//version 0.0.8
 if (YII_ENV_DEV) {
     $params = \yii\helpers\ArrayHelper::merge(
         require(__DIR__ . '/params.php'),

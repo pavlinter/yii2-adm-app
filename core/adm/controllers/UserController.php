@@ -42,9 +42,7 @@ class UserController extends \pavlinter\adm\controllers\UserController
         if ($model->load($post) && $dynamicModel->load($post)) {
             if ($model->validate() && $dynamicModel->validate()) {
                 $model->setPassword($dynamicModel->password);
-
-
-
+                $model->generateAuthKey();
                 if ($model->save(false)) {
                     if (!Adm::getInstance()->user->can('Adm-UpdateOwnUser', $model)) {
                         //AdmRoot
