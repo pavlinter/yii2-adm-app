@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use pavlinter\adm\Adm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\User */
+/* @var $model \app\models\User */
 Yii::$app->i18n->disableDot();
 $this->title = $model->username;
 $this->params['breadcrumbs'][] = ['label' => Adm::t('user', 'Users'), 'url' => ['index']];
@@ -44,8 +44,28 @@ foreach ($authAssignments as $authAssignment) {
             'username',
             'email:email',
             [
+                'attribute' => 'firstname',
+                'value' => $model->firstname . ' ' . $model->lastname,
+            ],
+            [
+                'attribute' => 'gender',
+                'value' => $model::gender_list($model->gender),
+            ],
+            [
+                'attribute' => 'display_type',
+                'value' => $model::display_type_list($model->display_type),
+            ],
+            [
+                'attribute' => 'cash',
+                'value' => $model->cash,
+            ],
+            [
+                'attribute' => 'online',
+                'value' => $model->online,
+            ],
+            [
                 'attribute' => 'status',
-                'value' => $model->status_list($model->status),
+                'value' => $model->status($model->status),
             ],
             [
                 'attribute' => 'role',

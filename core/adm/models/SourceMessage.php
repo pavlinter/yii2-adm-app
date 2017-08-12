@@ -44,4 +44,16 @@ class SourceMessage extends \pavlinter\adm\models\SourceMessage
     {
         return $this->hasMany(Message::className(), ['id' => 'id']);
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => Yii::t('admModel/source-message', 'ID', ['dot' => false,]),
+            'category' => Yii::t('modelAdm/source-message', 'Category', ['dot' => false,]),
+            'message' => Yii::t('modelAdm/source-message', 'Message', ['dot' => false,]),
+        ];
+    }
 }

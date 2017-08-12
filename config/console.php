@@ -18,6 +18,11 @@ return [
     'modules' => [
         'gii' => 'yii\gii\Module',
     ],
+    'controllerMap'       => [
+        'migrate' => [
+            'class' => 'dmstr\console\controllers\MigrateController'
+        ],
+    ],
     'components' => [
         'authManager' => [
             'class' => 'yii\rbac\DbManager',

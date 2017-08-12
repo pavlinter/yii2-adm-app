@@ -8,7 +8,7 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model pavlinter\adm\models\Language */
 /* @var $form yii\widgets\ActiveForm */
-$show = Yii::$app->request->get('show');
+$show = Yii::$app->request->get('show', 1);
 ?>
 
 <div class="languages-form">

@@ -1,11 +1,8 @@
 <?php
 use app\assets_b\AppAsset;
 use app\core\admpages\models\Page;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\helpers\Html;
+use app\helpers\Html;
 use app\helpers\Url;
-use yii\widgets\Breadcrumbs;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -32,6 +29,20 @@ foreach ($menus as $menu) {
     } else {
         $item['url'] = $menu->url();
     }
+
+    /* @var $menu Page*/
+    if ($menu->layout == 'category-list') {
+        $item['url'] = 'javascript:void(0);';
+        /* @var $categoryModel \app\models\Category */
+        $categoryModels = \app\models\Category::find()->with(['translation'])->published()->sortBy()->all();
+        foreach ($categoryModels as $categoryModel) {
+            $item['items'][] = [
+                'label' => $categoryModel->getField('name'),
+                'url' => $categoryModel->url(),
+            ];
+        }
+    }
+
     if ($menu->childs) {
         foreach ($menu->childs as $child) {
             $item['items'][] = [
@@ -48,29 +59,9 @@ foreach ($menus as $menu) {
         $Menu3[] = $item;
     }
 }
-if (Yii::$app->user->isGuest) {
-    $Menu1[] = [
-        'label' => Yii::t("app/menu", "Login", ['dot' => false]),
-        'url' => ['/site/login']
-    ];
-
-    $Menu1[] = [
-        'label' => Yii::t("app/menu", "Sign up", ['dot' => false]),
-        'url' => ['/site/signup']
-    ];
-    $Menu1[] = [
-        'label' => Yii::t("app/menu", "Reset Password", ['dot' => false]),
-        'url' => ['/site/request-password-reset']
-    ];
 
 
-} else {
-    $Menu1[] = [
-        'label' => Yii::t("app/menu", 'Logout ({username})', ['dot' => false, 'username' => Yii::$app->user->identity->username]),
-        'url' => ['/site/logout'],
-        'linkOptions' => ['data-method' => 'post']
-    ];
-}
+
 ?>
 
 <?php $this->beginContent('@webroot/views/layouts/base.php'); ?>
@@ -81,49 +72,20 @@ if (Yii::$app->user->isGuest) {
 </script>
 <?php \richardfan\widget\JSRegister::end() ?>
 
-<header>
-    <?php
-    NavBar::begin([
-        'brandLabel' => 'My Company',
-        'brandUrl' => $baseUrl,
-        'options' => [
-            'class' => 'navbar-inverse',
-        ],
-    ]);
 
-        echo \app\widgets\Menu::widget([
-            'options' => ['class' => 'core-langs'],
-            'items' => $i18n->menuItems(),
-        ]);
-
-        echo Nav::widget([
-            'options' => ['class' => 'navbar-nav navbar-right'],
-            'items' => $Menu1,
-        ]);
-
-    NavBar::end();
-    ?>
-</header>
-
-<?php $this->trigger('afterHeader'); ?>
-
-<div class="<?= Yii::$app->params['html.wrapperClass'] ?> container">
-    <?= Breadcrumbs::widget([
-        'links' => Yii::$app->params['breadcrumbs'],
+<div class="">
+    <?= $this->render('@app/views/partial/_header', [
+        'is_frontend' => true,
     ]) ?>
 
-    <?= \app\widgets\Alert::widget() ?>
-
-    <?= $content ?>
+    <?php $this->trigger('afterHeader'); ?>
+    <div class="<?= Yii::$app->params['html.wrapperClass'] ?>">
+        <?= $content ?>
+    </div>
+    <?php $this->trigger('beforeFooter'); ?>
 </div>
 
-<?php $this->trigger('beforeFooter'); ?>
 
-<footer class="footer">
-    <div class="container">
-
-    </div>
-</footer>
 
 <?php $this->endContent(); ?>
 

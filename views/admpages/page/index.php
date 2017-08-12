@@ -14,8 +14,6 @@ Yii::$app->i18n->disableDot();
 $this->title = Module::t('', 'Pages');
 $this->params['breadcrumbs'][] = $this->title;
 Yii::$app->i18n->resetDot();
-
-
 ?>
 <div class="page-index">
 

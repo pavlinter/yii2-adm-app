@@ -33,4 +33,27 @@ class Formatter extends \yii\i18n\Formatter
     {
         return "€" . $this->asDecimal($price, $decimal, $options, $textOptions);
     }
+
+    /**
+     * @param $date
+     * @return string
+     */
+    public function asTimeAgo($date)
+    {
+        return Html::tag('span', TimeHelper::getTimeAgoInWord(strtotime($date)), [
+            'title' => $this->asDatetime($date),
+        ]);
+    }
+
+    /**
+     * @param $value
+     * @return string
+     */
+    public function asString($value)
+    {
+        if ($value === null || $value === '') {
+            return $this->nullDisplay;
+        }
+        return $value;
+    }
 }

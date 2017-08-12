@@ -58,7 +58,7 @@ class LanguageSearch extends Language
             ],
         ]);
 
-        $show = Yii::$app->request->get('show');
+        $show = Yii::$app->request->get('show', 0);
         if(!$show){
             $query->andWhere(['active' => 1]);
         }

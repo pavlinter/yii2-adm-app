@@ -10,7 +10,6 @@ use Yii;
  */
 class DbMessageSource extends \pavlinter\translation\DbMessageSource
 {
-
     /**
      * Initializes this component.
      */

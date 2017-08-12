@@ -1,5 +1,5 @@
 <?php
-//version 0.0.8
+//version 1.0.0
 if (YII_ENV_DEV) {
     $params = \yii\helpers\ArrayHelper::merge(
         require(__DIR__ . '/params.php'),
@@ -19,12 +19,18 @@ Yii::$container->set('yii\validators\NumberValidator', [
     'class' => 'app\base\validators\NumberValidator',
 ]);
 
+Yii::$container->set('yii\widgets\ActiveForm', [
+    'class' => 'yii\widgets\ActiveForm',
+    'fieldClass' => 'app\widgets\ActiveField',
+    'scrollToError' => false,
+]);
+
 $config = [
     'name' => 'My Application',
     'id' => 'adm-app',
     'timeZone' => 'Europe/Riga',
     'basePath' => dirname(__DIR__),
-    'layout' => '/main',
+    'layout' => '/content',
     'bootstrap' => [
         'log',
         'debug',
@@ -54,7 +60,6 @@ $config = [
                 'admunderconst',
                 'admevents',
                 'admgoogletools',
-                'admlivechat',
                 'admparams',
                 'admeconfig',
                 'admhidemenu',
@@ -98,9 +103,7 @@ $config = [
         'admgoogletools' => [
             'class' => 'app\modules\admgoogletools\Module',
         ],
-        'admlivechat' => [
-            'class' => 'app\modules\admlivechat\Module',
-        ],
+
         'admunderconst' => [
             'class' => 'app\modules\admunderconst\Module',
         ],
@@ -127,7 +130,7 @@ $config = [
             'pageTypes' => function ($m) {
                 return [];
             },
-            'pageLayout' => '/main',
+            'pageLayout' => '/content',
             'closeDeletePage' => [1,2,3], //id [2,130]
             'files' => [
                 'page' => [
@@ -165,10 +168,36 @@ $config = [
                     'defaultDir' => '@webroot/files/default',
                     'mode' => \pavlinter\display2\objects\Image::MODE_OUTBOUND,
                 ],
+                'user' => [
+                    'imagesWebDir' => '@web/files/data/user',
+                    'imagesDir' => '@webroot/files/data/user',
+                    'defaultWebDir' => '@web/files/default',
+                    'defaultDir' => '@webroot/files/default',
+                    'mode' => \pavlinter\display2\objects\Image::MODE_OUTBOUND,
+                ],
+            ],
+            'controllerMap' => [
+                'image' => [
+                    'class' => 'app\controllers\DisplayController',
+                ],
+            ],
+        ],
+        'user' => [
+            'class' => 'app\modules\user\Module',
+            'controllerMap' => [
+                'cropper' => [
+                    'class' => 'app\modules\cropper\controllers\CropperController',
+                ],
             ],
         ],
     ],
     'components' => [
+        'reCaptcha' => [
+            'name' => 'reCaptcha',
+            'class' => 'himiklab\yii2\recaptcha\ReCaptcha',
+            'siteKey' => '',
+            'secret' => 'test',
+        ],
         'ar' => [
             'class' => 'app\modules\activeResponse\components\ActiveResponse',
         ],
@@ -226,6 +255,38 @@ $config = [
                     'class' => 'pavlinter\translation\DbMessageSource',
                     'forceTranslation' => true,
                     'dotMode' => false,
+                ],
+                'user*' => [
+                    'class' => 'app\components\DbMessageSource',
+                    'forceTranslation' => true,
+                    'dotMode' => true,
+                ],
+                'mgcode*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages',
+                    'fileMap' => [
+                        'helpers' => 'helpers.php',
+                    ],
+                ],
+                'i18n-dot*' => [
+                    'class' => 'pavlinter\translation\DbMessageSource',
+                    'forceTranslation' => true,
+                    'dotMode' => true,
+                    'autoInsert' => false,
+                ],
+            ],
+        ],
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'facebook' => [
+                    'class' => 'yii\authclient\clients\Facebook',
+                    // Facebook login form will be displayed in 'popup' mode
+                    'authUrl' => 'https://www.facebook.com/dialog/oauth?display=popup',
+                    'clientId' => '00000',
+                    'clientSecret' => '10dd43a77955744ab290a3333dd5c386b',
+                    'scope' => 'email', //user_likes,user_friends,user_photos
+                    'attributeNames' => ['id','name', 'email', 'first_name', 'last_name', 'age_range', 'link', 'gender', 'locale', 'picture', 'timezone', 'updated_time', 'verified',],
                 ],
             ],
         ],

@@ -6,8 +6,27 @@ use app\helpers\Url;
 /* @var $model app\core\admpages\models\Page */
 
 Yii::$app->params['html.canonical'] = Url::to('', true);
+$appAsset = \app\assets_b\AppAsset::register($this);
+
+//$this->context->layout = '/main';
+/*
+Yii::$app->params['og']['og:title'] = $this->title;
+Yii::$app->params['og']['og:type'] = 'website';
+Yii::$app->params['og']['og:url'] = Yii::$app->params['html.canonical'];
+Yii::$app->params['og']['og:image'] = Url::to('@web/files/banners/main_banner_' . Yii::$app->language . '.jpg', true);
+Yii::$app->params['og']['og:description'] = $model->description;
+*/
+
+
 ?>
-<div class="main-page">
+
+<div class="main-page container">
     <h1><?= $model->title ?></h1>
     <div><?= $model->text ?></div>
 </div>
+
+<?= \app\widgets\Likes::widget([
+    'data' => [
+        'orientation' => 'fixed-left',
+    ],
+]); ?>

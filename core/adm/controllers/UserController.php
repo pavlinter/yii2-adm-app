@@ -37,12 +37,13 @@ class UserController extends \pavlinter\adm\controllers\UserController
             [['password', 'password2'], 'string', 'min' => 6],
             ['password2', 'compare', 'compareAttribute' => 'password'],
         ]);
+        $dynamicModel->clearErrors();
 
         $post = Yii::$app->request->post();
         if ($model->load($post) && $dynamicModel->load($post)) {
             if ($model->validate() && $dynamicModel->validate()) {
                 $model->setPassword($dynamicModel->password);
-                $model->generateAuthKey();
+
                 if ($model->save(false)) {
                     if (!Adm::getInstance()->user->can('Adm-UpdateOwnUser', $model)) {
                         //AdmRoot

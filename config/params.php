@@ -15,4 +15,11 @@ return [
     'formatter.mysql.datetimeFormat' => '%d.%m.%Y %h:%i:%s',
     'formatter.mysql.dateFormat' => '%d.%m.%Y',
     'google.map.api.key' => 'AIzaSyBQjADnK8nMksFzwLUMKVJz0d3KxWdQU3A',
+
+    'og' => [], //Протокол Open Graph
+    'fb.app_id' => null, //Протокол Open Graph
+    'user.online' => 2, //minutes,
+    'onlineUser.count' => 0,
+    'onlineUser.randomRange' => '0-10',
+    'onlineUser.updateTime' => 10, //seconds
 ];

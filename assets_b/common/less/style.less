@@ -4,13 +4,17 @@
 @import "exclude/helpers";
 @import "exclude/flexbox";
 
+@import "exclude/_alert_note";
+@import "exclude/_notification";
+
+
 .core-langs{
   float: right;
   list-style: none;
   margin: 0;
   li{
     display: inline-block;
-    padding: 15px 3px 15px 0;
+    padding: 14px 3px 14px 0;
     a{
       line-height: 20px;
     }
@@ -33,4 +37,201 @@ label:focus,
   outline:0px !important;
   -webkit-appearance:none;
   box-shadow: none !important;
+}
+
+
+.col-center{
+  margin-left: auto !important;
+  margin-right: auto !important;
+  float: none !important;
+}
+.my-tooltip-note{
+  display: none;
+}
+/* -------------------------------
+   Ajax confirm button
+------------------------------- */
+@-webkit-keyframes rotation {
+  from {-webkit-transform: rotate(0deg);}
+  to {-webkit-transform: rotate(359deg);}
+}
+@-moz-keyframes rotation {
+  from {-moz-transform: rotate(0deg);}
+  to {-moz-transform: rotate(359deg);}
+}
+@-o-keyframes rotation {
+  from {-o-transform: rotate(0deg);}
+  to {-o-transform: rotate(359deg);}
+}
+@keyframes rotation {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(359deg);}
+}
+.bg-loader {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: #fff;
+  .rgba(#fff, 0.7);
+  .animation(fadeIn .2s);
+  z-index: 1050;
+}
+.spinner,
+.spinner-small {
+  height: 40px;
+  width: 40px;
+  margin: 0px auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -20px 0 0 -20px;
+  border: 2px solid #fff;
+  border-top: 2px solid #f4914e;
+  border-radius: 100%;
+  -webkit-animation: rotation .6s infinite linear;
+  -moz-animation: rotation .6s infinite linear;
+  -o-animation: rotation .6s infinite linear;
+  animation: rotation .6s infinite linear;
+}
+.spinner-small {
+  border: 2px solid rgba(0,0,0,0.05);
+  border-top: 2px solid #f4914e;
+  height: 30px;
+  width: 30px;
+  margin: -15px 0 0 -15px;
+}
+.btn-theme{
+  color: #fff;
+  background-color: @brand-primary;
+  border-color: @brand-primary;
+  &:focus,
+  &:hover{
+    color: #fff;
+    background-color: #286090;
+    border-color: #122b40;
+  }
+
+}
+.confirm-popup {
+  position: relative;
+  background: #FFF;
+  width: auto;
+  max-width: 500px;
+  margin: 20px auto;
+  .confirm-body{
+    padding: 20px 45px;
+  }
+  .confirm-footer{
+    padding: 15px;
+    border-top: 1px solid #e5e5e5;
+    text-align: center;
+    .btn{
+      padding: 5px 10px;
+      min-width: 100px;
+    }
+    .btn + .btn {
+      margin-left: 100px;
+      margin-bottom: 0; // account for input[type="submit"] which gets the bottom margin like all other inputs
+    }
+    @media (max-width: 400px) {
+      .btn + .btn {
+        margin-left: 50px;
+      }
+    }
+  }
+}
+/* -------------------------------
+   Ajax confirm button end
+------------------------------- */
+.notification-menu{
+  height: 400px;
+  overflow-y: auto;
+}
+.notifications-count{
+  display: none;
+}
+.notifications-empty{
+  margin: 0;
+  text-align: center;
+}
+.relative{
+  position: relative !important;
+}
+.online(){
+  .rounded(50%);
+  display: inline-block;
+  height: 6px;
+  width: 6px;
+  background: #999;
+  &.active{
+    background: #42B72A;
+  }
+}
+.online{
+  .online();
+  position: relative;
+  top: -1px;
+  z-index: 100;
+}
+.online-abs{
+  .online();
+  position: absolute;
+  top: 1px;
+  left: 0;
+  z-index: 100;
+}
+
+.now-online{
+  float: left;
+  padding-top: 16px;
+  padding-left: 15px;
+  .transition(all .2s linear);
+  color: #9d9d9d;
+  b{
+    color: #9d9d9d;
+    font-weight: normal;
+  }
+  &.now-online-guest{
+
+  }
+  .now-online-size-xs{
+    display: none;
+  }
+  .now-online-icon{
+    .online();
+  }
+}
+@media (max-width: 767px) {
+  .now-online{
+    padding-top: 15px;
+  }
+}
+@media (max-width: 420px) {
+  .now-online{
+    &.now-online-guest{
+      .now-online-size{
+        display: none !important;
+      }
+      .now-online-size-xs{
+        display: block;
+      }
+    }
+  }
+}
+.avatar-icon{
+  width: 50px;
+}
+.navbar-user-ul{
+  .navbar-user{
+    > a{
+      padding-top: 0;
+      padding-bottom: 2px;
+    }
+  }
+}
+.required-symbol{
+  color: @brand-danger;
 }

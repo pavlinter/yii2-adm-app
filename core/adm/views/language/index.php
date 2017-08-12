@@ -13,7 +13,7 @@ Yii::$app->i18n->disableDot();
 $this->title = Adm::t('language', 'Languages');
 $this->params['breadcrumbs'][] = $this->title;
 Yii::$app->i18n->resetDot();
-$show = Yii::$app->request->get('show');
+$show = Yii::$app->request->get('show', 0);
 ?>
 
 

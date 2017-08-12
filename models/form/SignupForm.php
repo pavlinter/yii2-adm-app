@@ -21,7 +21,10 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            ['username', 'filter', 'filter' => 'trim'],
+            ['password', 'filter', 'filter' => 'trim'],
+            ['username', 'filter', 'filter' => function ($value) {
+                return strtolower(trim($value));
+            }],
             ['username', 'required'],
             ['username', 'unique', 'targetClass' => 'app\models\User', 'message' => Yii::t("model/signup", "This username has already been taken.")],
             ['username', 'string', 'min' => 2, 'max' => 255],
@@ -34,7 +37,8 @@ class SignupForm extends Model
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
             // verifyCode needs to be entered correctly
-            ['verifyCode', 'captcha'],
+            //['verifyCode', 'captcha'],
+            [['verifyCode'], \himiklab\yii2\recaptcha\ReCaptchaValidator::className()]
         ];
     }
 
@@ -66,11 +70,22 @@ class SignupForm extends Model
             $user->generateAuthKey();
             $user->generatePasswordResetToken();
             if ($user->save()) {
-                return Yii::$app->mailer->compose('userApproval', ['user' => $user])
-                    ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name ])
-                    ->setTo($this->email)
-                    ->setSubject(Yii::t("app/signup", "User approval for {appName}", ['appName' => Yii::$app->name,'dot' => false]))
-                    ->send();
+
+                $auth = Yii::$app->authManager;
+                $newRole = $auth->createRole('user');
+                $auth->assign($newRole, $user->id);
+
+                if (IS_LOCALHOST) {
+                   return $user;
+                } else {
+                    return Yii::$app->mailer->compose('userApproval', ['user' => $user])
+                        ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name ])
+                        ->setTo($this->email)
+                        ->setSubject(Yii::t("app/signup", "User approval for {appName}", ['appName' => Yii::$app->name,'dot' => false]))
+                        ->send();
+                }
+
+
             } else {
                 return null;
             }

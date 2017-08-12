@@ -40,14 +40,16 @@ class DefaultController extends Controller
     }
 
     /**
-     * @return string
+     * @param $username
+     * @return \yii\web\Response
      */
     public function actionLogin($username)
     {
         /* @var $user User */
         $user = User::findByUsername($username);
         Yii::$app->user->login($user, 0);
-        if (Yii::$app->user->can('AdmRoot') || Yii::$app->user->can('AdmAdmin')) {
+        Yii::$app->session->set('AdmSpy', $user->id);
+        if (Yii::$app->user->can('AdmRoot')) {
             return $this->redirect(['/adm/user/update']);
         }
         return $this->redirect(Url::getLangUrl());

@@ -34,6 +34,7 @@ class ContactForm extends Model
             ['email', 'email'],
             // verifyCode needs to be entered correctly
             ['verifyCode', 'captcha'],
+            //[['verifyCode'], \himiklab\yii2\recaptcha\ReCaptchaValidator::className()]
         ];
     }
 
@@ -90,6 +91,9 @@ class ContactForm extends Model
             $model->subject = $subject;
             $model->text = $body;
             $model->save(false);
+        }
+        if (IS_LOCALHOST) {
+            return true;
         }
 
         $valid = EmailConfig::eachEmail(function ($email) use ($subject, $body) {

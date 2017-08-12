@@ -27,6 +27,8 @@ class AppAsset extends Asset
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
+        //'app\assets_b\AnimateAsset',
+        //'app\assets_b\WebUIPopoverAsset',
         //'yii\bootstrap\BootstrapThemeAsset',
         //'yii\web\JqueryAsset',
     ];
@@ -37,6 +39,6 @@ class AppAsset extends Asset
     public function init()
     {
         parent::init();
-        //Icon::map(Yii::$app->getView(), Icon::FA);
+        Icon::map(Yii::$app->getView(), Icon::FA);
     }
 }

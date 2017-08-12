@@ -1,11 +1,12 @@
 <?php
 
+use app\models\User;
 use pavlinter\adm\widgets\GridView;
 use yii\helpers\Html;
 use pavlinter\adm\Adm;
 
 /* @var $this yii\web\View */
-/* @var $model app\core\adm\models\UserSearch */
+/* @var $searchModel app\core\adm\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 Yii::$app->i18n->disableDot();
 $this->title = Adm::t('user', 'Users');
@@ -24,17 +25,22 @@ Yii::$app->i18n->resetDot();
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'kartik\grid\SerialColumn'],
+            [
+                'attribute' => 'id',
+                'width' => '70px',
+                'vAlign' => 'middle',
+                'hAlign' => 'center',
+            ],
             'username',
             'email:email',
             [
                 'attribute' => 'role',
                 'vAlign' => 'middle',
                 'value' => function ($model, $key, $index, $widget) {
-                    return $model::roles_list($model->role);
+                    return $model::roles($model->role);
                 },
                 'filterType' => GridView::FILTER_SELECT2,
-                'filter'=> $searchModel::roles_list(),
+                'filter'=> $searchModel::roles(),
                 'filterWidgetOptions' => [
                     'pluginOptions' => ['allowClear' =>true ],
                 ],
@@ -45,20 +51,35 @@ Yii::$app->i18n->resetDot();
                 'attribute' => 'status',
                 'vAlign' => 'middle',
                 'value' => function ($model, $key, $index, $widget) {
-                    return $model::status_list($model->status);
+                    return $model::status($model->status);
                 },
                 'filterType' => GridView::FILTER_SELECT2,
-                'filter'=> $searchModel::status_list(),
+                'filter'=> $searchModel::status(),
                 'filterWidgetOptions' => [
                     'pluginOptions' => ['allowClear' =>true ],
                 ],
                 'filterInputOptions' => ['placeholder' => Adm::t('','Select ...', ['dot' => false])],
                 'format' => 'raw'
             ],
+            [
+                'attribute' => 'online',
 
+                'value' => function ($model, $key, $index, $widget) {
+                    $options = ['class' => 'user-list-online'];
+                    if (User::online($model->id)) {
+                        Html::addCssClass($options, 'online-color');
+                    }
+                    $value = User::onlineHtml($model->id, 'online');
+                    $value .= $model->online;
+
+                    return Html::tag('div', $value, $options);
+                },
+                'format' => 'raw'
+            ],
             [
                 'class' => 'kartik\grid\ActionColumn',
                 'template' => '{login} {view} {update} {delete}',
+                'width' => '100px',
                 'buttons' => [
                     'delete' => function ($url, $model) {
                         if ($model->id == Adm::getInstance()->user->getId()) {

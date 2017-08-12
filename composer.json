@@ -21,6 +21,7 @@
     "yiisoft/yii2-bootstrap": "*",
     "yiisoft/yii2-swiftmailer": "*",
 
+    "dmstr/yii2-migrate-command": "0.*",
     "pavlinter/yii2-adm": "2.0.*",
     "pavlinter/yii2-display-image2": "2.*",
     "pavlinter/yii2-adm-pages2": "0.*",
@@ -30,7 +31,15 @@
     "pavlinter/yii2-dot": "1.*",
     "ezze/yii2-mobile-detect" : "~0.1.0",
     "xj/yii2-easing-widget": "1.*",
-    "richardfan1126/yii2-js-register":"0.*"
+    "richardfan1126/yii2-js-register":"0.*",
+    "yiisoft/yii2-authclient": "*",
+
+    "himiklab/yii2-recaptcha-widget" : "1.*",
+    "bower-asset/webui-popover": "1.*",
+    "bower-asset/dropzone": "4.3.*",
+    "bower-asset/cropper": "2.3.*"
+
+
   },
   "autoload": {
     "psr-4": {

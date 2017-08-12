@@ -8,7 +8,7 @@ use yii\helpers\Url;
 use pavlinter\adm\Adm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\User */
+/* @var $model pavlinter\adm\models\User */
 /* @var $form yii\widgets\ActiveForm */
 /* @var $dynamicModel yii\base\DynamicModel */
 /* @var $authItems array */
@@ -41,28 +41,40 @@ foreach ($authItemsChildArr as $authItemsChild) {
 
     <?php $form = Adm::begin('ActiveForm'); ?>
 
-    <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-6">
-            <?= $form->field($model, 'username')->textInput(['maxlength' => 255]) ?>
 
 
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-6">
-            <?= $form->field($dynamicModel, 'password')->passwordInput()->label(Yii::t('modelAdm/user', 'Password')) ?>
-
-        </div>
-    </div>
 
     <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-6">
-            <?= $form->field($model, 'email')->textInput(['maxlength' => 255]) ?>
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <?= $form->field($model, 'username')->textInput(['maxlength' => 255]) ?>
+                    <?= $form->field($model, 'email')->textInput(['maxlength' => 255]) ?>
+                    <?= $form->field($dynamicModel, 'password')->passwordInput()->label(Yii::t('modelAdm/user', 'Password')) ?>
+                    <?= $form->field($dynamicModel, 'password2')->passwordInput()->label(Yii::t('modelAdm/user', 'Confirm Password')) ?>
+
+                </div>
+            </div>
+
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6">
-            <?= $form->field($dynamicModel, 'password2')->passwordInput()->label(Yii::t('modelAdm/user', 'Confirm Password')) ?>
+            <div class="panel panel-primary">
+            	<div class="panel-body">
+                    <?= $form->field($model, 'firstname') ?>
+
+                    <?= $form->field($model, 'lastname') ?>
+
+                    <?= $form->field($model, 'gender')->dropDownList($model::gender_list()); ?>
+
+                    <?= $form->field($model, 'display_type')->dropDownList($model::display_type_list()); ?>
+
+                    <?= $form->field($model, 'cash') ?>
+
+                    <?= $form->field($model, 'online') ?>
+                </div>
+            </div>
         </div>
     </div>
-
-
 
     <?php if (!Adm::getInstance()->user->can('Adm-UpdateOwnUser', $model)) {?>
 
@@ -118,7 +130,7 @@ foreach ($authItemsChildArr as $authItemsChild) {
             <div class="col-xs-12 col-sm-4 col-md-4">
                 <?php
                 echo $form->field($model, 'status')->widget(Select2::classname(), [
-                    'data' => $model::status_list(),
+                    'data' => $model::status(),
                     'options' => ['placeholder' => Adm::t('','Select ...', ['dot' => false])],
                     'pluginOptions' => [
 

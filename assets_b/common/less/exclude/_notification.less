@@ -1,0 +1,141 @@
+/* Dropdown Menu */
+
+.dropdown-menu {
+  border: none;
+  font-size: 14px;
+  .box-shadow(0 2px 5px -1px rgba(0, 0, 0, 0.2));
+}
+.dropdown-menu > li > a {
+  padding: 5px 15px;
+  display: block;
+  white-space: normal;
+}
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  background: #edf0f5;
+}
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
+  background: #348fe2;
+}
+.dropdown-menu .divider {
+  border-color: #eee;
+}
+.dropdown-menu.media-list {
+  max-width: 280px;
+  min-width: 280px;
+  padding: 0;
+}
+.dropdown-menu.media-list p {
+  //text-overflow: ellipsis;
+  //overflow: hidden;
+}
+.dropdown-menu.media-list .dropdown-header {
+  padding: 10px 20px !important;
+  background: #fafafa;
+}
+.dropdown-menu.media-list > .media {
+  position: relative;
+  margin-top: 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  margin-bottom: -1px;
+  &.active{
+    background: #fff;
+    > a{
+      background: #fff;
+      &:hover{
+        background: #edf0f5;
+      }
+      .media-heading, p{
+        //color: #ff5b57;
+        color: #f59c1a;
+        //font-weight: bold;
+      }
+
+    }
+  }
+  .media-heading{
+    font-size: 14px;
+  }
+
+}
+
+.dropdown-menu.media-list > .media > a.link-block {
+  display: block;
+  padding: 5px 5px !important;
+}
+.dropdown-menu.media-list > .media .media-object {
+  height: 50px;
+  width: 50px;
+  line-height: 36px;
+  font-size: 14px;
+  color: #fff;
+  text-align: center;
+  .border-radius(50%);
+}
+.dropdown-menu.media-list > .media .icon-object {
+  height: 50px;
+  width: 50px;
+  line-height: 36px;
+  font-size: 14px;
+  color: #fff;
+  text-align: center;
+  .border-radius(50%);
+  padding-top: 10px;
+  i{
+    line-height: 0;
+    font-size: 20px;
+  }
+}
+.dropdown-footer {
+  padding: 10px 20px;
+}
+.dropdown-menu > li.dropdown-footer > a {
+  display: block;
+  padding: 10px 0 !important;;
+  margin: 0 !important;
+}
+.dropdown-menu > li.dropdown-footer > a:hover,
+.dropdown-menu > li.dropdown-footer > a:focus {
+  background: none !important;
+  text-decoration: underline !important;
+}
+.notification-menu{
+  .media-left{
+    display: block;
+    float: left;
+    padding-right: 5px;
+  }
+  .notifi-media-body{
+    display: block;
+    float: left;
+    width: 185px;
+  }
+  .notifi-viewed{
+    position: absolute;
+    right: 5px;
+    top: 8px;
+    padding: 0 !important;
+    width: 15px;
+    height: 15px;
+    background: none !important;
+    i{
+      color: #666;
+      position: absolute;
+      top: 2px;
+      left: 4px;
+      font-size: 8px;
+      line-height: 10px;
+      padding: 0;
+      margin: 0;
+    }
+    &:hover{
+      i{
+        color: #f4914e !important;
+      }
+
+    }
+  }
+}
