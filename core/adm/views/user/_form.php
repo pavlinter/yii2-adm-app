@@ -39,74 +39,76 @@ foreach ($authItemsChildArr as $authItemsChild) {
 
 <div class="user-form">
 
-    <?php $form = Adm::begin('ActiveForm'); ?>
-
 
 
 
     <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-body">
-                    <?= $form->field($model, 'username')->textInput(['maxlength' => 255]) ?>
-                    <?= $form->field($model, 'email')->textInput(['maxlength' => 255]) ?>
-                    <?= $form->field($dynamicModel, 'password')->passwordInput()->label(Yii::t('modelAdm/user', 'Password')) ?>
-                    <?= $form->field($dynamicModel, 'password2')->passwordInput()->label(Yii::t('modelAdm/user', 'Confirm Password')) ?>
 
+        <div class="col-xs-12 col-sm-8 col-md-8">
+            <?php $form = Adm::begin('ActiveForm'); ?>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                            <?= $form->field($model, 'username')->textInput(['maxlength' => 255]) ?>
+                            <?= $form->field($model, 'email')->textInput(['maxlength' => 255]) ?>
+                            <?= $form->field($dynamicModel, 'password')->passwordInput()->label(Yii::t('modelAdm/user', 'Password')) ?>
+                            <?= $form->field($dynamicModel, 'password2')->passwordInput()->label(Yii::t('modelAdm/user', 'Confirm Password')) ?>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                            <?= $form->field($model, 'firstname') ?>
+
+                            <?= $form->field($model, 'lastname') ?>
+
+                            <?= $form->field($model, 'gender')->dropDownList($model::gender_list()); ?>
+
+                            <?= $form->field($model, 'display_type')->dropDownList($model::display_type_list()); ?>
+
+                            <?= $form->field($model, 'cash') ?>
+
+                            <?= $form->field($model, 'online') ?>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-6">
-            <div class="panel panel-primary">
-            	<div class="panel-body">
-                    <?= $form->field($model, 'firstname') ?>
+            <?php if (!Adm::getInstance()->user->can('Adm-UpdateOwnUser', $model)) {?>
 
-                    <?= $form->field($model, 'lastname') ?>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <div class="form-group">
+                            <a href="#roles-modal" data-toggle="modal"><span class="glyphicon glyphicon-eye-open"></span></a>
+                            <label for="sumoselect-role" class="control-label"><?= Yii::t('modelAdm/user', 'Assignment Role') ?></label>
+                            <select class="sumoselect-role SelectClass" name="roles[]" id="sumoselect-role" multiple="multiple">
+                                <option class="group-head" disabled><?= Adm::t('sumoselect', 'Roles', ['dot' => false]) ?></option>
+                                <?php foreach ($authItems as $authItem) {?>
+                                    <?php if ($authItem['type'] == 1) {?>
+                                        <option class="group-item" <?= isset($authAssignments[$authItem['name']]) ? 'selected' : ''; ?> value="<?= $authItem['name'] ?>"><?= $this->context->translateAuthItems($authItem['name']) ?></option>
+                                    <?php }?>
+                                <?php }?>
+                                <option class="group-head" disabled><?= Adm::t('sumoselect', 'Permissions', ['dot' => false]) ?></option>
+                                <?php foreach ($authItems as $authItem) {?>
+                                    <?php if ($authItem['type'] == 2) {?>
+                                        <option class="group-item" <?= isset($authAssignments[$authItem['name']]) ? 'selected' : ''; ?> value="<?= $authItem['name'] ?>"><?= $this->context->translateAuthItems($authItem['name']) ?></option>
+                                    <?php }?>
+                                <?php }?>
+                            </select>
+                            <?= Adm::t('sumoselect', 'Roles', ['dot' => '.']) ?>
+                            <?= Adm::t('sumoselect', 'Permissions', ['dot' => '.']) ?>
+                        </div>
 
-                    <?= $form->field($model, 'gender')->dropDownList($model::gender_list()); ?>
-
-                    <?= $form->field($model, 'display_type')->dropDownList($model::display_type_list()); ?>
-
-                    <?= $form->field($model, 'cash') ?>
-
-                    <?= $form->field($model, 'online') ?>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <?php if (!Adm::getInstance()->user->can('Adm-UpdateOwnUser', $model)) {?>
-
-        <div class="row">
-            <div class="col-xs-12 col-sm-4 col-md-4">
-                <div class="form-group">
-                    <a href="#roles-modal" data-toggle="modal"><span class="glyphicon glyphicon-eye-open"></span></a>
-                    <label for="sumoselect-role" class="control-label"><?= Yii::t('modelAdm/user', 'Assignment Role') ?></label>
-                    <select class="sumoselect-role SelectClass" name="roles[]" id="sumoselect-role" multiple="multiple">
-                        <option class="group-head" disabled><?= Adm::t('sumoselect', 'Roles', ['dot' => false]) ?></option>
-                        <?php foreach ($authItems as $authItem) {?>
-                            <?php if ($authItem['type'] == 1) {?>
-                                <option class="group-item" <?= isset($authAssignments[$authItem['name']]) ? 'selected' : ''; ?> value="<?= $authItem['name'] ?>"><?= $this->context->translateAuthItems($authItem['name']) ?></option>
-                            <?php }?>
-                        <?php }?>
-                        <option class="group-head" disabled><?= Adm::t('sumoselect', 'Permissions', ['dot' => false]) ?></option>
-                        <?php foreach ($authItems as $authItem) {?>
-                            <?php if ($authItem['type'] == 2) {?>
-                                <option class="group-item" <?= isset($authAssignments[$authItem['name']]) ? 'selected' : ''; ?> value="<?= $authItem['name'] ?>"><?= $this->context->translateAuthItems($authItem['name']) ?></option>
-                            <?php }?>
-                        <?php }?>
-                    </select>
-                    <?= Adm::t('sumoselect', 'Roles', ['dot' => '.']) ?>
-                    <?= Adm::t('sumoselect', 'Permissions', ['dot' => '.']) ?>
-                </div>
-
-                <?php
-                    Modal::begin([
-                        'id' => 'roles-modal',
-                        'header' => Html::tag('div', Adm::t('user', 'Tree Roles'), ['class' => 'roles-map']),
-                        'size' => Modal::SIZE_LARGE,
-                    ]);
+                        <?php
+                        Modal::begin([
+                            'id' => 'roles-modal',
+                            'header' => Html::tag('div', Adm::t('user', 'Tree Roles'), ['class' => 'roles-map']),
+                            'size' => Modal::SIZE_LARGE,
+                        ]);
                         echo Html::beginTag('div', ['class' => 'auth-items-tree']);
                         echo Html::tag('div', Adm::t('sumoselect', 'Roles'), ['class' => 'auth-items-type']);
                         foreach ($authItemsArr as $name => $item) {
@@ -123,70 +125,90 @@ foreach ($authItemsChildArr as $authItemsChild) {
                         }
 
                         echo Html::endTag('div');
-                    Modal::end();
-                ?>
+                        Modal::end();
+                        ?>
 
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <?php
+                        echo $form->field($model, 'status')->widget(Select2::classname(), [
+                            'data' => $model::status(),
+                            'options' => ['placeholder' => Adm::t('','Select ...', ['dot' => false])],
+                            'pluginOptions' => [
+
+                            ],
+                        ]);
+                        ?>
+                    </div>
+                </div>
+
+            <?php }?>
+
+            <div class="form-group">
+
+                <?= InputButton::widget([
+                    'label' => $model->isNewRecord ? Adm::t('', 'Create', ['dot' => false]) : Adm::t('', 'Update', ['dot' => false]),
+                    'options' => ['class' => 'btn btn-primary'],
+                    'input' => 'adm-redirect',
+                    'name' => 'redirect',
+                    'formSelector' => $form,
+                ]);?>
+
+                <?php if (!Adm::getInstance()->user->can('Adm-UpdateOwnUser', $model)) {?>
+
+                    <?php if ($model->isNewRecord) {?>
+                        <?= InputButton::widget([
+                            'label' => Adm::t('', 'Create and insert new', ['dot' => false]),
+                            'options' => ['class' => 'btn btn-primary'],
+                            'input' => 'adm-redirect',
+                            'name' => 'redirect',
+                            'value' => Url::to(['create']),
+                            'formSelector' => $form, //form object or form selector
+                        ]);?>
+                    <?php }?>
+
+
+                    <?= InputButton::widget([
+                        'label' => $model->isNewRecord ? Adm::t('', 'Create and list', ['dot' => false]) : Adm::t('', 'Update and list', ['dot' => false]),
+                        'options' => ['class' => 'btn btn-primary'],
+                        'input' => 'adm-redirect',
+                        'name' => 'redirect',
+                        'value' => Url::to(['index']),
+                        'formSelector' => $form, //form object or form selector
+                    ]);?>
+
+                    <?= InputButton::widget([
+                        'label' => $model->isNewRecord ? Adm::t('', 'Create and viewing', ['dot' => false]) : Adm::t('', 'Update and viewing', ['dot' => false]),
+                        'options' => ['class' => 'btn btn-primary'],
+                        'input' => 'adm-redirect',
+                        'name' => 'redirect',
+                        'value' => Url::to(['view', 'id' => '{id}']),
+                        'formSelector' => $form, //form object or form selector
+                    ]);?>
+
+                <?php }?>
             </div>
-            <div class="col-xs-12 col-sm-4 col-md-4">
-                <?php
-                echo $form->field($model, 'status')->widget(Select2::classname(), [
-                    'data' => $model::status(),
-                    'options' => ['placeholder' => Adm::t('','Select ...', ['dot' => false])],
-                    'pluginOptions' => [
 
-                    ],
+            <?php Adm::end('ActiveForm'); ?>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-4">
+            <div class="profile-image">
+                <?php
+                $photoData = Yii::$app->display->getFileImg($model->id, 'user', [
+                    'width' => 400,
+                    'height' => 400,
+                ], [
+                    'dir' => 'main',
+                ]);
+                echo \app\modules\cropper\widgets\Cropper::widget([
+                    'image' => $photoData['display'],
+                    'cropUrl' => ['/adm/user/avatar', 'id' => $model->id],
                 ]);
                 ?>
             </div>
         </div>
-
-    <?php }?>
-
-    <div class="form-group">
-
-        <?= InputButton::widget([
-            'label' => $model->isNewRecord ? Adm::t('', 'Create', ['dot' => false]) : Adm::t('', 'Update', ['dot' => false]),
-            'options' => ['class' => 'btn btn-primary'],
-            'input' => 'adm-redirect',
-            'name' => 'redirect',
-            'formSelector' => $form,
-        ]);?>
-
-        <?php if (!Adm::getInstance()->user->can('Adm-UpdateOwnUser', $model)) {?>
-
-            <?php if ($model->isNewRecord) {?>
-                <?= InputButton::widget([
-                    'label' => Adm::t('', 'Create and insert new', ['dot' => false]),
-                    'options' => ['class' => 'btn btn-primary'],
-                    'input' => 'adm-redirect',
-                    'name' => 'redirect',
-                    'value' => Url::to(['create']),
-                    'formSelector' => $form, //form object or form selector
-                ]);?>
-            <?php }?>
-
-
-            <?= InputButton::widget([
-                'label' => $model->isNewRecord ? Adm::t('', 'Create and list', ['dot' => false]) : Adm::t('', 'Update and list', ['dot' => false]),
-                'options' => ['class' => 'btn btn-primary'],
-                'input' => 'adm-redirect',
-                'name' => 'redirect',
-                'value' => Url::to(['index']),
-                'formSelector' => $form, //form object or form selector
-            ]);?>
-
-            <?= InputButton::widget([
-                'label' => $model->isNewRecord ? Adm::t('', 'Create and viewing', ['dot' => false]) : Adm::t('', 'Update and viewing', ['dot' => false]),
-                'options' => ['class' => 'btn btn-primary'],
-                'input' => 'adm-redirect',
-                'name' => 'redirect',
-                'value' => Url::to(['view', 'id' => '{id}']),
-                'formSelector' => $form, //form object or form selector
-            ]);?>
-
-        <?php }?>
     </div>
 
-    <?php Adm::end('ActiveForm'); ?>
+
 
 </div>

@@ -28,6 +28,16 @@ class Storage extends \yii\base\Component
      * @param bool|true $autoGenerate
      * @return mixed
      */
+    public function hasName($name)
+    {
+        return $this->getSession()->has($name);
+    }
+
+
+    /**
+     * @param bool|true $autoGenerate
+     * @return mixed
+     */
     public function getName($autoGenerate = true)
     {
         if ($autoGenerate && $this->name === null) {
@@ -77,7 +87,6 @@ class Storage extends \yii\base\Component
 
         $path = $this->getPath();
         $files = FileHelper::findFiles($path);
-
         if ($files) {
             if ($generateNewName) {
                 foreach ($files as $file) {
@@ -142,7 +151,6 @@ class Storage extends \yii\base\Component
         $this->id = null;
 
         $name = $this->getName(false);
-        echo $name;
         if ($clearSession) {
             $this->getSession()->remove($name);
         }

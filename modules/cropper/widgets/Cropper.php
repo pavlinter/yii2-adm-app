@@ -110,12 +110,12 @@ class Cropper extends \yii\base\Widget
     {
         $view = $this->getView();
         CropperAvatarAsset::register($view);
+
         $settings = [
             'cropOptions' => $this->pluginOptions,
             'cropEvents' => $this->pluginEvents,
             'popupSelector' => '#' . $this->popupConfig['toggleButton']['id'],
         ];
-
         $view->registerJs('new CropAvatar($("#' . $this->id . '"), ' . Json::encode($settings) . ');');
     }
 

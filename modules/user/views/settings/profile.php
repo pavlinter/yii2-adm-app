@@ -21,18 +21,7 @@ $this->title = Yii::t("app/title", "Profile Page", ['dot' => false]);
 
     <div class="row">
         <div class="col-xs-12 col-sm-3 col-md-3">
-            <?php
-
-            $photoData = Yii::$app->display->getFileImg(Yii::$app->user->getId(), 'user', [
-                'width' => 200,
-                'height' => 200,
-            ], [
-                'dir' => 'main',
-            ]);
-
-            ?>
             <div class="profile-image">
-
                 <?php
                 $photoData = Yii::$app->display->getFileImg($model->id, 'user', [
                     'width' => 400,
@@ -40,14 +29,10 @@ $this->title = Yii::t("app/title", "Profile Page", ['dot' => false]);
                 ], [
                     'dir' => 'main',
                 ]);
-                ?>
-
-                <?php
                 echo \app\modules\cropper\widgets\Cropper::widget([
                     'image' => $photoData['display'],
                 ]);
                 ?>
-
             </div>
         </div>
         <div class="col-xs-12 col-sm-9 col-md-9">

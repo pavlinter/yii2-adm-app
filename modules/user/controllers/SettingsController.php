@@ -74,8 +74,6 @@ class SettingsController extends \yii\web\Controller
     public function actionLoadNotification()
     {
         $json = [];
-
-
         $mode       = Yii::$app->request->post('mode', 'start');
         $lastId     = Yii::$app->request->post('lastId', 0);
         $firstId    = Yii::$app->request->post('firstId', 0);
