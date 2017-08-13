@@ -24,17 +24,19 @@ class ContactForm extends Model
      */
     public function rules()
     {
+        if (IS_LOCALHOST) {
+            $verifyCode = ['verifyCode', 'captcha'];
+        } else {
+            $verifyCode = [['verifyCode'], \himiklab\yii2\recaptcha\ReCaptchaValidator::className()];
+        }
+
         return [
             [['name', 'body', 'phone'], 'filter', 'filter' => function ($value) {
                 return Html::encode(trim($value));
             }],
-            // name, email, subject and body are required
             [['name', 'email', 'phone', 'body'], 'required'],
-            // email has to be a valid email address
             ['email', 'email'],
-            // verifyCode needs to be entered correctly
-            ['verifyCode', 'captcha'],
-            //[['verifyCode'], \himiklab\yii2\recaptcha\ReCaptchaValidator::className()]
+            $verifyCode
         ];
     }
 

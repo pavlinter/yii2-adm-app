@@ -2,66 +2,45 @@
 use app\assets_b\AppAsset;
 use app\core\admpages\models\Page;
 use app\helpers\Html;
+use app\helpers\SiteHelper;
 use app\helpers\Url;
+use app\models\User;
+use yii\bootstrap\Nav;
+use yii\bootstrap\NavBar;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
-$appAsset = AppAsset::register($this);
 /* @var $i18n \pavlinter\translation\I18N */
 $i18n = Yii::$app->getI18n();
-
-\app\modules\admunderconst\Module::loadUnderConstruction($this);
-
-$menus = Page::find()->with(['translations','childs' => function ($q) {
-    $q->andWhere(['active' => 1, 'visible' => 1]);
-}])->where(['id_parent' => [1,2,3], 'active' => 1, 'visible' => 1])->orderBy(['weight' => SORT_ASC])->all();
-$Menu1 = [];
-$Menu2 = [];
-$Menu3 = [];
-
+$appAsset = AppAsset::register($this);
 $baseUrl = Url::getLangUrl();
 
-foreach ($menus as $menu) {
-    $item = [];
-    $item['label'] = $menu->name;
-    if ($menu->type === 'main') {
-        $item['url'] = $baseUrl;
-    } else {
-        $item['url'] = $menu->url();
-    }
+\app\modules\admunderconst\Module::loadUnderConstruction($this);
+\app\helpers\Html::addCssClass(Yii::$app->params['html.bodyOptions'], 'is_frontend');
 
-    /* @var $menu Page*/
-    if ($menu->layout == 'category-list') {
-        $item['url'] = 'javascript:void(0);';
-        /* @var $categoryModel \app\models\Category */
-        $categoryModels = \app\models\Category::find()->with(['translation'])->published()->sortBy()->all();
-        foreach ($categoryModels as $categoryModel) {
-            $item['items'][] = [
-                'label' => $categoryModel->getField('name'),
-                'url' => $categoryModel->url(),
-            ];
-        }
-    }
+$menus = SiteHelper::getPageMenu();
+$topMenu = $menus['menu1'];
 
-    if ($menu->childs) {
-        foreach ($menu->childs as $child) {
-            $item['items'][] = [
-                'label' => $child->name,
-                'url' => $child->url(),
-            ];
-        }
-    }
-    if ($menu->id_parent == 1) {
-        $Menu1[] = $item;
-    } elseif($menu->id_parent == 2) {
-        $Menu2[] = $item;
-    } elseif($menu->id_parent == 3) {
-        $Menu3[] = $item;
-    }
+if (Yii::$app->user->isGuest) {
+    $topMenu[] = [
+        'label' => Yii::t("app/menu", "Login", ['dot' => false]),
+        'url' => ['/site/login'],
+        'options' => [
+            //'class' => 'action-login-popup',
+        ],
+    ];
+
+    $topMenu[] = [
+        'label' => Yii::t("app/menu", "Sign up", ['dot' => false]),
+        'url' => ['/site/signup']
+    ];
+    $topMenu[] = [
+        'label' => Yii::t("app/menu", "Reset Password", ['dot' => false]),
+        'url' => ['/site/request-password-reset']
+    ];
+} else {
+    $userAsset = \app\assets_b\UserAsset::register($this);
 }
-
-
-
 ?>
 
 <?php $this->beginContent('@webroot/views/layouts/base.php'); ?>
@@ -72,18 +51,71 @@ foreach ($menus as $menu) {
 </script>
 <?php \richardfan\widget\JSRegister::end() ?>
 
+<?php
+NavBar::begin([
+    'brandLabel' => 'My Company',
+    'brandUrl' => $baseUrl,
+    'options' => [
+        'class' => 'navbar-inverse',
+    ],
+]);
+echo \app\widgets\Menu::widget([
+    'options' => ['class' => 'core-langs'],
+    'items' => $i18n->menuItems(),
+]);
 
-<div class="">
-    <?= $this->render('@app/views/partial/_header', [
-        'is_frontend' => true,
-    ]) ?>
+echo Nav::widget([
+    'options' => ['class' => 'navbar-nav navbar-left'],
+    'items' => $topMenu,
+]);
 
-    <?php $this->trigger('afterHeader'); ?>
-    <div class="<?= Yii::$app->params['html.wrapperClass'] ?>">
-        <?= $content ?>
-    </div>
-    <?php $this->trigger('beforeFooter'); ?>
+?>
+<div class="now-online"><?= Yii::t("app", "Now online: {count}", ['count' => SiteHelper::userOnline()]); ?></div>
+<?php if (!Yii::$app->user->isGuest) {?>
+
+    <ul class="nav navbar-nav navbar-right navbar-user-ul">
+
+        <li class="dropdown">
+            <a href="javascript:void(0);" data-toggle="dropdown" class="dropdown-toggle f-s-14">
+                <i class="fa fa-bell-o"></i>
+                <span class="label notifications-count"></span>
+            </a>
+            <ul class="dropdown-menu media-list pull-right animated fadeInDown notification-menu">
+                <?php /* <li class="dropdown-header">Notifications (5)</li> */?>
+                <li class="dropdown-header notifications-empty" style="display: none;"><?= Yii::t("user", 'empty Notifications', ['dot' => false]) ?></li>
+                <li class="notifications-start"></li>
+
+                <li class="dropdown-footer text-center notifications-more">
+                    <a href="javascript:void(0);" class="action-prev-notification"><?= Yii::t("user", 'Readmore Notifications', ['dot' => false]) ?></a>
+                </li>
+            </ul>
+        </li>
+        <li class="dropdown navbar-user">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                <img src="<?= User::ownAvatar() ?>" title="<?= Yii::$app->user->getId() ?>" class="avatar-icon" alt="" />
+                <span class="hidden-xs"><?= User::identity()->getField('display') ?></span> <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu animated fadeInDown">
+                <li class="arrow"></li>
+                <li><a href="<?= Url::to(['/user/settings/profile']) ?>"><?= Yii::t("app/menu", 'Edit Profile', ['dot' => false]) ?></a></li>
+                <li class="divider"></li>
+                <li><a href="<?= Url::to(['/site/logout']) ?>" data-method="post"><?= Yii::t("app/menu", 'Logout ({username})', ['dot' => false, 'username' => User::identity()->getField('display')]) ?></a></li>
+            </ul>
+        </li>
+    </ul>
+
+<?php }?>
+
+<?php
+NavBar::end();
+?>
+
+<?php $this->trigger('afterHeader'); ?>
+<div class="<?= Yii::$app->params['html.wrapperClass'] ?>">
+    <?= $content ?>
 </div>
+<?php $this->trigger('beforeFooter'); ?>
+
 
 
 

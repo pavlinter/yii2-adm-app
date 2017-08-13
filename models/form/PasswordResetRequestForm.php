@@ -56,13 +56,18 @@ class PasswordResetRequestForm extends Model
             if (!User::isPasswordResetTokenValid($user->password_reset_token)) {
                 $user->generatePasswordResetToken();
             }
-
             if ($user->save(false)) {
-                return Yii::$app->mailer->compose('passwordResetToken', ['user' => $user])
-                    ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name ])
-                    ->setTo($this->email)
-                    ->setSubject(Yii::t("app/passwordReset", "Password reset for {appName}", ['appName' => Yii::$app->name, 'dot' => false]))
-                    ->send();
+                if (IS_LOCALHOST) {
+                    $html = Yii::$app->controller->renderPartial('@app/mail/passwordResetToken', ['user' => $user]);
+                    Yii::$app->getSession()->setFlash('info', $html);
+                    return true;
+                } else {
+                    return Yii::$app->mailer->compose('passwordResetToken', ['user' => $user])
+                        ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name ])
+                        ->setTo($this->email)
+                        ->setSubject(Yii::t("app/passwordReset", "Password reset for {appName}", ['appName' => Yii::$app->name, 'dot' => false]))
+                        ->send();
+                }
             }
         }
 

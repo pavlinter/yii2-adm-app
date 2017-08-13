@@ -78,7 +78,6 @@ $this->title = Yii::t("app/title", "Profile Page", ['dot' => false]);
             <table class="table table-profile">
                 <tbody>
 
-
                 <?= $form->field($model, 'username')->textInput() ?>
 
                 <?= $form->field($model, 'email')->textInput(['readonly' => true]) ?>
@@ -87,16 +86,14 @@ $this->title = Yii::t("app/title", "Profile Page", ['dot' => false]);
 
                 <?= $form->field($model, 'lastname') ?>
 
-                <?= $form->field($model, 'display_type', [
-                    'tooltipMsg' => Yii::t('model/complaint/note', 'description'),
-                ])->dropDownList($model::display_type_list(), ['class' => 'form-control input-inline input-xs',])->label($model->getAttributeLabel('display_type') . '<span class="display-view">' . $model->getField('display') . '</span>'); ?>
+                <?= $form->field($model, 'display_type')->dropDownList($model::display_type_list())->label($model->getAttributeLabel('display_type') . ' <span class="display-view">' . $model->getField('display') . '</span>'); ?>
 
-                <?= $form->field($model, 'gender')->dropDownList($model::gender_list(), ['class' => 'form-control input-inline input-xs',]); ?>
+                <?= $form->field($model, 'gender')->dropDownList($model::gender_list()); ?>
 
                 <tr>
                     <td></td>
                     <td>
-                        <?= Html::submitButton(Yii::t("user/settings/profile", "Update", ['dot' => false]), ['class' => 'btn btn-theme btn-block']) ?>
+                        <?= Html::submitButton(Yii::t("user/settings/profile", "Update", ['dot' => false]), ['class' => 'btn btn-primary btn-block btn-lg']) ?>
                         <?= Yii::t("user/settings/profile", "Update", ['dot' => '.']) ?>
                     </td>
                 </tr>

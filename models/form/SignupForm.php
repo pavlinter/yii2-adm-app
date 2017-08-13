@@ -20,6 +20,12 @@ class SignupForm extends Model
      */
     public function rules()
     {
+        if (IS_LOCALHOST) {
+            $verifyCode = ['verifyCode', 'captcha'];
+        } else {
+            $verifyCode = [['verifyCode'], \himiklab\yii2\recaptcha\ReCaptchaValidator::className()];
+        }
+
         return [
             ['password', 'filter', 'filter' => 'trim'],
             ['username', 'filter', 'filter' => function ($value) {
@@ -36,9 +42,7 @@ class SignupForm extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
-            // verifyCode needs to be entered correctly
-            //['verifyCode', 'captcha'],
-            [['verifyCode'], \himiklab\yii2\recaptcha\ReCaptchaValidator::className()]
+            $verifyCode,
         ];
     }
 
@@ -76,7 +80,9 @@ class SignupForm extends Model
                 $auth->assign($newRole, $user->id);
 
                 if (IS_LOCALHOST) {
-                   return $user;
+                    $html = Yii::$app->controller->renderPartial('@app/mail/userApproval', ['user' => $user]);
+                    Yii::$app->getSession()->setFlash('info', $html);
+                    return $user;
                 } else {
                     return Yii::$app->mailer->compose('userApproval', ['user' => $user])
                         ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name ])

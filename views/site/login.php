@@ -21,9 +21,9 @@ $this->context->layout = '/main';
             <?php $authAuthChoice = \app\widgets\AuthChoice::begin([
                 'baseAuthUrl' => ['/site/auth']
             ]); ?>
-            <div class="m-b-20">
+            <div class="mb-20">
                 <?php foreach ($authAuthChoice->getClients() as $client): ?>
-                    <?= $authAuthChoice->clientLink($client, '<i class="fa fa-facebook pull-left"></i><span>' . Yii::t("app", "Connect With Facebook") . '</span>', ['class' => 'btn btn-facebook']) ?>
+                    <?= $authAuthChoice->clientLink($client, '<i class="fa fa-facebook pull-left"></i><span>' . Yii::t("app", "Connect With Facebook") . '</span>', ['class' => 'btn btn-primary btn-lg']) ?>
                 <?php endforeach; ?>
             </div>
             <?php \app\widgets\AuthChoice::end(); ?>

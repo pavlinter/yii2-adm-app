@@ -42,6 +42,15 @@ class SettingsController extends \yii\web\Controller
     {
         $user_id = Yii::$app->user->getId();
 
+        //Notification::add(1, Notification::T_MSG, 1, Notification::M_MSG, ['shortMsg' => 'Моё кароткое сообщение ....'], ['from_id' => 2]);
+        //Notification::add(1, Notification::T_MSG, 2, Notification::M_MSG, ['shortMsg' => 'Моё привет сообщение ....'], ['from_id' => null]);
+        //Notification::add(1, Notification::T_MSG, null, Notification::M_MSG, ['shortMsg' => 'Моё кароткое сообщение ....'], ['from_id' => 3]);
+
+        for ($i = 0; $i < 3; $i++) {
+            //Notification::add(1, Notification::T_MSG, null, Notification::M_MSG, ['shortMsg' => 'Моё привет сообщение ....'], ['from_id' => null]);
+        }
+
+
         $model = UserSettings::find()->where(['id' => $user_id])->one();
         if ($model->load(Yii::$app->request->post())) {
             $requirements = \app\models\User::checkRequirements();
@@ -117,33 +126,33 @@ class SettingsController extends \yii\web\Controller
             $fromUser = $model->fromUser;
             $data = [];
             if ($model->checkMessage([
-                Notification::M_TICKET_REQUESTED,
-                Notification::M_TICKET_OPENED,
-                Notification::M_TICKET_MSG,
-                Notification::M_TICKET_CLOSED,
-                Notification::M_TICKET_IGNORED
+                Notification::M_MSG,
             ])) {
                 $data = [
                     //required
                     'id' => $model->id,
-                    'template' => 'notifi_ticket_msg',
+                    'template' => 'msg',
                     'unique' => hash('crc32b', $model->from_id . '-' . $model->type . '-' . $model->row_id),
                     'viewed' => (int)$model->viewed,
-
-                    //not required
-                    'href' => Url::to(['/user/ticket/messages', 'id' => $model->row_id]),
-                    'src' => User::avatar($model->from_id),
-                    'username' => $fromUser->getAnonymous($model->from_id),
-                    'msg' => $model->getMessage(),
-                    'date' => Yii::$app->formatter->asTimeAgo($model->created_at),
-                    'inlineHtml' => User::onlineHtml($model->from_id),
                 ];
+                //not required
+
+                $data['msg'] = $model->getMessage();
+                $data['date'] = Yii::$app->formatter->asTimeAgo($model->created_at);
+                if ($model->from_id) {
+                    $data['header'] = $fromUser->getAnonymous($model->from_id);
+                    $data['href'] = Url::to(['/user/messages', 'id' => $model->row_id]);
+                    $data['src'] = User::avatar($model->from_id);
+                    $data['inlineHtml'] = User::onlineHtml($model->from_id);
+                } else {
+                    $data['icon'] = '<div class="icon-object bg-blue"><i class="fa fa-info"></i></div>';
+                }
+
+
+
             }
 
-            if ($model->checkMessage([
-                Notification::M_COMPLAINT_CHECKED,
-                Notification::M_COMPLAINT_CHECKED_BAD,
-            ])) {
+            /*if (false) {
                 $data = [
                     //required
                     'id' => $model->id,
@@ -157,7 +166,7 @@ class SettingsController extends \yii\web\Controller
                     'date' => Yii::$app->formatter->asTimeAgo($model->created_at),
                     'icon' => $model->checkMessage(Notification::M_COMPLAINT_CHECKED) ? '<div class="icon-object bg-green"><i class="fa fa-plus"></i></div>' : '<div class="icon-object bg-red"><i class="fa fa-close"></i></div>',
                 ];
-            }
+            }*/
 
 
             if ($data) {
@@ -226,6 +235,13 @@ class SettingsController extends \yii\web\Controller
                     $model->viewed = 0;
                 } else {
                     $model->viewed = 1;
+                    Notification::updateAll([
+                        'viewed' => 1,
+                    ], [
+                        'to_id' => $model->to_id,
+                        'type' => $model->type,
+                        'row_id' => $model->row_id,
+                    ]);
                 }
                 $model->save(false);
                 $json['r'] = true;

@@ -2,7 +2,6 @@
 
 namespace app\controllers;
 
-use app\core\admpages\models\Page;
 use app\helpers\Html;
 use app\helpers\Url;
 use app\models\form\EmailRequiredForm;
@@ -122,11 +121,6 @@ class SiteController extends Controller
             $user = $model->signup();
             if ($user) {
                 Yii::$app->getSession()->setFlash('success', Yii::t("app/signup", "Check your email for further instructions."));
-                if (IS_LOCALHOST) {
-                    $resetLink = Yii::$app->urlManager->createAbsoluteUrl(['site/user-approve', 'token' => $user->password_reset_token]);
-                    $msg = Yii::t("app/signup", "Hello {username}, <br />Follow the link below to approve your account:<br />{link}", ['username' => \yii\helpers\Html::encode($user->username), 'link' => \yii\helpers\Html::a(\yii\helpers\Html::encode('link'), $resetLink)]);
-                    Yii::$app->getSession()->setFlash('info', $msg);
-                }
                 return $this->refresh();
             }
         }

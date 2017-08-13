@@ -5,10 +5,11 @@
  * @var string $content
  */
 
-\app\helpers\Html::addCssClass(Yii::$app->params['html.bodyOptions'], 'is_backend')
+\app\helpers\Html::removeCssClass(Yii::$app->params['html.bodyOptions'], 'is_frontend');
+\app\helpers\Html::addCssClass(Yii::$app->params['html.bodyOptions'], 'is_backend');
 ?>
 
-<?php $this->beginContent('@webroot/views/layouts/base.php'); ?>
+<?php $this->beginContent('@webroot/views/layouts/main.php'); ?>
 
     <?= $content ?>
 

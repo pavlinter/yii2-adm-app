@@ -23,6 +23,20 @@ Yii::$app->params['og']['og:description'] = $model->description;
 <div class="main-page container">
     <h1><?= $model->title ?></h1>
     <div><?= $model->text ?></div>
+
+    <?php
+    echo \app\widgets\AjaxConfirmButton::widget([
+        'url' => Url::current(),
+        'label' => "Confirm Button",
+        'content' => "Sure?",
+        //'warningContent' => false,
+        'ajaxOptions' => [
+            'data' => [
+                'id' => 1,
+            ],
+        ],
+    ]);
+    ?>
 </div>
 
 <?= \app\widgets\Likes::widget([

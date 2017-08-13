@@ -92,6 +92,17 @@ class SiteHelper
      */
     public static function getPageMenu($menuKey = false)
     {
+        static $m;
+        if ($m !== null) {
+            if ($menuKey) {
+                if (isset($m[$menuKey])) {
+                    return $m[$menuKey];
+                }
+                return [];
+            }
+            return $m;
+        }
+
         $menus = Page::find()->with(['translations','childs' => function ($q) {
             $q->andWhere(['active' => 1, 'visible' => 1]);
         }])->where(['id_parent' => [1,2,3], 'active' => 1, 'visible' => 1])->orderBy(['weight' => SORT_ASC])->all();

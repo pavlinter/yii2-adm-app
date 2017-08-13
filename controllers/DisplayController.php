@@ -7,7 +7,6 @@
 
 namespace app\controllers;
 
-use app\models\UserDisplay;
 use pavlinter\display2\Module;
 use Yii;
 

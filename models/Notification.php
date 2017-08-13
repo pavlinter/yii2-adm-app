@@ -32,16 +32,9 @@ class Notification extends \yii\db\ActiveRecord
 {
     use ModelArrayableTrait;
 
-    const TYPE_TICKET = 1;
-    const TYPE_COMPLAINT = 2;
+    const T_MSG = 1;
 
-    const M_TICKET_REQUESTED = 0;
-    const M_TICKET_OPENED = 1;
-    const M_TICKET_MSG = 2;
-    const M_TICKET_IGNORED = 3;
-    const M_TICKET_CLOSED = 4;
-    const M_COMPLAINT_CHECKED = 5;
-    const M_COMPLAINT_CHECKED_BAD = 6;
+    const M_MSG = 1;
 
     /**
      * @inheritdoc
@@ -83,7 +76,6 @@ class Notification extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            //['category_id', 'exist', 'targetClass' => Category::className(), 'targetAttribute' => 'id'],
             [['from_id', 'to_id', 'row_id'], 'integer'],
 
             [['viewed', 'removed'], 'boolean'],
@@ -147,19 +139,6 @@ class Notification extends \yii\db\ActiveRecord
     }
 
     /**
-     * @param $url
-     * @param string $key
-     * @return mixed
-     */
-    public function url($url = true, $key = 'alias')
-    {
-        if ($url === true) {
-            $url = ['/admpages/default/index'];
-        }
-        return $url;
-    }
-
-    /**
      * @param bool $scheme
      * @param array $options
      * @return string
@@ -197,11 +176,8 @@ class Notification extends \yii\db\ActiveRecord
     public static function type_list($key = false, $default = null)
     {
         $list = [
-            //static::TYPE_TICKET => Yii::t('model/notification/type', 'Ticket'),
-            //static::TYPE_COMPLAINT => Yii::t('model/notification/type', 'Complaint'),
-            static::TYPE_TICKET => 'Ticket',
-            static::TYPE_COMPLAINT => 'Complaint',
-            ];
+            static::T_MSG => Yii::t('model/notification/type', 'Msg'),
+        ];
         if ($key !== false) {
             if (isset($list[$key])) {
                 return $list[$key];
@@ -230,23 +206,8 @@ class Notification extends \yii\db\ActiveRecord
     public static function message_list($key = false, $default = null, $data = [])
     {
         $list = [
-            /*static::M_TICKET_REQUESTED => Yii::t('model/notification/msg-list', 'Ticket Requested', $data),
-            static::M_TICKET_OPENED => Yii::t('model/notification/msg-list', 'Ticket Opened', $data),
-            static::M_TICKET_MSG => Yii::t('model/notification/msg-list', 'Ticket Msg', $data),
-            static::M_TICKET_IGNORED => Yii::t('model/notification/msg-list', 'Ticket Ignored', $data),
-            static::M_TICKET_CLOSED => Yii::t('model/notification/msg-list', 'Ticket Closed', $data),
-            static::M_COMPLAINT_CHECKED => Yii::t('model/notification/msg-list', 'Complaint Checked', $data),
-            static::M_COMPLAINT_CHECKED_BAD => Yii::t('model/notification/msg-list', 'Complaint Checked Bad', $data),*/
-
-            static::M_TICKET_REQUESTED => 'Ticket Requested',
-            static::M_TICKET_OPENED => 'Ticket Opened',
-            static::M_TICKET_MSG => 'Ticket Msg',
-            static::M_TICKET_IGNORED => 'Ticket Ignored',
-            static::M_TICKET_CLOSED => 'Ticket Closed',
-            static::M_COMPLAINT_CHECKED => 'Complaint Checked',
-            static::M_COMPLAINT_CHECKED_BAD => 'Complaint Checked Bad'
-
-            ];
+            static::M_MSG => Yii::t('model/notification/msg-list', 'Message', $data),
+        ];
         if ($key !== false) {
             if (isset($list[$key])) {
                 return $list[$key];
@@ -259,9 +220,9 @@ class Notification extends \yii\db\ActiveRecord
     /**
      * @param $from_user_id
      * @param $type
-     * @param $row_id
+     * @param null $row_id
      */
-    public static function updateOwnViewed($from_user_id, $type, $row_id)
+    public static function updateOwnViewed($from_user_id, $type, $row_id = null)
     {
         $command = Yii::$app->db->createCommand();
         $command->update(static::tableName(), [
@@ -270,11 +231,10 @@ class Notification extends \yii\db\ActiveRecord
             'from_id' => $from_user_id,
             'to_id' => Yii::$app->user->getId(),
             'type' => $type,
-            'row_id' => $row_id,
+            'row_id' => ($row_id ? $row_id : 0),
             'viewed' => 0,
         ])->execute();
     }
-
 
     /**
      * @param $to_user_id
@@ -293,7 +253,7 @@ class Notification extends \yii\db\ActiveRecord
             'from_id' => $from_id,
             'to_id' => $to_user_id,
             'type' => $type_id,
-            'row_id' => $row_id,
+            'row_id' => ($row_id ? $row_id : 0),
             'message' => $message_id,
             'data' => $data,
         ];
@@ -341,7 +301,7 @@ class Notification extends \yii\db\ActiveRecord
     public function checkOwn($exception = false)
     {
         if ($exception) {
-            if ($this->user_id !== Yii::$app->user->getId()) {
+            if ($this->to_id !== Yii::$app->user->getId()) {
                 throw new \yii\web\ForbiddenHttpException('You are not allowed to access this page.');
             }
         } else {

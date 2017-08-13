@@ -6,7 +6,6 @@ use app\base\ModelArrayableTrait;
 use app\helpers\ArrayHelper;
 use Yii;
 use yii\db\Expression;
-use yii\helpers\Html;
 use yii\helpers\StringHelper;
 
 /**
@@ -298,11 +297,7 @@ class User extends \pavlinter\adm\models\User
         if ($from_user_id === null) {
             $from_user_id = $this->id;
         }
-        if (UserDisplay::iSeeYou($from_user_id)) {
-
-            return $this->getField('display');
-        }
-        return $this->getField('anonymous');
+        return $this->getField('display');
     }
 
     /**

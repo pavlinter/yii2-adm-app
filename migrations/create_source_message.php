@@ -4026,16 +4026,6 @@ Ziņojums: {body}",
         ],
     ],
     [
-        "category" => "model/complaint/note",
-        "message" => "description",
-        "translations" => [
-            [
-                "language_id" => "2",
-                "translation" => "Параметры",
-            ],
-        ],
-    ],
-    [
         "category" => "adm/admparams",
         "message" => "Update Params: ",
         "translations" => [
@@ -4106,6 +4096,22 @@ Ziņojums: {body}",
             [
                 "language_id" => "2",
                 "translation" => "Вы действительно хотите удалить сообщение?",
+            ],
+        ],
+    ],
+    [
+        "category" => "model/notification/type",
+        "message" => "Msg",
+        "translations" => [
+        ],
+    ],
+    [
+        "category" => "model/notification/msg-list",
+        "message" => "Message",
+        "translations" => [
+            [
+                "language_id" => "2",
+                "translation" => "{shortMsg}",
             ],
         ],
     ],

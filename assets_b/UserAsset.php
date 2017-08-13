@@ -6,7 +6,7 @@ use kartik\icons\Icon;
 use Yii;
 
 /**
- * Class AppAsset
+ * Class AppAsset loaded only when logined
  */
 class UserAsset extends Asset
 {
@@ -14,31 +14,11 @@ class UserAsset extends Asset
 
     public $baseUrl = '@web/assets_b/common';
 
-    public $css = [
-        'css/style.css',
-    ];
-
     public $js = [
-        'js/common.js'
+        'js/user.js'
     ];
 
     public $depends = [
-        'app\assets_b\AnimateAsset',
-        'app\assets_b\Html5ShivAsset',
-        'app\assets_b\WebUIPopoverAsset',
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
-        'yii\bootstrap\BootstrapPluginAsset',
-        //'yii\bootstrap\BootstrapThemeAsset',
-        //'yii\web\JqueryAsset',
-    ];
 
-    /**
-     * @inheritdoc
-     */
-    public function init()
-    {
-        parent::init();
-        Icon::map(Yii::$app->getView(), Icon::FA);
-    }
+    ];
 }

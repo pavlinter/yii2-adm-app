@@ -117,6 +117,7 @@ class ActiveField extends \yii\widgets\ActiveField
      */
     public function label($label = null, $options = [])
     {
+
         if ($label === false) {
             $this->parts['{label}'] = '';
             return $this;
@@ -124,6 +125,7 @@ class ActiveField extends \yii\widgets\ActiveField
 
         $options = array_merge($this->labelOptions, $options);
         if ($label !== null) {
+
             $options['label'] = $label;
         }
 
@@ -132,7 +134,11 @@ class ActiveField extends \yii\widgets\ActiveField
         }
 
         if ($this->isRequired()) {
-            $options['label'] = $this->model->getAttributeLabel($this->attribute) . $this->requiredSymbol;
+            if ($label === null) {
+                $options['label'] = $this->model->getAttributeLabel($this->attribute) . $this->requiredSymbol;
+            } else {
+                $options['label'] = $label . $this->requiredSymbol;
+            }
         }
 
         $this->parts['{label}'] = Html::activeLabel($this->model, $this->attribute, $options);

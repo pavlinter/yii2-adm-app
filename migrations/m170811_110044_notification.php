@@ -21,8 +21,8 @@ class m170811_110044_notification extends Migration
                     'row_id' => 'INT(11) UNSIGNED NULL COMMENT \'id из какой то таблицы\'',
                     'message' => 'TINYINT(3) UNSIGNED NOT NULL COMMENT \'Yii:t key\'',
                     'data' => 'TEXT NULL COMMENT \'серелизованые данные\'',
-                    'viewed' => 'TINYINT(1) NOT NULL COMMENT \'checkbox\'',
-                    'removed' => 'TINYINT(1) NOT NULL COMMENT \'checkbox\'',
+                    'viewed' => 'TINYINT(1) NOT NULL DEFAULT \'0\' COMMENT \'checkbox\'',
+                    'removed' => 'TINYINT(1) NOT NULL DEFAULT \'0\' COMMENT \'checkbox\'',
                     'created_at' => 'TIMESTAMP NULL COMMENT \'created_at\'',
                     'updated_at' => 'TIMESTAMP NULL COMMENT \'updated_at\'',
                 ], $tableOptions_mysql);

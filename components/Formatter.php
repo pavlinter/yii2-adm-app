@@ -2,6 +2,8 @@
 
 namespace app\components;
 
+use app\helpers\Html;
+use app\helpers\TimeHelper;
 use Yii;
 
 /**

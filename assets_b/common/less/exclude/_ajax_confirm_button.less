@@ -1,0 +1,86 @@
+/* -------------------------------
+   Ajax confirm button
+------------------------------- */
+@-webkit-keyframes rotation {
+  from {-webkit-transform: rotate(0deg);}
+  to {-webkit-transform: rotate(359deg);}
+}
+@-moz-keyframes rotation {
+  from {-moz-transform: rotate(0deg);}
+  to {-moz-transform: rotate(359deg);}
+}
+@-o-keyframes rotation {
+  from {-o-transform: rotate(0deg);}
+  to {-o-transform: rotate(359deg);}
+}
+@keyframes rotation {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(359deg);}
+}
+.bg-loader {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: #fff;
+  .rgba(#fff, 0.7);
+  .animation(fadeIn .2s);
+  z-index: 1050;
+}
+.spinner,
+.spinner-small {
+  height: 40px;
+  width: 40px;
+  margin: 0px auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -20px 0 0 -20px;
+  border: 2px solid #fff;
+  border-top: 2px solid #f4914e;
+  border-radius: 100%;
+  -webkit-animation: rotation .6s infinite linear;
+  -moz-animation: rotation .6s infinite linear;
+  -o-animation: rotation .6s infinite linear;
+  animation: rotation .6s infinite linear;
+}
+.spinner-small {
+  border: 2px solid rgba(0,0,0,0.05);
+  border-top: 2px solid #f4914e;
+  height: 30px;
+  width: 30px;
+  margin: -15px 0 0 -15px;
+}
+.confirm-popup {
+  position: relative;
+  background: #FFF;
+  width: auto;
+  max-width: 500px;
+  margin: 20px auto;
+  .confirm-body{
+    padding: 20px 45px;
+  }
+  .confirm-footer{
+    padding: 15px;
+    border-top: 1px solid #e5e5e5;
+    text-align: center;
+    .btn{
+      padding: 5px 10px;
+      min-width: 100px;
+    }
+    .btn + .btn {
+      margin-left: 100px;
+      margin-bottom: 0; // account for input[type="submit"] which gets the bottom margin like all other inputs
+    }
+    @media (max-width: 400px) {
+      .btn + .btn {
+        margin-left: 50px;
+      }
+    }
+  }
+}
+/* -------------------------------
+   Ajax confirm button end
+------------------------------- */

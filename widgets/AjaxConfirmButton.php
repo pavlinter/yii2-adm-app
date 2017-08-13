@@ -63,7 +63,7 @@ class AjaxConfirmButton extends Widget
     ];
 
     public $btnOkOptions = [
-        'class' => 'btn btn-theme',
+        'class' => 'btn btn-primary',
     ];
 
     public $btnCloseOptions = [
@@ -105,7 +105,7 @@ class AjaxConfirmButton extends Widget
                     'closeOnBgClick' => false,
                     'showCloseBtn' => false,
                 ],
-                'effect' => 'zoom-out',
+                'effect' => 'zoom-in',
             ]);
         }
     }
