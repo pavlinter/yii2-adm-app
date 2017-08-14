@@ -206,6 +206,11 @@ foreach ($authItemsChildArr as $authItemsChild) {
                 ]);
                 ?>
             </div>
+            <?php if (!$model->isNewRecord) {?>
+                <div class="text-center m-t-xs">
+                    <a href="<?= Url::to(['/adm/user/remove-avatar', 'id' => $model->id]) ?>" data-method="post" class="btn btn-link"><?= Adm::t('', 'Remove photo', ['dot' => false]) ?></a>
+                </div>
+            <?php }?>
         </div>
     </div>
 

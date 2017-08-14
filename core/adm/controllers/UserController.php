@@ -5,9 +5,11 @@ namespace app\core\adm\controllers;
 
 
 
+use app\filters\VerbFilter;
 use app\modules\cloud\Cloud;
 use Imagine\Image\Box;
 use Imagine\Image\Point;
+use pavlinter\adm\filters\AccessControl;
 use yii\base\DynamicModel;
 use yii\base\InvalidCallException;
 use yii\helpers\FileHelper;
@@ -28,13 +30,43 @@ use yii\web\NotFoundHttpException;
  */
 class UserController extends \pavlinter\adm\controllers\UserController
 {
-    public $spaceName = 'user-avatar-';
+    public $spaceName = 'user-avatar';
 
     public $excludeRole = [
         'Adm-UpdateOwnUser',
         'Adm-Transl',
         'Adm-Transl:Html',
     ];
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['AdmRoot'],
+                    ],
+                    [
+                        'allow' => true,
+                        'roles' => ['Adm-User'],
+                        'actions' => ['update', 'remove-avatar', 'avatar'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['post'],
+                    'remove-avatar' => ['post'],
+                ],
+            ],
+        ];
+    }
 
     /**
      * Creates a new User model.
@@ -84,7 +116,7 @@ class UserController extends \pavlinter\adm\controllers\UserController
         }
 
         $authItems = Adm::getInstance()->manager->createAuthItemQuery('find')->select(['name'])->where(['type' => Item::TYPE_ROLE])->all();
-        $this->clearSpaceAvatar($model);
+        $this->clearSpaceAvatar();
         return $this->render('create', [
             'model' => $model,
             'dynamicModel' => $dynamicModel,
@@ -160,7 +192,9 @@ class UserController extends \pavlinter\adm\controllers\UserController
                 }
             }
         }
-        $this->clearSpaceAvatar($model);
+
+        $this->clearSpaceAvatar();
+
         return $this->render('update', [
             'model' => $model,
             'dynamicModel' => $dynamicModel,
@@ -219,28 +253,29 @@ class UserController extends \pavlinter\adm\controllers\UserController
     /**
      * @param $id
      * @return string
+     * @throws ForbiddenHttpException
      */
-    public function actionAvatar($id = null)
+    public function actionRemoveAvatar($id)
     {
-        if ($id) {
-            $model = $this->findModel($id);
-            if ($model) {
-                if (Adm::getInstance()->user->can('Adm-UpdateOwnUser', $model)) {
-                    $user_id = Yii::$app->user->getId();
-                } elseif (Adm::getInstance()->user->can('AdmRoot')) {
-                    $user_id = $model->id;
-                } else {
-                    throw new ForbiddenHttpException('Access denied');
-                }
-            } else {
-                throw new NotFoundHttpException('The requested user does not exist.');
-            }
+        $model = $this->findModel($id);
+        if (Adm::getInstance()->user->can('AdmRoot') || Adm::getInstance()->user->can('Adm-UpdateOwnUser', $model)) {
+            $path = Yii::getAlias('@webroot/files/data/user/' . $model->id . '/main');
+            FileHelper::removeDirectory($path);
         } else {
-            $user_id = '';
+            throw new ForbiddenHttpException('Access denied');
         }
+        return Adm::goBack(['update', 'id' => $model->id]);
+    }
+
+
+    /**
+     * @return string
+     */
+    public function actionAvatar()
+    {
         /* @var $storage \app\modules\cloud\components\Storage */
         $storage = Cloud::getInst()->storage;
-        $spaceName = $this->spaceName . $user_id;
+        $spaceName = $this->spaceName;
         $path = $storage->getPath($spaceName);
 
         $minSize = 600;
@@ -303,19 +338,25 @@ class UserController extends \pavlinter\adm\controllers\UserController
      */
     protected function saveAvatar($model){
         /* @var $storage \app\modules\cloud\components\Storage */
-        $spaceName = $this->spaceName . $model->id;
+        $spaceName = $this->spaceName;
         $storage = Cloud::getInst()->storage;
         if ($storage->hasName($spaceName)) {
             $path = Yii::getAlias('@webroot/files/data/user/' . $model->id . '/main');
             FileHelper::removeDirectory($path);
             $storage->moveFileAndClear($path, $spaceName);
         }
+        $storage->removeOldDir(60 * 60 * 24 * 1); //1 day
     }
 
-    protected function clearSpaceAvatar($model){
+    /**
+     * @param $model
+     */
+    protected function clearSpaceAvatar()
+    {
         /* @var $storage \app\modules\cloud\components\Storage */
-        $spaceName = $this->spaceName . $model->id;
+        $spaceName = $this->spaceName;
         $storage = Cloud::getInst()->storage;
+        $storage->removeCloudDir($spaceName);
         $storage->clear($spaceName);
     }
 }

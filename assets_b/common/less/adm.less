@@ -43,3 +43,47 @@
 .btn.btn-adm-nestable-view{
   display: inline-block;
 }
+
+
+.online(){
+  .rounded(50%);
+  display: inline-block;
+  height: 6px;
+  width: 6px;
+  background: #999;
+  &.active{
+    background: #42B72A;
+  }
+}
+.online{
+  .online();
+  position: relative;
+  top: -1px;
+  z-index: 100;
+}
+.online-abs{
+  .online();
+  position: absolute;
+  top: 1px;
+  left: 0;
+  z-index: 100;
+}
+.position{
+  position: relative;
+}
+.online-color{
+  color: #42B72A;
+}
+.user-list-online{
+  position: relative;
+  .online{
+    margin-right: 5px;
+  }
+}
+.adm-avatar-view{
+  border: 3px solid #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0,0,0,.15);
+  cursor: pointer;
+  overflow: hidden;
+}

@@ -4115,4 +4115,24 @@ Ziņojums: {body}",
             ],
         ],
     ],
+    [
+        "category" => "model/user",
+        "message" => "Avatar",
+        "translations" => [
+            [
+                "language_id" => "2",
+                "translation" => "Фото",
+            ],
+        ],
+    ],
+    [
+        "category" => "adm",
+        "message" => "Remove photo",
+        "translations" => [
+            [
+                "language_id" => "2",
+                "translation" => "Удалить фото",
+            ],
+        ],
+    ],
 ];

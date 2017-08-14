@@ -11,6 +11,7 @@ use yii\data\ActiveDataProvider;
  */
 class UserSearch extends \app\models\User
 {
+    public $avatar;
     /**
      * @inheritdoc
      */
@@ -29,6 +30,16 @@ class UserSearch extends \app\models\User
     {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        $labels = parent::attributeLabels();
+        $labels['avatar'] = Yii::t('model/user', 'Avatar');
+        return $labels;
     }
 
     /**

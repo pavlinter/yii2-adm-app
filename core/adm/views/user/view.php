@@ -36,52 +36,68 @@ foreach ($authAssignments as $authAssignment) {
         <?php }?>
     </p>
 
-    <?= Adm::widget('DetailView', [
-        'model' => $model,
-        'hover' => true,
-        'mode' => \kartik\detail\DetailView::MODE_VIEW,
-        'attributes' => [
-            'username',
-            'email:email',
-            [
-                'attribute' => 'firstname',
-                'value' => $model->firstname . ' ' . $model->lastname,
-            ],
-            [
-                'attribute' => 'gender',
-                'value' => $model::gender_list($model->gender),
-            ],
-            [
-                'attribute' => 'display_type',
-                'value' => $model::display_type_list($model->display_type),
-            ],
-            [
-                'attribute' => 'cash',
-                'value' => $model->cash,
-            ],
-            [
-                'attribute' => 'online',
-                'value' => $model->online,
-            ],
-            [
-                'attribute' => 'status',
-                'value' => $model->status($model->status),
-            ],
-            [
-                'attribute' => 'role',
-                'label' => Yii::t('modelAdm/user', 'Assignment Role'),
-                'format' => 'raw',
-                'value' => $rolesStr,
-            ],
-            [
-                'attribute' => 'updated_at',
-                'value' => Yii::$app->formatter->asDate($model->updated_at),
-            ],
-            [
-                'attribute' => 'created_at',
-                'value' => Yii::$app->formatter->asDate($model->created_at),
-            ],
-        ],
-    ]) ?>
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7">
+            <?= Adm::widget('DetailView', [
+                'model' => $model,
+                'hover' => true,
+                'mode' => \kartik\detail\DetailView::MODE_VIEW,
+                'attributes' => [
+                    'username',
+                    'email:email',
+                    [
+                        'attribute' => 'firstname',
+                        'value' => $model->firstname . ' ' . $model->lastname,
+                    ],
+                    [
+                        'attribute' => 'gender',
+                        'value' => $model::gender_list($model->gender),
+                    ],
+                    [
+                        'attribute' => 'display_type',
+                        'value' => $model::display_type_list($model->display_type),
+                    ],
+                    [
+                        'attribute' => 'cash',
+                        'value' => $model->cash,
+                    ],
+                    [
+                        'attribute' => 'online',
+                        'value' => $model->online,
+                    ],
+                    [
+                        'attribute' => 'status',
+                        'value' => $model->status($model->status),
+                    ],
+                    [
+                        'attribute' => 'role',
+                        'label' => Yii::t('modelAdm/user', 'Assignment Role'),
+                        'format' => 'raw',
+                        'value' => $rolesStr,
+                    ],
+                    [
+                        'attribute' => 'updated_at',
+                        'value' => Yii::$app->formatter->asDate($model->updated_at),
+                    ],
+                    [
+                        'attribute' => 'created_at',
+                        'value' => Yii::$app->formatter->asDate($model->created_at),
+                    ],
+                ],
+            ]) ?>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5">
+
+            <?php
+            $photoData = Yii::$app->display->getFileImg($model->id, 'user', [
+                'width' => 400,
+                'height' => 400,
+            ], [
+                'dir' => 'main',
+            ]);
+            echo Html::img($photoData['display'], ['class' => 'img-responsive adm-avatar-view', 'alt' => $model->username]);
+            ?>
+        </div>
+    </div>
 
 </div>

@@ -31,11 +31,37 @@ Yii::$app->i18n->resetDot();
                 'vAlign' => 'middle',
                 'hAlign' => 'center',
             ],
-            'username',
-            'email:email',
+            [
+                'attribute' => 'avatar',
+                'width' => '70px',
+                'vAlign' => 'middle',
+                'hAlign' => 'center',
+                'format' => 'raw',
+                'value' => function ($model, $key, $index, $widget) {
+                    $photoData = Yii::$app->display->getFileImg($model->id, 'user', [
+                        'width' => 50,
+                        'height' => 50,
+                    ], [
+                        'dir' => 'main',
+                    ]);
+                    return Html::a(Html::img($photoData['display'], ['alt' => $model->username]), ['/adm/user/update', 'id' => $model->id]);
+                },
+            ],
+            [
+                'attribute' => 'username',
+                'vAlign' => 'middle',
+                'hAlign' => 'left',
+            ],
+            [
+                'attribute' => 'email',
+                'vAlign' => 'middle',
+                'hAlign' => 'left',
+                'format' => 'email',
+            ],
             [
                 'attribute' => 'role',
                 'vAlign' => 'middle',
+                'format' => 'raw',
                 'value' => function ($model, $key, $index, $widget) {
                     return $model::roles($model->role);
                 },
@@ -45,11 +71,12 @@ Yii::$app->i18n->resetDot();
                     'pluginOptions' => ['allowClear' =>true ],
                 ],
                 'filterInputOptions' => ['placeholder' => Adm::t('','Select ...', ['dot' => false])],
-                'format' => 'raw'
+
             ],
             [
                 'attribute' => 'status',
                 'vAlign' => 'middle',
+                'format' => 'raw',
                 'value' => function ($model, $key, $index, $widget) {
                     return $model::status($model->status);
                 },
@@ -59,11 +86,13 @@ Yii::$app->i18n->resetDot();
                     'pluginOptions' => ['allowClear' =>true ],
                 ],
                 'filterInputOptions' => ['placeholder' => Adm::t('','Select ...', ['dot' => false])],
-                'format' => 'raw'
+
             ],
             [
                 'attribute' => 'online',
-
+                'vAlign' => 'middle',
+                'hAlign' => 'center',
+                'format' => 'raw',
                 'value' => function ($model, $key, $index, $widget) {
                     $options = ['class' => 'user-list-online'];
                     if (User::online($model->id)) {
@@ -74,7 +103,7 @@ Yii::$app->i18n->resetDot();
 
                     return Html::tag('div', $value, $options);
                 },
-                'format' => 'raw'
+
             ],
             [
                 'class' => 'kartik\grid\ActionColumn',

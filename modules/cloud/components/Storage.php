@@ -30,7 +30,7 @@ class Storage extends \yii\base\Component
      */
     public function hasName($name)
     {
-        return $this->getSession()->has($name);
+        return $this->getSession()->has($this->prefix . $name);
     }
 
 
@@ -232,7 +232,9 @@ class Storage extends \yii\base\Component
         return sprintf('%x', crc32($path . Yii::getVersion()));
     }
 
-
+    /**
+     * @param null $remove_after
+     */
     public function removeOldDir($remove_after = null)
     {
         $module = Cloud::getInst();
@@ -261,4 +263,14 @@ class Storage extends \yii\base\Component
         closedir($handle);
     }
 
+
+    public function removeCloudDir($name)
+    {
+        if ($this->hasName($name)) {
+            $path = $this->getPath($name);
+            FileHelper::removeDirectory($path);
+            return true;
+        }
+        return false;
+    }
 }
