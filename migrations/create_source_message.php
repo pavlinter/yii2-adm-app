@@ -3819,7 +3819,7 @@ Ziņojums: {body}",
         "translations" => [
             [
                 "language_id" => "2",
-                "translation" => "Данные успешно удалены!",
+                "translation" => "Настройки почты",
             ],
         ],
     ],
@@ -3829,7 +3829,7 @@ Ziņojums: {body}",
         "translations" => [
             [
                 "language_id" => "2",
-                "translation" => "Настройки почты",
+                "translation" => "tls",
             ],
         ],
     ],
@@ -3843,7 +3843,7 @@ Ziņojums: {body}",
             ],
             [
                 "language_id" => "2",
-                "translation" => "tls",
+                "translation" => "ssl",
             ],
         ],
     ],
@@ -3853,11 +3853,11 @@ Ziņojums: {body}",
         "translations" => [
             [
                 "language_id" => "1",
-                "translation" => "ssl",
+                "translation" => "ID",
             ],
             [
                 "language_id" => "2",
-                "translation" => "ssl",
+                "translation" => "ID",
             ],
         ],
     ],
@@ -3867,11 +3867,11 @@ Ziņojums: {body}",
         "translations" => [
             [
                 "language_id" => "1",
-                "translation" => "ID",
+                "translation" => "Host",
             ],
             [
                 "language_id" => "2",
-                "translation" => "ID",
+                "translation" => "Хост",
             ],
         ],
     ],
@@ -3881,7 +3881,7 @@ Ziņojums: {body}",
         "translations" => [
             [
                 "language_id" => "2",
-                "translation" => "Хост",
+                "translation" => "Порт",
             ],
         ],
     ],
@@ -3891,7 +3891,7 @@ Ziņojums: {body}",
         "translations" => [
             [
                 "language_id" => "2",
-                "translation" => "Порт",
+                "translation" => "Включить SMTP авторизацию",
             ],
         ],
     ],
@@ -3901,7 +3901,7 @@ Ziņojums: {body}",
         "translations" => [
             [
                 "language_id" => "2",
-                "translation" => "Включить SMTP авторизацию",
+                "translation" => "Пользователь",
             ],
         ],
     ],
@@ -3911,7 +3911,7 @@ Ziņojums: {body}",
         "translations" => [
             [
                 "language_id" => "2",
-                "translation" => "Пользователь",
+                "translation" => "Пароль",
             ],
         ],
     ],
@@ -3921,7 +3921,7 @@ Ziņojums: {body}",
         "translations" => [
             [
                 "language_id" => "2",
-                "translation" => "Пароль",
+                "translation" => "Шифрование",
             ],
         ],
     ],
@@ -3931,7 +3931,7 @@ Ziņojums: {body}",
         "translations" => [
             [
                 "language_id" => "2",
-                "translation" => "Шифрование",
+                "translation" => "От (э-почта)",
             ],
         ],
     ],
@@ -3941,7 +3941,7 @@ Ziņojums: {body}",
         "translations" => [
             [
                 "language_id" => "2",
-                "translation" => "От (э-почта)",
+                "translation" => "От (имя)",
             ],
         ],
     ],
@@ -3951,7 +3951,7 @@ Ziņojums: {body}",
         "translations" => [
             [
                 "language_id" => "2",
-                "translation" => "От (имя)",
+                "translation" => "Обновлён",
             ],
         ],
     ],
@@ -3961,7 +3961,7 @@ Ziņojums: {body}",
         "translations" => [
             [
                 "language_id" => "2",
-                "translation" => "Обновлён",
+                "translation" => "Послать копию на:",
             ],
         ],
     ],
@@ -3971,7 +3971,7 @@ Ziņojums: {body}",
         "translations" => [
             [
                 "language_id" => "2",
-                "translation" => "Послать копию на:",
+                "translation" => "Обновить и протестировать",
             ],
         ],
     ],
@@ -3981,7 +3981,7 @@ Ziņojums: {body}",
         "translations" => [
             [
                 "language_id" => "2",
-                "translation" => "Обновить и протестировать",
+                "translation" => "Тест тема",
             ],
         ],
     ],
@@ -3991,7 +3991,7 @@ Ziņojums: {body}",
         "translations" => [
             [
                 "language_id" => "2",
-                "translation" => "Тест тема",
+                "translation" => "Тест текст",
             ],
         ],
     ],
@@ -4001,7 +4001,7 @@ Ziņojums: {body}",
         "translations" => [
             [
                 "language_id" => "2",
-                "translation" => "Тест текст",
+                "translation" => "Ошибка: {error}",
             ],
         ],
     ],
@@ -4011,7 +4011,7 @@ Ziņojums: {body}",
         "translations" => [
             [
                 "language_id" => "2",
-                "translation" => "Ошибка: {error}",
+                "translation" => "Параметры",
             ],
         ],
     ],
@@ -4132,6 +4132,56 @@ Ziņojums: {body}",
             [
                 "language_id" => "2",
                 "translation" => "Удалить фото",
+            ],
+        ],
+    ],
+    [
+        "category" => "adm/language",
+        "message" => "Create Language",
+        "translations" => [
+            [
+                "language_id" => "2",
+                "translation" => "Добавить язык",
+            ],
+        ],
+    ],
+    [
+        "category" => "i18n-dot",
+        "message" => "Change",
+        "translations" => [
+            [
+                "language_id" => "2",
+                "translation" => "Изменить",
+            ],
+        ],
+    ],
+    [
+        "category" => "i18n-dot",
+        "message" => "Loading...",
+        "translations" => [
+            [
+                "language_id" => "2",
+                "translation" => "Загрузка ...",
+            ],
+        ],
+    ],
+    [
+        "category" => "i18n-dot",
+        "message" => "Empty",
+        "translations" => [
+            [
+                "language_id" => "2",
+                "translation" => "Пустая страка",
+            ],
+        ],
+    ],
+    [
+        "category" => "modelAdm/adm_params",
+        "message" => "Description",
+        "translations" => [
+            [
+                "language_id" => "2",
+                "translation" => "Описание параметра",
             ],
         ],
     ],
