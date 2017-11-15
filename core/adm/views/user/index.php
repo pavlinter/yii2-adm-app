@@ -122,7 +122,7 @@ Yii::$app->i18n->resetDot();
                         ]);
                     },
                     'login' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-sunglasses"></span>', ['/profilelogin/default/login', 'username' => $model->username], [
+                        return Html::a('<span class="glyphicon glyphicon-sunglasses"></span>', ['/profilelogin/default/login', 'id' => $model->id], [
                             'title' => Yii::t('adm/title', 'Login', ['dot' => false]),
                             'data-method' => 'post',
                             'data-pjax' => '0',

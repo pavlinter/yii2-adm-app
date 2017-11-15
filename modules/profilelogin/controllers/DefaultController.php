@@ -40,13 +40,13 @@ class DefaultController extends Controller
     }
 
     /**
-     * @param $username
+     * @param $id
      * @return \yii\web\Response
      */
-    public function actionLogin($username)
+    public function actionLogin($id)
     {
         /* @var $user User */
-        $user = User::findByUsername($username);
+        $user = User::findOne(['id' => $id, 'status' => User::STATUS_ACTIVE]);
         Yii::$app->user->login($user, 0);
         Yii::$app->session->set('AdmSpy', $user->id);
         if (Yii::$app->user->can('AdmRoot')) {

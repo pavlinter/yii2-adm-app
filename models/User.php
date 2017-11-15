@@ -359,6 +359,17 @@ class User extends \pavlinter\adm\models\User
     }
 
     /**
+     * Finds user by email
+     *
+     * @param string $email
+     * @return static|null
+     */
+    public static function findByEmail($email)
+    {
+        return static::findOne(['email' => $email, 'status' => static::STATUS_ACTIVE]);
+    }
+
+    /**
      * @return array
      */
     public function fields()
