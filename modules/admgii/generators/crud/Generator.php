@@ -245,7 +245,7 @@ class Generator extends \yii\gii\Generator
         $schema = $class::getTableSchema();
 
         foreach ($schema->columns as $name => $column) {
-            if($column->comment === 'name'){
+            if($this->getFieldComment($column) === 'name'){
                 return $name;
             }
         }
@@ -261,7 +261,7 @@ class Generator extends \yii\gii\Generator
                     $classLang = $query->modelClass;
                     $schema = $classLang::getTableSchema();
                     foreach ($schema->columns as $name => $column) {
-                        if($column->comment === 'name'){
+                        if($this->getFieldComment($column) === 'name'){
                             return $name;
                         }
                     }
@@ -339,7 +339,7 @@ class Generator extends \yii\gii\Generator
         $tableSchema = $this->getTableSchema();
         if ($tableSchema !== false && isset($tableSchema->columns[$attribute])) {
             $column = $tableSchema->columns[$attribute];
-            if ($column->comment == 'checkbox'){
+            if ($this->getFieldComment($column) == 'checkbox'){
                 Html::addCssClass($options, 'form-without-label');
             }
         }
@@ -405,21 +405,20 @@ class Generator extends \yii\gii\Generator
             $t3 = "\t\t";
         }
 
-        $column->comment = strtolower($column->comment);
 
-        if ($column->comment == 'redactor'){
+        if ($this->getFieldComment($column) == 'redactor'){
             return "\\pavlinter\\adm\\Adm::widget('Redactor',[\n$t3'form' => \$form,\n$t3'model'      => " . $modelStr . ",\n$t3'attribute'  => " . $attributeStr . "\n$t2])";
         }
-        if ($column->comment == 'fileinput'){
+        if ($this->getFieldComment($column) == 'fileinput'){
             return "\\pavlinter\\adm\\Adm::widget('FileInput',[\n$t3'form'        => \$form,\n$t3'model'       => " . $modelStr . ",\n$t3'attribute'   => " . $attributeStr . "\n$t2])";
         }
 
-        if ($column->comment == 'checkbox'){
+        if ($this->getFieldComment($column) == 'checkbox'){
             return "\$form->field(" . $modelStr . ", " . $attributeStr . ", [\"template\" => \"{input}\\n{label}\\n{hint}\\n{error}\"])->widget(\\kartik\\checkbox\\CheckboxX::classname(), [\n$t3'pluginOptions' => [\n\t$t3'threeState' => false\n$t3]\n$t2]);";
         }
 
-        if ($column->comment == 'select2' || $column->comment == 'range' || $column->dbType === 'tinyint(1)'){
-            if ($column->comment == 'range' || $column->dbType === 'tinyint(1)') {
+        if ($this->getFieldComment($column) == 'select2' || $this->getFieldComment($column) == 'range' || $column->dbType === 'tinyint(1)'){
+            if ($this->getFieldComment($column) == 'range' || $column->dbType === 'tinyint(1)') {
                 $data = "\$model::{$column->name}_list()";
             } else {
                 $data = '[]';
@@ -432,7 +431,7 @@ class Generator extends \yii\gii\Generator
 
         if ($column->phpType === 'boolean' || $column->phpType === 'tinyint(1)') {
             return $field."->checkbox()";
-        } elseif ($column->type === 'text' || $column->comment == 'textarea') {
+        } elseif ($column->type === 'text' || $this->getFieldComment($column) == 'textarea') {
             return $field."->textarea(['rows' => 6])";
         } else {
             if (preg_match('/^(password|pass|passwd|passcode)$/i', $column->name)) {
@@ -765,7 +764,7 @@ class Generator extends \yii\gii\Generator
             $tableSchema = $this->getTableSchema();
             if($tableSchema){
                 foreach ($tableSchema->columns as $column) {
-                    if($column->comment == 'parent' || $column->comment == 'id_parent' || $column->comment == 'parent_id'){
+                    if($this->getFieldComment($column) == 'parent' || $this->getFieldComment($column) == 'id_parent' || $this->getFieldComment($column) == 'parent_id'){
                         $parent = $column->name;
                         break;
                     }
@@ -954,5 +953,21 @@ class Generator extends \yii\gii\Generator
         $return .= "\t\t\t\t'format' => 'text',\n";
         $return .= "\t\t\t],\n";
         return $return;
+    }
+
+    /**
+     * @param @param $column yii\db\TableSchema
+     * @param bool $forLabel
+     * @return mixed
+     */
+    public function getFieldComment($column, $forLabel = false)
+    {
+        $parts = explode(' ', $column->comment);
+        if ($forLabel && sizeof($parts) > 1) {
+            unset($parts['0']);
+            return join(' ', $parts);
+        }
+
+        return strtolower($parts['0']);
     }
 }

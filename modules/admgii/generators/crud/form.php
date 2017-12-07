@@ -33,7 +33,7 @@ $this->registerJs('
         var valUpper = val.charAt(0).toUpperCase() + val.slice(1);
 
         $("#generator-modelclass").val("app\\\models\\\" + valUpper);
-        $("#generator-searchmodelclass").val("app\\\models\\\" + valUpper + "Search");
+        $("#generator-searchmodelclass").val("app\\\models\\\search\\\" + valUpper + "Search");
         $("#generator-controllerclass").val("app\\\modules\\\appadm\\\controllers\\\" + valUpper + "Controller");
         $("#generator-moduleid").val("appadm").prev(".sticky-value").text("appadm");
         $("#generator-messagecategory").val("adm/" + val).prev(".sticky-value").text("adm/" + val);

@@ -233,8 +233,8 @@ class Generator extends \app\modules\admgii\Generator
     {
         $labels = [];
         foreach ($table->columns as $column) {
-            if ($this->generateLabelsFromComments && !empty($column->comment)) {
-                $labels[$column->name] = $column->comment;
+            if ($this->generateLabelsFromComments && !empty($this->getFieldComment($column, true))) {
+                $labels[$column->name] = $this->getFieldComment($column, true);
             } elseif (!strcasecmp($column->name, 'id')) {
                 $labels[$column->name] = 'ID';
             } else {
@@ -280,11 +280,11 @@ class Generator extends \app\modules\admgii\Generator
             }
             $type = $column->type;
 
-            if($column->comment == 'checkbox'){
+            if($this->getFieldComment($column) == 'checkbox'){
                 $type = Schema::TYPE_BOOLEAN;
             }
 
-            if($column->comment == 'range'){
+            if($this->getFieldComment($column) == 'range'){
                 $type = 'range';
             }
 
@@ -309,7 +309,7 @@ class Generator extends \app\modules\admgii\Generator
                 case Schema::TYPE_TIME:
                 case Schema::TYPE_DATETIME:
                 case Schema::TYPE_TIMESTAMP:
-                    if($column->comment !== 'created_at' && $column->comment !== 'updated_at'){
+                    if($this->getFieldComment($column) !== 'created_at' && $this->getFieldComment($column) !== 'updated_at'){
                         $types['safe'][] = $column->name;
                     }
                     break;
@@ -751,11 +751,11 @@ class Generator extends \app\modules\admgii\Generator
         $updateName  = '';
         foreach ($columns as $column) {
 
-            if ($column->comment == 'created_at') {
+            if ($this->getFieldComment($column) == 'created_at') {
                 $createName = $column->name;
                 continue;
             }
-            if ($column->comment == 'updated_at') {
+            if ($this->getFieldComment($column) == 'updated_at') {
                 $updateName = $column->name;
                 continue;
             }
@@ -784,7 +784,7 @@ class Generator extends \app\modules\admgii\Generator
     public function haveWeight($columns)
     {
         foreach ($columns as $column) {
-            if ($column->comment == 'weight') {
+            if ($this->getFieldComment($column) == 'weight') {
                 return $column->name;
             }
         }
@@ -815,7 +815,7 @@ class Generator extends \app\modules\admgii\Generator
             $tableSchema = $this->getTableSchema();
             if($tableSchema){
                 foreach ($tableSchema->columns as $column) {
-                    if($column->comment == 'parent' || $column->comment == 'id_parent'){
+                    if($this->getFieldComment($column) == 'parent' || $this->getFieldComment($column) == 'id_parent'){
                         $parent = $column->name;
                         break;
                     }
@@ -866,7 +866,7 @@ class Generator extends \app\modules\admgii\Generator
 
         if($tableSchema){
             foreach ($tableSchema->columns as $column) {
-                if(in_array($column->comment, ['name', 'title'])){
+                if(in_array($this->getFieldComment($column), ['name', 'title'])){
                     return $column->name;
                 }
             }
@@ -876,11 +876,27 @@ class Generator extends \app\modules\admgii\Generator
             $classLang = $this->modelLangClass;
             $schema = $classLang::getTableSchema();
             foreach ($schema->columns as $name => $column) {
-                if(in_array($column->comment, ['name', 'title'])){
+                if(in_array($this->getFieldComment($column), ['name', 'title'])){
                     return $column->name;
                 }
             }
         }
         return 'id';
+    }
+
+    /**
+     * @param @param $column yii\db\TableSchema
+     * @param bool $forLabel
+     * @return mixed
+     */
+    public function getFieldComment($column, $forLabel = false)
+    {
+        $parts = explode(' ', $column->comment);
+        if ($forLabel && sizeof($parts) > 1) {
+            unset($parts['0']);
+            return join(' ', $parts);
+        }
+
+        return strtolower($parts['0']);
     }
 }
