@@ -31,10 +31,10 @@ use app\helpers\Url;
 <?= !empty($generator->searchModelClass) ? "/* @var \$searchModel " . ltrim($generator->searchModelClass, '\\') . " */\n" : '' ?>
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-//Yii::$app->i18n->disableDot();
-$this->title = '';//<?= $generator->generateString(Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass))), ['dot' => false, 'dropN' => true]) ?>;
+Yii::$app->i18n->disableDot();
+$this->title = '';//<?= $generator->generateString(Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass)))) ?>;
 Yii::$app->params['breadcrumbs'][] = $this->title;
-//Yii::$app->i18n->resetDot();
+Yii::$app->i18n->resetDot();
 ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-index">
 
