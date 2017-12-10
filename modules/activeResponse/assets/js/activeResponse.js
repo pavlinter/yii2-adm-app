@@ -2,10 +2,9 @@ var activeResponse = (function ($) {
 	var pub = {
 		/**
 		 * Call ActiveResponse PHP controller
-		 * @param {string} controller/action to call
+		 * @param {string} href controller/action to call
 		 * @param {string|object} data $('#'+form_name).serialize()
-		 * @param {function} success
-		 * @param {function} always
+		 * @param {object} ajaxOptions
 		 */
 		callAR: function (href, data, ajaxOptions) {
 			var self = this;
@@ -17,16 +16,8 @@ var activeResponse = (function ($) {
 				if ((i = href.indexOf('?')) > 0) href = href.substring(0, i);
 				if ((i = href.indexOf('&')) > 0) href = href.substring(0, i);
 			}
-			/*if (value === null || typeof(value) === 'undefined') {
-			 value = 'callAR=1';
-			 } else if ( typeof(value) === "object") {
-			 value.callAR = 1;
-			 } else {
-			 value = 'callAR=1&' + value;
-			 }*/
-			// true
 
-			var ajaxOptions = $.extend({
+			ajaxOptions = $.extend({
 				type: $.isEmptyObject(data) ? "GET" : "POST",
 				url: href,
 				dataType: 'json',
@@ -37,11 +28,9 @@ var activeResponse = (function ($) {
 				ajaxOptions.data[yii.getCsrfParam()] = yii.getCsrfToken();
 			}
 
-			var success = this.array_remove(ajaxOptions, 'success', function () {
-			});
+			var success = this.array_remove(ajaxOptions, 'success', function () {});
 			var error = this.array_remove(ajaxOptions, 'error', false);
-			var always = this.array_remove(ajaxOptions, 'always', function () {
-			});
+			var always = this.array_remove(ajaxOptions, 'always', function () {});
 
 			var xhr = $.ajax(ajaxOptions).done(function (json) {
 				if (json.disableActions === false) {
@@ -63,6 +52,62 @@ var activeResponse = (function ($) {
 			});
 			return xhr;
 		},
+
+
+        /**
+         * Call ActiveResponse PHP controller
+		 * @param {string} $form jquery element
+         * @param {string|object} data $('#'+form_name).serialize()
+         * @param {object} ajaxOptions
+         */
+        callARFile: function ($form, data, ajaxOptions) {
+            var self = this;
+            var data = data || {};
+			var href = $form.attr("action");
+            // try to autodiscover current PHP file
+            if (href === null) {
+                href = location.href;
+                if ((i = href.indexOf('?')) > 0) href = href.substring(0, i);
+                if ((i = href.indexOf('&')) > 0) href = href.substring(0, i);
+            }
+
+            ajaxOptions = $.extend({
+                type: $.isEmptyObject(data) ? "GET" : "POST",
+                url: href,
+                dataType: 'json',
+                data: data
+            }, ajaxOptions);
+
+            if (ajaxOptions.type === "POST" && typeof ajaxOptions.data === 'object') {
+                ajaxOptions.data[yii.getCsrfParam()] = yii.getCsrfToken();
+            }
+
+            var success = this.array_remove(ajaxOptions, 'success', function () {});
+            var error = this.array_remove(ajaxOptions, 'error', false);
+            var always = this.array_remove(ajaxOptions, 'always', function () {});
+
+            $form.ajaxSubmit(ajaxOptions);
+            var xhr = $form.data('jqxhr');
+            xhr.done(function (json) {
+                if (json.disableActions === false) {
+                    self.parseActions(json.actions);
+                }
+                if (typeof(success) === 'function') {
+                    success(json, json.return2callback);
+                } else {
+                    eval(success);
+                }
+            }).always(function (jqXHR, textStatus) {
+                always(jqXHR, textStatus);
+            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            	if (typeof(error) === 'function') {
+                    error(XMLHttpRequest, textStatus, errorThrown);
+                } else if (error === true) {
+                    alert('response:' + self.strip_tags(XMLHttpRequest.responseText) + ' error:' + textStatus + '. thrown:' + errorThrown);
+                }
+            });
+            return xhr;
+        },
 
 		parseActions: function (actions) {
 			var self = this;

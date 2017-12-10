@@ -28,6 +28,7 @@ class ActiveResponseAsset extends \app\assets_b\Asset
     /**
      * @param bool $loadGrowl
      * @param null $view
+     * @return self
      */
     public function run($loadGrowl = true, $view = null)
     {
@@ -39,5 +40,19 @@ class ActiveResponseAsset extends \app\assets_b\Asset
             //http://bootstrap-notify.remabledesigns.com/
             \kartik\growl\GrowlAsset::register($view);
         }
+        return $this;
+    }
+
+    /**
+     * @param null $view
+     * @return self
+     */
+    public function ajaxForm($view = null)
+    {
+        if ($view === null) {
+            $view = Yii::$app->getView();
+        }
+        AjaxFormAsset::register($view);
+        return $this;
     }
 }

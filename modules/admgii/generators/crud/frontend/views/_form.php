@@ -30,8 +30,9 @@ use yii\widgets\ActiveForm;
     <?= "<?php " ?>$form = ActiveForm::begin([
         'id' => '',
         'options' => [
-        'class' => '',
-    ],
+            //'enctype'=>'multipart/form-data',
+            'class' => '',
+        ],
         'fieldConfig' => [],
     ]); ?>
 
