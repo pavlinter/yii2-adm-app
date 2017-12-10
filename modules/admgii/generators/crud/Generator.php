@@ -876,9 +876,10 @@ class Generator extends \yii\gii\Generator
 
     /**
      * @param $column
+     * @param bool $isFrontend
      * @return string
      */
-    public function generateColumn($column)
+    public function generateColumn($column, $isFrontend = false)
     {
         $return = "";
         if (is_object($column)) {
@@ -903,9 +904,19 @@ class Generator extends \yii\gii\Generator
                 $return .= "\t\t\t\t\t'placeholder' => Adm::t('','Select ...', ['dot' => false])\n";
                 $return .= "\t\t\t\t],\n";
             } elseif($this->checkCol($column->name, ['comment' => 'checkbox'])){
-                $return .= "\t\t\t\t'class' => 'app\\widgets\\BooleanColumn',\n";
-                $return .= "\t\t\t\t'attribute' => '". $column->name ."',\n";
-                $return .= "\t\t\t\t'tableName' => \$searchModel::tableName(),\n";
+                if ($isFrontend) {
+                    $return .= "\t\t\t\t'class' => 'pavlinter\adm\widgets\BooleanColumn',\n";
+                    $return .= "\t\t\t\t'attribute' => '". $column->name ."',\n";
+                    $return .= "\t\t\t\t'tableName' => \$searchModel::tableName(),\n";
+                    $return .= "\t\t\t\t'query' => function(\$query, \$owner, \$id){\n";
+                    $return .= "\t\t\t\t\t\$query->andWhere(['user_id' => Yii::\$app->user->getId()]);\n";
+                    $return .= "\t\t\t\t},\n";
+                } else {
+                    $return .= "\t\t\t\t'class' => 'app\\widgets\\BooleanColumn',\n";
+                    $return .= "\t\t\t\t'attribute' => '". $column->name ."',\n";
+                    $return .= "\t\t\t\t'tableName' => \$searchModel::tableName(),\n";
+                }
+
             } else {
                 $return .= "\t\t\t\t'attribute' => '". $column->name ."',\n";
                 $return .= "\t\t\t\t'vAlign' => 'middle',\n";

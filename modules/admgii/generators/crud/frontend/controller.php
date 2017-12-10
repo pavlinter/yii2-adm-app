@@ -161,7 +161,10 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
      */
     public function actionDelete(<?= $actionParams ?>)
     {
-        $this->findModel(<?= $actionParams ?>)->delete();
+        $model = $this->findModel(<?= $actionParams ?>);
+        if($model){
+            $model->delete();
+        }
         Yii::$app->getSession()->setFlash('success', Yii::t('app','Data successfully removed!'));
         return $this->redirect(['index']);
     }

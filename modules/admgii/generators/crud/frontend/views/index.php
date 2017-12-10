@@ -58,18 +58,37 @@ $count = 0;
 if (($tableSchema = $generator->getTableSchema()) === false) {
     foreach ($generator->getColumnNames() as $name) {
         if (++$count < 6) {
-            echo "            '" . $name . "',\n";
+            echo $generator->generateColumn($name, true);
         } else {
-            echo "            // '" . $name . "',\n";
+            echo "\t\t\t/*\n";
+            echo $generator->generateColumn($name, true);
+            echo "\t\t\t*/\n";
         }
     }
 } else {
+    $afterId = null;
+    $name = $generator->getNameAttribute();
     foreach ($tableSchema->columns as $column) {
-        $format = $generator->generateColumnFormat($column);
+        if($generator->checkCol($column->name, ['comment' => 'parent']) || $generator->checkCol($column->name, ['comment' => 'id_parent'])){
+            continue;
+        }
+
+        if($column->name == 'id'){
+            $afterId = true;
+        } else if ($afterId && $name != 'id') {
+            echo $generator->generateColumn($name, true);
+            $afterId = false;
+            if ($name == $column->name) {
+                continue;
+            }
+        }
+
         if (++$count < 6) {
-            echo "            '" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
+            echo $generator->generateColumn($column, true);
         } else {
-            echo "            // '" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
+            echo "\t\t\t/*\n";
+            echo $generator->generateColumn($column, true);
+            echo "\t\t\t*/\n";
         }
     }
 }
