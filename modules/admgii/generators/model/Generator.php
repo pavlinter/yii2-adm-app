@@ -359,6 +359,26 @@ class Generator extends \app\modules\admgii\Generator
     }
 
     /**
+     * @param $tableSchema yii\db\TableSchema
+     * @return string
+     */
+    public function generateScenarioColumn($tableSchema)
+    {
+        $fields = [];
+        foreach ($tableSchema->columns as $column) {
+            if($column->autoIncrement || in_array($this->getFieldComment($column), ['weight', 'created_at', 'updated_at'])){
+                continue;
+            }
+            $fields[] = $column->name;
+        }
+
+        if ($fields) {
+            return "['" . implode("', '", $fields) . "']";
+        }
+        return '[]';
+    }
+
+    /**
      * @return array the generated relation declarations
      */
     protected function generateRelations()

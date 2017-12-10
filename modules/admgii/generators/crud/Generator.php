@@ -321,12 +321,15 @@ class Generator extends \yii\gii\Generator
     public function generateActiveField($attribute, $options = [])
     {
         $fix = ArrayHelper::remove($options, 'fix', false);
+        $isFrontend = ArrayHelper::remove($options, 'isFrontend', false);
+
         $field = $this->getFieldType([
             'attribute' => $attribute,
             'model' => $this,
             'modelStr' => "\$model",
             'attributeStr' => "'$attribute'",
             'fix' => $fix,
+            'isFrontend' => $isFrontend,
         ]);
         if(!$fix){
             return $field;
@@ -340,7 +343,11 @@ class Generator extends \yii\gii\Generator
         if ($tableSchema !== false && isset($tableSchema->columns[$attribute])) {
             $column = $tableSchema->columns[$attribute];
             if ($this->getFieldComment($column) == 'checkbox'){
-                Html::addCssClass($options, 'form-without-label');
+                if ($isFrontend) {
+                    Html::addCssClass($options, 'form-without-label2');
+                } else {
+                    Html::addCssClass($options, 'form-without-label');
+                }
             }
         }
         return Html::tag('div', "\n\t\t\t<?= " . $field . " ?>\n\t\t", $options) . "\n\t\t";
@@ -370,6 +377,7 @@ class Generator extends \yii\gii\Generator
         $params = ArrayHelper::merge([
             'lang' => false,
             'bsCol' => false,
+            'isFrontend' => false,
         ], $params);
         /* @var $attribute string */
         /* @var $model \yii\db\ActiveRecord */
@@ -377,6 +385,7 @@ class Generator extends \yii\gii\Generator
         /* @var $attributeStr string */
         /* @var $lang bool */
         /* @var $fix bool */
+        /* @var $isFrontend bool */
         extract($params);
 
         $field = "\$form->field(" . $modelStr . ", " . $attributeStr . ")";
@@ -414,7 +423,11 @@ class Generator extends \yii\gii\Generator
         }
 
         if ($this->getFieldComment($column) == 'checkbox'){
-            return "\$form->field(" . $modelStr . ", " . $attributeStr . ", [\"template\" => \"{input}\\n{label}\\n{hint}\\n{error}\"])->widget(\\kartik\\checkbox\\CheckboxX::classname(), [\n$t3'pluginOptions' => [\n\t$t3'threeState' => false\n$t3]\n$t2]);";
+            if ($isFrontend) {
+                return "\$form->field(" . $modelStr . ", " . $attributeStr . ", [\"template\" => \"{input}\"])->widget(\\app\\modules\icheck\\widgets\\Checkbox::classname(), [\n$t3'skin' => \\app\\modules\icheck\\widgets\\Checkbox::SKIN_MINIMAL_BLUE\n$t2]);";
+            } else {
+                return "\$form->field(" . $modelStr . ", " . $attributeStr . ", [\"template\" => \"{input}\\n{label}\\n{hint}\\n{error}\"])->widget(\\kartik\\checkbox\\CheckboxX::classname(), [\n$t3'pluginOptions' => [\n\t$t3'threeState' => false\n$t3]\n$t2]);";
+            }
         }
 
         if ($this->getFieldComment($column) == 'select2' || $this->getFieldComment($column) == 'range' || $column->dbType === 'tinyint(1)'){

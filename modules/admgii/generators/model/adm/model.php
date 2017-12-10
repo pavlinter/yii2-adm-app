@@ -151,6 +151,8 @@ foreach ($modelLangClassObj->attributes() as $attribute){
     public function scenarios()
     {
         $scenarios = parent::scenarios();
+        //$scenarios['client-create'] = <?= $generator->generateScenarioColumn($tableSchema) ?>;
+        //$scenarios['client-update'] = <?= $generator->generateScenarioColumn($tableSchema) ?>;
         return $scenarios;
     }
 

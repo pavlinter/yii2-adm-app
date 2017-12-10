@@ -28,11 +28,11 @@ use yii\widgets\ActiveForm;
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form">
 
     <?= "<?php " ?>$form = ActiveForm::begin([
-    'id' => '',
-    'options' => [
-    'class' => '',
+        'id' => '',
+        'options' => [
+        'class' => '',
     ],
-    'fieldConfig' => [],
+        'fieldConfig' => [],
     ]); ?>
 
 
@@ -57,7 +57,7 @@ use yii\widgets\ActiveForm;
 <?php if (in_array('weight', $columnNames)) {?>
 <?= "\t\t" . $generator->generateActiveField('weight', ['fix' => true]); ?>
 <?php }?><?php if (in_array('active', $columnNames)) {?>
-<?= $generator->generateActiveField('active', ['fix' => true]); ?>
+<?= $generator->generateActiveField('active', ['fix' => true, 'isFrontend' => true]); ?>
 <?php }?>
 </div>
 

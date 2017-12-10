@@ -32,7 +32,7 @@ use app\helpers\Url;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 //Yii::$app->i18n->disableDot();
-$this->title = '';//<?= $generator->generateString(Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass)))) ?>;
+$this->title = '';//<?= $generator->generateString(Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass))), ['dot' => false, 'dropN' => true]) ?>;
 Yii::$app->params['breadcrumbs'][] = $this->title;
 //Yii::$app->i18n->resetDot();
 ?>
