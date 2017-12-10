@@ -6,9 +6,12 @@ use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
-
 /**
  * Class RadioList
+ * $form->field($model, 'attribute')->widget(\app\modules\icheck\widgets\RadioList::className(), [
+ * 	'skin' => \app\modules\icheck\widgets\RadioList::SKIN_MINIMAL_BLUE,
+ * 	'items' => ['value1' => 'One', 'value2' => 'Two'],
+ * ]);
  */
 class RadioList extends iCheckOptions
 {
