@@ -1,8 +1,8 @@
 <?php
 
 namespace app\helpers;
-use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use yii\helpers\ArrayHelper as AH;
+use yii\helpers\Html as CHtml;
 
 /**
  * TreeHelper
@@ -18,7 +18,7 @@ class TreeHelper
      */
     public static function treeMap(&$results, $items, $key, $value, $options)
     {
-        $options = ArrayHelper::merge([
+        $options = AH::merge([
             'level' => 0,
             'space' => "&nbsp;&nbsp;",
             'levelOptions' => [],
@@ -34,20 +34,20 @@ class TreeHelper
                 $space .= $options['space'];
             }
             if (isset($options['levelOptions'][$options['level']])) {
-                $htmlOptions = ArrayHelper::merge($htmlOptions, $options['levelOptions'][$options['level']]);
+                $htmlOptions = AH::merge($htmlOptions, $options['levelOptions'][$options['level']]);
             } elseif(isset($options['levelOptions']['else'])){
-                $htmlOptions = ArrayHelper::merge($htmlOptions, $options['levelOptions']['else']);
+                $htmlOptions = AH::merge($htmlOptions, $options['levelOptions']['else']);
             }
 
 
 
-            $tag = ArrayHelper::remove($htmlOptions, 'tag');
+            $tag = AH::remove($htmlOptions, 'tag');
 
 
             if ($options['value'] instanceof \Closure) {
                 $result = call_user_func($options['value'], $tag, $space , $item->{$value}, $htmlOptions, $item);
             } else {
-                $result =  Html::tag($tag, $space . $item->{$value}, $htmlOptions);
+                $result =  CHtml::tag($tag, $space . $item->{$value}, $htmlOptions);
             }
 
             if ($key) {
@@ -60,7 +60,7 @@ class TreeHelper
             if ($options['itemsChilds']) {
                 $childs = $item->{$options['itemsChilds']};
                 if($childs){
-                    static::treeMap($results, $childs, $key, $value, ArrayHelper::merge($options, ['level' => $options['level'] + 1]));
+                    static::treeMap($results, $childs, $key, $value, AH::merge($options, ['level' => $options['level'] + 1]));
                 }
             }
 
@@ -77,7 +77,7 @@ class TreeHelper
      */
     public static function treeMapParent(&$results, $item, $key, $value, $options)
     {
-        $options = ArrayHelper::merge([
+        $options = AH::merge([
             'level' => 0,
             'space' => "&nbsp;&nbsp;",
             'levelOptions' => [],
@@ -95,19 +95,19 @@ class TreeHelper
                 $space .= $options['space'];
             }
             if (isset($options['levelOptions'][$options['level']])) {
-                $htmlOptions = ArrayHelper::merge($htmlOptions, $options['levelOptions'][$options['level']]);
+                $htmlOptions = AH::merge($htmlOptions, $options['levelOptions'][$options['level']]);
             } elseif (isset($options['levelOptions']['else'])) {
-                $htmlOptions = ArrayHelper::merge($htmlOptions, $options['levelOptions']['else']);
+                $htmlOptions = AH::merge($htmlOptions, $options['levelOptions']['else']);
             }
 
 
-            $tag = ArrayHelper::remove($htmlOptions, 'tag');
+            $tag = AH::remove($htmlOptions, 'tag');
 
 
             if ($options['value'] instanceof \Closure) {
                 $result = call_user_func($options['value'], $tag, $space, $item->{$value}, $htmlOptions, $parent);
             } else {
-                $result = Html::tag($tag, $space . $item->{$value}, $htmlOptions);
+                $result = CHtml::tag($tag, $space . $item->{$value}, $htmlOptions);
             }
 
             if ($result) {
@@ -116,7 +116,7 @@ class TreeHelper
                 } else {
                     $results[] = $result;
                 }
-                static::treeMapParent($results, $parent, $key, $value, ArrayHelper::merge($options, ['level' => $options['level'] + 1]));
+                static::treeMapParent($results, $parent, $key, $value, AH::merge($options, ['level' => $options['level'] + 1]));
             }
         }
     }

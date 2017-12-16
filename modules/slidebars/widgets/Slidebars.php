@@ -7,6 +7,7 @@ use Yii;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\web\JsExpression;
 
 
 /**
@@ -70,7 +71,18 @@ class Slidebars extends Widget
 
 	public $toggleSelector;
 
-	public $initCallback = '';
+    /**
+     * @var array widget JQuery events. You must define events in `event-name => event-function` format. For example:
+     *
+     * ~~~
+     * pluginEvents = [
+     *     'init' => 'function() {}',
+     *     'opening' => 'function() {}',
+     * ];
+     * ~~~
+     */
+    public $pluginEvents = [];
+
 
 	public function init()
 	{
@@ -80,14 +92,10 @@ class Slidebars extends Widget
 			$this->id = $this->getId();
 		}
 
-		if ($this->toggleSelector) {
-
-		}
-
 		$options = ArrayHelper::merge([
 			'canvas' => 'container',
+            'id' => $this->id,
 		], $this->options);
-
 
 		if ($this->menuContent instanceof \Closure) {
 			ob_start();
@@ -97,7 +105,9 @@ class Slidebars extends Widget
 		}
 
 		$this->menuOptions['off-canvas'] = $this->id . ' ' . $this->side . ' ' . $this->style;
-
+        if (!isset($this->menuOptions['id'])) {
+            $this->menuOptions['id'] = 'menu_' . $this->id;
+        }
 		echo Html::tag('div', $this->menuContent, $this->menuOptions);
 		echo Html::beginTag('div', $options) . "\n";
 	}
@@ -118,17 +128,28 @@ class Slidebars extends Widget
 	public function registerScript($view)
 	{
 		SlidebarsAsset::register($view);
-		$view->registerJs('var slidebarsController = new slidebars();slidebarsController.init(' . $this->initCallback . ');');
+		$varName = $this->varName();
+
+        $js[] = "var {$varName} = new slidebars();";
+
+        foreach ($this->pluginEvents as $event => $handler) {
+            $function = new JsExpression($handler);
+            $js[] = "$({$varName}.events).on('{$event}', {$function});";
+        }
 
 		if ($this->toggleSelector) {
-			$view->registerJs('
-				$("' . $this->toggleSelector . '").on("click", function(e){
-				  e.stopPropagation();
-				  e.preventDefault();
-				  slidebarsController.toggle("' . $this->id . '");
-				});
-			');
+            $js[] = "$('{$this->toggleSelector}').on('click', function(e){e.stopPropagation();e.preventDefault();{$varName}.toggle('{$this->id}');});";
 		}
-
+        $js[] = "{$varName}.init();";
+        $js = implode("\n", $js);
+        $view->registerJs($js);
 	}
+
+    /**
+     * @return string
+     */
+    public function varName()
+    {
+        return 'slidebars_'. $this->id;
+    }
 }
