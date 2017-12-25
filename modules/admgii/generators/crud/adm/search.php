@@ -65,8 +65,8 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
     public function search($params<?= $generator->ifParent(', $id_parent') ?>)
     {
         $query = static::find()
-            ->from(['t' => static::tableName()])
-            ->with(['translation']);
+            ->from(['t' => static::tableName()]);
+            //->with(['translation']);
             //->innerJoin(['tl'=> PageLang::tableName()],'tl.page_id=t.id AND tl.language_id=:language_id',[':language_id' => Yii::$app->getI18n()->getId()]);
 
         $dataProvider = new ActiveDataProvider([

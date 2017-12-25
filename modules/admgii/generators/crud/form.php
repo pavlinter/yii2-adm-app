@@ -29,7 +29,7 @@ echo $form->field($generator, 'messageCategory');
 $this->registerJs('
     $("#generator-admauto").on("keyup", function(){
         var $el = $(this);
-        var val = $el.val().toLowerCase();
+        var val = $el.val();
         var valUpper = val.charAt(0).toUpperCase() + val.slice(1);
 
         $("#generator-modelclass").val("app\\\models\\\" + valUpper);

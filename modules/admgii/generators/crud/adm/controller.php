@@ -102,8 +102,8 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
         $startPath = 'data::<?= strtolower($modelClass) ?>::' . $id . $startPathDir;
 
         $elfinderData = [];
-        $elfinderData['w'] = 1600;
-        $elfinderData['h'] = 1600;
+        $elfinderData['w'] = Yii::$app->params['elfinder.maxWidth'];
+        $elfinderData['h'] = Yii::$app->params['elfinder.maxHeight'];
         //$elfinderData['watermark'] = 1;
 
         return $this->render('files', [
