@@ -22,4 +22,6 @@ return [
     'onlineUser.count' => 0,
     'onlineUser.randomRange' => '0-10',
     'onlineUser.updateTime' => 10, //seconds
+    'elfinder.maxWidth' => 1600,
+    'elfinder.maxHeight' => 1600,
 ];
