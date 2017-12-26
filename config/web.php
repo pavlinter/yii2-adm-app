@@ -16,17 +16,6 @@ if (YII_ENV_DEV) {
 require(__DIR__ . '/aliases.php');
 require(__DIR__ . '/container.php');
 
-Yii::$container->set('kartik\grid\GridView', [
-    'krajeeDialogSettings' => [
-        'dialogDefaults' => [
-            \kartik\dialog\Dialog::DIALOG_CONFIRM => [
-                'type' => \kartik\dialog\Dialog::TYPE_PRIMARY,
-                'btnOKClass' => 'btn-primary',
-            ],
-        ],
-    ],
-]);
-
 $config = [
     'name' => 'My Application',
     'id' => 'adm-app',
