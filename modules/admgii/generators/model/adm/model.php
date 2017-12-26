@@ -78,6 +78,19 @@ use Yii;
 class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . "\n" ?>
 {
     use ModelArrayableTrait;
+
+    /**
+     * @inheritdoc
+     *
+     * The default implementation returns the names of the columns whose values have been populated into this record.
+     */
+    public function fields()
+    {
+        $fields =  $this->traitFields();
+
+        return $fields;
+    }
+
 <?php if ($generator->modelClassQuery): ?>
     /**
      * @inheritdoc
@@ -185,6 +198,19 @@ foreach ($modelLangClassObj->attributes() as $attribute){
     }
 
 <?php }?>
+
+    /**
+     * @return bool
+     * @throws \yii\base\ErrorException
+     */
+    public function beforeDelete()
+    {
+        if (parent::beforeDelete()) {
+            Yii::$app->display->removeFileRow('<?= strtolower($className) ?>', $this->id);
+            return true;
+        }
+        return false;
+    }
 <?php if ($generator->isLang){ ?>
 
     /**
