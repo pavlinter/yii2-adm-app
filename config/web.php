@@ -1,5 +1,5 @@
 <?php
-//version 1.0.11
+//version 1.0.12
 if (YII_ENV_DEV) {
     $params = \yii\helpers\ArrayHelper::merge(
         require(__DIR__ . '/params.php'),
@@ -14,16 +14,7 @@ if (YII_ENV_DEV) {
     $db = require(__DIR__ . '/db.php');
 }
 require(__DIR__ . '/aliases.php');
-
-Yii::$container->set('yii\validators\NumberValidator', [
-    'class' => 'app\base\validators\NumberValidator',
-]);
-
-Yii::$container->set('yii\widgets\ActiveForm', [
-    'class' => 'yii\widgets\ActiveForm',
-    'fieldClass' => 'app\widgets\ActiveField',
-    'scrollToError' => false,
-]);
+require(__DIR__ . '/container.php');
 
 Yii::$container->set('kartik\grid\GridView', [
     'krajeeDialogSettings' => [
