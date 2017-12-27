@@ -1,8 +1,6 @@
 <?php
 
 namespace app\base\behaviors;
-use yii\base\InvalidConfigException;
-use yii\db\BaseActiveRecord;
 use yii\helpers\Inflector;
 
 
@@ -13,38 +11,13 @@ use yii\helpers\Inflector;
 class SluggableBehavior extends \yii\behaviors\SluggableBehavior
 {
     public $slugAttribute = 'alias';
+
     public $attribute = 'title';
-    public $immutable = true;
+
+    public $immutable = true; //if set false , always generate new slug
+
     public $ensureUnique = true;
 
-    /**
-     * @inheritdoc
-     */
-    public function init()
-    {
-
-        if ($this->value === null) {
-            $that = $this;
-            $this->value = function ($event) use ($that) {
-                if($event->sender->isAttributeChanged($that->attribute) && $event->sender->{$that->slugAttribute} == '')
-                {
-                    return static::slug($event->sender->title);
-                }
-                return $event->sender->{$that->slugAttribute};
-            };
-        }
-
-        if (empty($this->attributes)) {
-            $this->attributes = [BaseActiveRecord::EVENT_BEFORE_VALIDATE => $this->slugAttribute];
-        }
-
-        if ($this->attribute === null && $this->value === null) {
-            throw new InvalidConfigException('Either "attribute" or "value" property must be specified.');
-        }
-        
-        
-    }
-    
     /**
      * This method is called by [[getValue]] to generate the slug.
      * You may override it to customize slug generation.
@@ -67,6 +40,7 @@ class SluggableBehavior extends \yii\behaviors\SluggableBehavior
      */
     public static function slug($string, $replacement = '-', $lowercase = true)
     {
+        //in localhost russian char is not work.
         $string = Inflector::transliterate($string, 'Russian-Latin/BGN; Any-Latin; Latin-ASCII; NFD; [:Nonspacing Mark:] Remove; NFC;');
         $string = preg_replace('/[^a-zA-Z0-9=\s—–-]+/u', '', $string);
         $string = preg_replace('/[=\s—–-]+/u', $replacement, $string);
