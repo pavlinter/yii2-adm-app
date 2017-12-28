@@ -25,7 +25,7 @@ foreach ($authAssignments as $authAssignment) {
     <p>
         <?= Html::a(Adm::t('user', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 
-        <?php if (!Adm::getInstance()->user->can('Adm-UpdateOwnUser', $model)) {?>
+        <?php if (!Adm::getInstance()->user->can('Adm-User', $model)) {?>
             <?= Html::a(Adm::t('user', 'Delete'), ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
                 'data' => [
