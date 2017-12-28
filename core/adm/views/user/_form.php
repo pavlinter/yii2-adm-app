@@ -78,7 +78,7 @@ foreach ($authItemsChildArr as $authItemsChild) {
                 </div>
             </div>
 
-            <?php if (!Adm::getInstance()->user->can('Adm-User', $model)) {?>
+            <?php if (!Adm::getInstance()->user->can('Adm-UpdateOwnUser', $model)) {?>
 
                 <div class="row">
                     <div class="col-xs-12 col-sm-4 col-md-4">
@@ -154,7 +154,7 @@ foreach ($authItemsChildArr as $authItemsChild) {
                     'formSelector' => $form,
                 ]);?>
 
-                <?php if (!Adm::getInstance()->user->can('Adm-User', $model)) {?>
+                <?php if (!Adm::getInstance()->user->can('Adm-UpdateOwnUser', $model)) {?>
 
                     <?php if ($model->isNewRecord) {?>
                         <?= InputButton::widget([
