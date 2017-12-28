@@ -91,7 +91,7 @@ class UserController extends \pavlinter\adm\controllers\UserController
                 $model->setPassword($dynamicModel->password);
 
                 if ($model->save(false)) {
-                    if (!Adm::getInstance()->user->can('Adm-User', $model)) {
+                    if (!Adm::getInstance()->user->can('Adm-UpdateOwnUser', $model)) {
                         //AdmRoot
                         $auth = Yii::$app->authManager;
                         $roles = Yii::$app->request->post('roles', []);
@@ -142,7 +142,7 @@ class UserController extends \pavlinter\adm\controllers\UserController
         /* @var $model \pavlinter\adm\models\User */
         $model = $this->findModel($id);
 
-        if (Adm::getInstance()->user->can('Adm-User', $model)) {
+        if (Adm::getInstance()->user->can('Adm-UpdateOwnUser', $model)) {
             $model->setScenario('adm-updateOwn');
         } elseif (Adm::getInstance()->user->can('AdmRoot')) {
             $model->setScenario('adm-update');
@@ -164,7 +164,7 @@ class UserController extends \pavlinter\adm\controllers\UserController
                     $model->setPassword($dynamicModel->password);
                 }
 
-                if (!Adm::getInstance()->user->can('Adm-User', $model)) {
+                if (!Adm::getInstance()->user->can('Adm-UpdateOwnUser', $model)) {
                     //AdmRoot
                     $auth = Yii::$app->authManager;
                     $roles = Yii::$app->request->post('roles', []);
@@ -184,7 +184,7 @@ class UserController extends \pavlinter\adm\controllers\UserController
                 $model->save(false);
                 Yii::$app->getSession()->setFlash('success', Adm::t('','Data successfully changed!'));
                 $this->saveAvatar($model);
-                if (Adm::getInstance()->user->can('Adm-User', $model)) {
+                if (Adm::getInstance()->user->can('Adm-UpdateOwnUser', $model)) {
                     return $this->refresh();
                 } else {
                     //AdmRoot
@@ -258,7 +258,7 @@ class UserController extends \pavlinter\adm\controllers\UserController
     public function actionRemoveAvatar($id)
     {
         $model = $this->findModel($id);
-        if (Adm::getInstance()->user->can('AdmRoot') || Adm::getInstance()->user->can('Adm-User', $model)) {
+        if (Adm::getInstance()->user->can('AdmRoot') || Adm::getInstance()->user->can('Adm-UpdateOwnUser', $model)) {
             $path = Yii::getAlias('@webroot/files/data/user/' . $model->id . '/main');
             FileHelper::removeDirectory($path);
         } else {
