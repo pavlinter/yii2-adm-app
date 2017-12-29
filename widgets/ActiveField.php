@@ -2,6 +2,7 @@
 
 namespace app\widgets;
 
+use app\helpers\ModelHelper;
 use Yii;
 use yii\helpers\Html;
 use yii\validators\RequiredValidator;
@@ -33,12 +34,19 @@ class ActiveField extends \yii\widgets\ActiveField
 
     public $hintOptions = ['class' => 'my-tooltip-note'];
 
+    public $autoReadonly = true; //set readonly field if not exist in Model::scenarios()
 
     public function init()
     {
         parent::init();
         if (Yii::$app->mobileDetect->isMobile()) {
             $this->tooltipPlacement = 'auto-top';
+        }
+
+        if ($this->autoReadonly) {
+            if (!ModelHelper::inScenario($this->model, $this->attribute)) {
+                $this->inputOptions['readonly'] = true;
+            }
         }
     }
 
@@ -73,6 +81,9 @@ class ActiveField extends \yii\widgets\ActiveField
             Html::addCssClass($options, 'my-tooltip');
             //Html::addCssClass($options, $this->tooltipTheme);
         }
+
+
+
 
         $this->parts['{input}'] = Html::activeTextInput($this->model, $this->attribute, $options);
 
