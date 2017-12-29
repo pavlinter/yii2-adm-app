@@ -132,10 +132,10 @@ class ActiveField extends \yii\widgets\ActiveField
         if ($this->_skipLabelFor) {
             $options['for'] = null;
         }
-
-        if ($this->isRequired()) {
+        $attribute = Html::getAttributeName($this->attribute);
+        if ($this->isRequired($attribute)) {
             if ($label === null) {
-                $options['label'] = $this->model->getAttributeLabel($this->attribute) . $this->requiredSymbol;
+                $options['label'] = $this->model->getAttributeLabel($attribute) . $this->requiredSymbol;
             } else {
                 $options['label'] = $label . $this->requiredSymbol;
             }
@@ -146,13 +146,15 @@ class ActiveField extends \yii\widgets\ActiveField
         return $this;
     }
 
+
     /**
+     * @param $attribute
      * @return bool
      */
-    public function isRequired()
+    public function isRequired($attribute)
     {
         if ($this->requiredSymbol) {
-            foreach ($this->model->getActiveValidators($this->attribute) as $validator) {
+            foreach ($this->model->getActiveValidators($attribute) as $validator) {
                 /* @var $validator \yii\validators\Validator */
                 if ($validator instanceof RequiredValidator) {
                     return true;
