@@ -9,8 +9,8 @@ return [
     'on afterOpen' => function ($event) {
         /* @var $sender \app\components\Connection */
         $sender = $event->sender;
-        $timeZone = Yii::$app->timeZone;
-        //$timeZone = date('P'); //or +02:00
+        //$timeZone = Yii::$app->timeZone;
+        $timeZone = date('P'); //or +02:00
         $sender->pdo->exec('SET time_zone="' . $timeZone . '"');
     },
 ];
