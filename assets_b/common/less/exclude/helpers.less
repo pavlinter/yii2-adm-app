@@ -760,7 +760,7 @@
 .pr-45i{ padding-right: 45px !important;}
 .pr-50i{ padding-right: 50px !important;}
 
-.row-for-loop (@i) when (@i > 0) {
+.row-for-loop (@i) when (@i > -1) {
   .row{
     &.row-for-@{i}{
       margin-left: ~"-@{i}px";

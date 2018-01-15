@@ -128,11 +128,12 @@ class ActiveResponse extends Component {
      * @param $selectorForm
      * @param string|bool $condition with eval();
      * @param bool $summary
+     * @param string $attribute_prefix
      * @return $this
      */
-    public function formUpdateMessages($model, $selectorForm, $condition = false, $summary = true)
+    public function formUpdateMessages($model, $selectorForm, $condition = false, $summary = true, $attribute_prefix = '')
     {
-        $errors = static::formValidate($model);
+        $errors = static::formValidate($model, null, false, $attribute_prefix);
         $this->addAction('formUpdateMessages', ['form' => $selectorForm, 'errors' => $errors, 'summary' => $summary, 'condition' => $condition]);
         return $this;
     }
@@ -142,9 +143,10 @@ class ActiveResponse extends Component {
      * @param $model
      * @param null $attributes
      * @param bool $clearErrors
+     * @param string $attribute_prefix
      * @return array
      */
-    public static function formValidate($model, $attributes = null, $clearErrors = false)
+    public static function formValidate($model, $attributes = null, $clearErrors = false, $attribute_prefix = '')
     {
         $result = [];
         if ($attributes instanceof Model) {
@@ -158,7 +160,7 @@ class ActiveResponse extends Component {
         foreach ($models as $model) {
             $model->validate($attributes, $clearErrors);
             foreach ($model->getErrors() as $attribute => $errors) {
-                $result[Html::getInputId($model, $attribute)] = $errors;
+                $result[Html::getInputId($model, $attribute_prefix . $attribute)] = $errors;
             }
         }
         return $result;
