@@ -35,6 +35,9 @@ class UserSettings extends \app\models\User
             ['username', 'filter', 'filter' => function ($value) {
                 return strtolower(trim($value));
             }],
+            [['username' ,'firstname', 'lastname'], 'filter', 'filter' => function ($value) {
+                return \app\helpers\Html::encode(trim($value));
+            }],
             ['username', 'unique',
                 'targetClass' => 'app\models\User',
                 'message' => Yii::t("model/signup", "This username has already been taken."),
