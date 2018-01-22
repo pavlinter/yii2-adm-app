@@ -1,0 +1,48 @@
+.dropzone-singular {
+  border: 2px dashed #cccccc !important;
+  width: 204px;
+  //min-height: 204px !important;
+  height: auto;
+  min-height: auto;
+  background: white;
+  padding: 0;
+  border-radius: 0 !important;
+  .dz-preview{
+    margin: 0 !important;
+    .dz-image{
+      border-radius: 0 !important;
+      width: 100%;
+      height: auto;
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+    .dz-remove{
+      padding-top: 7px !important;
+      padding-bottom: 7px !important;
+      line-height: 20px;
+    }
+    .dz-error-message{
+      top: 0 !important;
+      left: 210px !important;
+      &:after{
+        top: 16px;
+        left: -10px;
+        border-style: solid;
+        border-width: 5px 10px 5px 0;
+        border-color: transparent #be2626 transparent transparent;
+      }
+    }
+  }
+  .dz-message{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    line-height: 20px;
+  }
+  &.dropzone-uploaded{
+    .dz-message{
+      display: none;
+    }
+  }
+}

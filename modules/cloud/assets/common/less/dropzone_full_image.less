@@ -1,0 +1,47 @@
+.dropzone-full_image {
+  border: 2px dashed #cccccc;
+  border-radius: 0 !important;
+  background: white;
+  padding: 0;
+  .dz-preview{
+    border: 1px dashed #d2d2d2;
+    margin: 15px 7px 0 7px;
+    .dz-image{
+      border-radius: 0 !important;
+      width: 200px;
+      height: 200px;
+      text-align: center;
+      img {
+        transition: opacity 2s;
+        width: auto;
+        height: auto;
+        display: inline-block;
+        opacity: 0;
+        &.dz-img-loaded{
+          opacity: 1;
+        }
+      }
+    }
+    .dz-details{
+      padding-top: 75px;
+    }
+    .dz-remove{
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+    .dz-error-message{
+      top: 0 !important;
+      left: 210px !important;
+      &:after{
+        top: 16px;
+        left: -10px;
+        border-style: solid;
+        border-width: 5px 10px 5px 0;
+        border-color: transparent #be2626 transparent transparent;
+      }
+    }
+  }
+  .dz-message{
+    line-height: 20px;
+  }
+}

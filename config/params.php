@@ -24,4 +24,8 @@ return [
     'onlineUser.updateTime' => 10, //seconds
     'elfinder.maxWidth' => 1600,
     'elfinder.maxHeight' => 1600,
+    'dropzone.maxWidth' => 1600,
+    'dropzone.maxHeight' => 1600,
+    'dropzone.validate.minWidth' => 800,
+    'dropzone.validate.minHeight' => 800,
 ];
