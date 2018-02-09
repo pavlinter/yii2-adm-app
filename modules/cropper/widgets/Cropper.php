@@ -8,6 +8,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\web\JsExpression;
+use yii\web\View;
 
 /**
  * Class Cropper
@@ -22,6 +23,8 @@ class Cropper extends \yii\base\Widget
     public $image;
 
     public $avatarView = '@webroot/modules/cropper/views/partial/avatar';
+
+    public $popupView = '@webroot/modules/cropper/views/partial/popup';
 
     public $options = [];
 
@@ -64,6 +67,7 @@ class Cropper extends \yii\base\Widget
             $this->setId($this->options['id']);
         }
 
+        Html::addCssClass($this->options, $this->options['id']);
         $this->pluginOptions = ArrayHelper::merge($this->defaultPluginOptions, $this->pluginOptions);
         $this->pluginCallbacks = ArrayHelper::merge($this->defaultPluginCallbacks, $this->pluginCallbacks);
 
@@ -100,6 +104,11 @@ class Cropper extends \yii\base\Widget
         Html::addCssClass($this->formConfig['options'], 'avatar-form');
 
         $this->registerScript();
+
+        $that = $this;
+        $this->view->on(View::EVENT_END_BODY, function ($event) use($that) {
+            echo $that->render($that->popupView, ['widget' => $that]);
+        });
         return $this->render($this->avatarView, ['widget' => $this]);
     }
 
@@ -116,7 +125,7 @@ class Cropper extends \yii\base\Widget
             'cropEvents' => $this->pluginEvents,
             'popupSelector' => '#' . $this->popupConfig['toggleButton']['id'],
         ];
-        $view->registerJs('new CropAvatar($("#' . $this->id . '"), ' . Json::encode($settings) . ');');
+        $view->registerJs('new CropAvatar($(".' . $this->id . '"), ' . Json::encode($settings) . ');');
     }
 
     /**
