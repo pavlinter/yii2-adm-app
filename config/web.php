@@ -177,7 +177,7 @@ $config = [
             'class' => 'app\modules\user\Module',
             'controllerMap' => [
                 'cropper' => [
-                    'class' => 'app\modules\cropper\controllers\CropperController',
+                    'class' => 'app\modules\appadm\controllers\CropperController',
                 ],
             ],
         ],

@@ -20,3 +20,11 @@ Yii::$container->set('kartik\grid\GridView', [
         ],
     ],
 ]);
+
+Yii::$container->set('pavlinter\display2\objects\Image', [
+    'bgColor' => 'ffffff',
+]);
+
+Yii::$container->set('app\modules\cropper\widgets\Cropper', [
+    'cropUrl' => ['/appadm/cropper/avatar'],
+]);
