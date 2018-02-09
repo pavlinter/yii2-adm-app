@@ -2,6 +2,7 @@
 
 namespace app\modules\cloud\widgets;
 
+use app\modules\cloud\assets\Asset;
 use app\modules\cloud\assets\DropZoneAsset;
 use app\modules\cloud\assets\DropZoneThemeAsset;
 use app\modules\cloud\Cloud;
@@ -39,7 +40,7 @@ use yii\helpers\Url;
  *      ]),
  *      'cloudFilesName' => 'own-session-name',
  *      'pluginOptions' => [
- *          'maxFilesize' => 4, //4mb
+ *          'maxFilesize' => 20, //20mb
  *          'maxFiles' => 6,
  *      ],
  *      'pluginEvents' => [],
@@ -105,7 +106,11 @@ class DropZone extends \yii\base\Widget
 
     public $uploadRouter = '/cloud/dropzone/upload-photo';
 
+    public $uploadFileRouter = '/cloud/dropzone/upload-file';
+
     public $removeRouter = '/cloud/dropzone/remove';
+
+    public $isAllFileUpload = false;
     /**
      * Initializes the widget
      * @throw InvalidConfigException
@@ -128,9 +133,16 @@ class DropZone extends \yii\base\Widget
 
         if ($this->cloudFilesName) {
             if (empty($this->uploadUrl)) {
-                $this->uploadUrl = [$this->uploadRouter, '?' => [
-                    'name' => $this->cloudFilesName,
-                ]];
+                if ($this->isAllFileUpload) {
+                    $this->uploadUrl = [$this->uploadFileRouter, '?' => [
+                        'name' => $this->cloudFilesName,
+                    ]];
+                } else {
+                    $this->uploadUrl = [$this->uploadRouter, '?' => [
+                        'name' => $this->cloudFilesName,
+                    ]];
+                }
+
             }
         } elseif (empty($this->uploadUrl)){
             throw new InvalidConfigException('The "uploadUrl" property must be set.');
@@ -231,13 +243,17 @@ class DropZone extends \yii\base\Widget
         ], $this->pluginOptions);
 
         if ($this->theme == static::THEME_SINGULAR) {
-            $this->pluginOptions['dictDefaultMessage'] = Yii::t('app/dropzone', "Загрузить фото <br/>(jpg, gif, png)");
+            $this->pluginOptions['dictDefaultMessage'] = Yii::t('app/dropzone', "Upload photo (jpg, gif, png)");
             if (!isset($this->pluginOptions['thumbnailWidth'])) {
                 $this->pluginOptions['thumbnailWidth'] = null;
             }
             if (!isset($this->pluginOptions['thumbnailWidth'])) {
                 $this->pluginOptions['thumbnailHeight'] = null;
             }
+        }
+
+        if ($this->isAllFileUpload) {
+            $this->pluginOptions['dictDefaultMessage'] = Yii::t('app/dropzone', "Drop only files here to upload", ['dot' => false]);
         }
 
         if ($this->theme == static::THEME_FULL_IMAGE) {
@@ -389,18 +405,50 @@ class DropZone extends \yii\base\Widget
      */
     public static function displayFiles($id, $category, $config = [], $options = [])
     {
-        $photosData = Yii::$app->display->getFileImgs($id, $category, $config, $options);
+        $data = [];
+        if ($config === null) {
+            $files = Yii::$app->display->getRowFiles($id, $category, $options);
 
-        $files = [];
-        foreach ($photosData as $photoData) {
-            $files[] = [
-                'url' => $photoData['display'],
-                'name' =>  $photoData['image'],
-                'size' => filesize($photoData['fullPath']),
-            ];
+            $asset = Asset::register(Yii::$app->getView());
+            $path = $asset->basePath . '/images/';
+            $webpath = $asset->baseUrl . '/images/';
+
+            foreach ($files as $file) {
+                $name = pathinfo($file['fullPath'], PATHINFO_EXTENSION);
+                if (in_array($name, ['gif', 'jpg', 'png'])) {
+                    $data[] = [
+                        'url' => $file['originImage'],
+                        'name' =>  $file['image'],
+                        'size' => filesize($file['fullPath']),
+                    ];
+                } else {
+                    if (is_file($path . $name . '.png')) {
+                        $url = $webpath . $name . '.png';
+                    } else {
+                        $url = $webpath . 'file.png';
+                    }
+                    $data[] = [
+                        'url' => $url,
+                        'name' =>  $file['image'],
+                        'size' => filesize($file['fullPath']),
+                    ];
+                }
+            }
+        } else {
+            $files = Yii::$app->display->getFileImgs($id, $category, $config, $options);
+            foreach ($files as $file) {
+                $data[] = [
+                    'url' => $file['display'],
+                    'name' =>  $file['image'],
+                    'size' => filesize($file['fullPath']),
+                ];
+            }
         }
+        
 
-        return $files;
+
+
+        return $data;
     }
 
     /**

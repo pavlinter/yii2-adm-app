@@ -58,14 +58,16 @@ class Storage extends \yii\base\Component
     /**
      * @param $dir
      * @param null $name
+     * @param bool $clearSession
+     * @throws \yii\base\ErrorException
+     * @throws \yii\base\Exception
      */
-    public function moveFileAndClear($dir, $name = null)
+    public function moveFileAndClear($dir, $name = null, $clearSession = false)
     {
         $this->moveFileTo($dir, $name);
         FileHelper::removeDirectory($this->getPath());
         $this->clear($name);
     }
-
 
     /**
      * @param $dir
@@ -74,6 +76,7 @@ class Storage extends \yii\base\Component
      * @param bool $generateNewName
      * @return bool
      * @throws \yii\base\ErrorException
+     * @throws \yii\base\Exception
      */
     public function moveFileTo($dir, $name = null, $removeCacheDir = true, $generateNewName = true)
     {
@@ -110,6 +113,7 @@ class Storage extends \yii\base\Component
     /**
      * @param null $name
      * @return array
+     * @throws \yii\base\Exception
      */
     public function getCloudFiles($name = null)
     {
@@ -234,6 +238,7 @@ class Storage extends \yii\base\Component
 
     /**
      * @param null $remove_after
+     * @throws \yii\base\ErrorException
      */
     public function removeOldDir($remove_after = null)
     {
@@ -264,11 +269,21 @@ class Storage extends \yii\base\Component
     }
 
 
-    public function removeCloudDir($name)
+    /**
+     * @param $name
+     * @param bool $onlyFiles
+     * @return bool
+     * @throws \yii\base\ErrorException
+     * @throws \yii\base\Exception
+     */
+    public function removeCloudDir($name, $onlyFiles = false)
     {
         if ($this->hasName($name)) {
             $path = $this->getPath($name);
             FileHelper::removeDirectory($path);
+            if ($onlyFiles) {
+                FileHelper::createDirectory($path);
+            }
             return true;
         }
         return false;

@@ -19,18 +19,21 @@ use yii\helpers\ArrayHelper;
  *
  * //widgets
  * echo \app\modules\cloud\widgets\DropZone::widget([
- *      'uploadUrl' => ['/site/upload-photo'],
- *      'removeUrl' => ['/site/remove-upload-photo'],
- *      'files' => [
- *          [
- *              'url' => 'url to image',
- *              'name' => 'image name',
- *              'size' => 'image size',
- *          ],
- *      ],
- *      //'cloudFilesName' => 'own-session-name',
+ *      'theme' => \app\modules\cloud\widgets\DropZone::THEME_FULL_IMAGE,
+ *      //'uploadUrl' => ['/cloud/dropzone/upload-photo', '?' => ['name' => 'own-namespace'],],
+ *      //'removeUrl' => ['/site/remove-upload-photo'], //not need if use 'cloudFilesName'
+ *      'isNewRecord' => $model->isNewRecord,
+ *      'files' => \app\modules\cloud\widgets\DropZone::displayFiles($model->id, 'banner', [
+ *          'mode' => \pavlinter\display2\objects\Image::MODE_STATIC,
+ *          'bgColor' => 'ffffff',
+ *          'width' => 200,
+ *          'height' => 200,
+ *      ], [
+ *          'dir' => 'dirname',
+ *      ]),
+ *      'cloudFilesName' => 'own-session-name',
  *      'pluginOptions' => [
- *          'maxFilesize' => 4, //4mb
+ *          'maxFilesize' => 20, //20mb
  *          'maxFiles' => 6,
  *      ],
  *      'pluginEvents' => [],
