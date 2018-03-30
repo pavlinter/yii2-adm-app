@@ -104,7 +104,7 @@ class SiteHelper
         }
 
         $menus = Page::find()->with(['translations','childs' => function ($q) {
-            $q->andWhere(['active' => 1, 'visible' => 1]);
+            $q->andWhere(['active' => 1, 'visible' => 1])->orderBy(['weight' => SORT_ASC]);
         }])->where(['id_parent' => [1,2,3], 'active' => 1, 'visible' => 1])->orderBy(['weight' => SORT_ASC])->all();
 
         $m = [
