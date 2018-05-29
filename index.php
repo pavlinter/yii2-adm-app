@@ -1,4 +1,5 @@
 <?php
+
 if($_SERVER['SERVER_ADDR'] == '127.0.0.1') {
     defined('IS_LOCALHOST') or define('IS_LOCALHOST', true);
     defined('YII_DEBUG') or define('YII_DEBUG', true);
