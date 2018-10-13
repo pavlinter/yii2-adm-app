@@ -21,7 +21,7 @@
     "yiisoft/yii2-bootstrap": "*",
     "yiisoft/yii2-swiftmailer": "*",
     "fxp/composer-asset-plugin": "^1.2.2",
-
+    
     "dmstr/yii2-migrate-command": "0.*",
     "pavlinter/yii2-adm": "2.0.*",
     "pavlinter/yii2-display-image2": "2.*",
