@@ -19,7 +19,7 @@ require(__DIR__ . '/container.php');
 $config = [
     'name' => 'My Application',
     'id' => 'adm-app',
-    'timeZone' => 'Europe/Stockholm',
+    'timeZone' => 'Europe/Riga',
     'basePath' => dirname(__DIR__),
     'layout' => '/content',
     'bootstrap' => [
