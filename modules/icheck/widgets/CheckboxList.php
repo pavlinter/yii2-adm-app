@@ -10,7 +10,7 @@ use yii\helpers\Html;
  * Class CheckboxList
  * $form->field($model, 'active', [
  *  'template' => "{input}",
- * ])->widget(\app\modules\icheck\widgets\CheckboxList::className(), [
+ * ])->widget(\app\modules\icheck\widgets\CheckboxList::class, [
  *  'skin' => \app\modules\icheck\widgets\CheckboxList::SKIN_MINIMAL_BLUE,
  *  'items' => ['value1' => 'One', 'value2' => 'Two'],
  * ])

@@ -22,7 +22,7 @@ class ExportController extends Controller
     {
         return [
             'access' => [
-                'class' => \pavlinter\adm\filters\AccessControl::className(),
+                'class' => \pavlinter\adm\filters\AccessControl::class,
                 'rules' => [
                     [
                         'allow' => true,

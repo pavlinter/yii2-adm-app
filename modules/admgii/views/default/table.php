@@ -24,7 +24,7 @@ $this->title = $generator->getName();
     <?php $form = ActiveForm::begin([
         'id' => "$id-generator",
         'successCssClass' => '',
-        'fieldConfig' => ['class' => ActiveField::className()],
+        'fieldConfig' => ['class' => ActiveField::class],
     ]); ?>
 
         <?php

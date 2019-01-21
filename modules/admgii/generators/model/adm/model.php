@@ -111,7 +111,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
 <?= $generator->timestampBehavior($tableSchema->columns) ?>
 <?php if ($generator->modelLangClass){ ?>
             'trans' => [
-                'class' => \pavlinter\translation\TranslationBehavior::className(),
+                'class' => \pavlinter\translation\TranslationBehavior::class,
                 'translationAttributes' => [
 <?php
 $modelLangClassObj  = new $generator->modelLangClass();
@@ -152,7 +152,7 @@ foreach ($modelLangClassObj->attributes() as $attribute){
     public function rules()
     {
         return [
-            //['category_id', 'exist', 'targetClass' => Category::className(), 'targetAttribute' => 'id'],
+            //['category_id', 'exist', 'targetClass' => Category::class, 'targetAttribute' => 'id'],
 <?php if ($generator->getParentColumn()) {?>
             ['<?= $generator->getParentColumn() ?>', 'exist', 'targetAttribute' => 'id'],
 <?php }?><?= "            " . implode(",\n            ", $rules) . "\n        " ?>];
@@ -290,7 +290,7 @@ foreach ($modelLangClassObj->attributes() as $attribute){
      */
     public function getChilds()
     {
-        return $this->hasMany(static::className(), ['<?= $generator->getParentColumn() ?>' => 'id']);
+        return $this->hasMany(static::class, ['<?= $generator->getParentColumn() ?>' => 'id']);
     }
 <?php }?>
 <?php foreach ($generator->rangeColumn as $column): ?>

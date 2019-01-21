@@ -32,7 +32,7 @@ class CropperController extends \app\modules\cropper\controllers\CropperControll
     {
         return [
             'access' => [
-                'class' => \app\filters\AccessControl::className(),
+                'class' => \app\filters\AccessControl::class,
                 'rules' => [
                     [
                         'allow' => true,

@@ -27,7 +27,7 @@ class ContactForm extends Model
         if (IS_LOCALHOST) {
             $verifyCode = ['verifyCode', 'captcha'];
         } else {
-            $verifyCode = [['verifyCode'], \himiklab\yii2\recaptcha\ReCaptchaValidator::className()];
+            $verifyCode = [['verifyCode'], \himiklab\yii2\recaptcha\ReCaptchaValidator::class];
         }
 
         return [

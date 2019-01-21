@@ -28,7 +28,7 @@ class AuthItem extends \pavlinter\adm\models\AuthItem
      */
     public function getAuthAssignments()
     {
-        return $this->hasMany(AuthAssignment::className(), ['item_name' => 'name']);
+        return $this->hasMany(AuthAssignment::class, ['item_name' => 'name']);
     }
 
     /**
@@ -36,7 +36,7 @@ class AuthItem extends \pavlinter\adm\models\AuthItem
      */
     public function getRuleName()
     {
-        return $this->hasOne(AuthRule::className(), ['name' => 'rule_name']);
+        return $this->hasOne(AuthRule::class, ['name' => 'rule_name']);
     }
 
     /**
@@ -44,6 +44,6 @@ class AuthItem extends \pavlinter\adm\models\AuthItem
      */
     public function getAuthItemChildren()
     {
-        return $this->hasMany(AuthItemChild::className(), ['child' => 'name']);
+        return $this->hasMany(AuthItemChild::class, ['child' => 'name']);
     }
 }

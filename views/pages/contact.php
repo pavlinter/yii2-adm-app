@@ -42,13 +42,13 @@ Yii::$app->params['breadcrumbs'][] = $this->title;
 
 
             <?php if (IS_LOCALHOST) {?>
-                <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
+                <?= $form->field($model, 'verifyCode')->widget(Captcha::class, [
                     'captchaAction' => '/site/captcha',
                     'template' => '<div class="row"><div class="col-md-6">{input}</div><div class="col-md-6 mt-mob-10">{image}</div></div> '
                 ]) ?>
             <?php } else { ?>
 
-                <?= $form->field($model, 'verifyCode')->label('')->widget(\himiklab\yii2\recaptcha\ReCaptcha::className()) ?>
+                <?= $form->field($model, 'verifyCode')->label('')->widget(\himiklab\yii2\recaptcha\ReCaptcha::class) ?>
 
             <?php }?>
 

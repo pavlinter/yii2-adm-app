@@ -89,8 +89,8 @@ class Generator extends \app\modules\admgii\Generator
             [['ns'], 'validateNamespace'],
             [['tableName'], 'validateTableName'],
             [['modelClass'], 'validateModelClass', 'skipOnEmpty' => false],
-            [['modelLangClass'], 'validateClass', 'params' => ['extends' => BaseActiveRecord::className()]],
-            [['baseClass'], 'validateClass', 'params' => ['extends' => ActiveRecord::className()]],
+            [['modelLangClass'], 'validateClass', 'params' => ['extends' => BaseActiveRecord::class]],
+            [['baseClass'], 'validateClass', 'params' => ['extends' => ActiveRecord::class]],
             [['generateRelations', 'generateLabelsFromComments'], 'boolean'],
             [['modelClassQuery'], 'boolean'],
             [['enableI18N'], 'boolean'],
@@ -415,7 +415,7 @@ class Generator extends \app\modules\admgii\Generator
 
 
                 $relations[$className][$relationName] = [
-                    "return \$this->hasOne($refClassName::className(), $link);",
+                    "return \$this->hasOne($refClassName::class, $link);",
                     $refClassName,
                     false,
                 ];
@@ -438,12 +438,12 @@ class Generator extends \app\modules\admgii\Generator
                 $relationName = $this->generateRelationName($relations, $refClassName, $refTable, $className, $hasMany);
                 if ($className == $modelLangClass) {
                     $relations[$refClassName]['Translation'] = [
-                        "return \$this->hasOne($className::className(), $link)->andWhere(['language_id' => Yii::\$app->i18n->getId()]);",
+                        "return \$this->hasOne($className::class, $link)->andWhere(['language_id' => Yii::\$app->i18n->getId()]);",
                         $className,
                         false,
                     ];
                     $relations[$refClassName]['Translations'] = [
-                        "return \$this->hasMany($className::className(), $link);",
+                        "return \$this->hasMany($className::class, $link);",
                         $className,
                         true,
                     ];
@@ -454,7 +454,7 @@ class Generator extends \app\modules\admgii\Generator
 
                 } else {
                     $relations[$refClassName][$relationName] = [
-                        "return \$this->" . ($hasMany ? 'hasMany' : 'hasOne') . "($className::className(), $link);",
+                        "return \$this->" . ($hasMany ? 'hasMany' : 'hasOne') . "($className::class, $link);",
                         $className,
                         $hasMany,
                     ];
@@ -482,7 +482,7 @@ class Generator extends \app\modules\admgii\Generator
             $viaLink = $this->generateRelationLink([$table->primaryKey[0] => $fks[$table->primaryKey[0]][1]]);
             $relationName = $this->generateRelationName($relations, $className0, $db->getTableSchema($table0), $table->primaryKey[1], true);
             $relations[$className0][$relationName] = [
-                "return \$this->hasMany($className1::className(), $link)->viaTable('" . $this->generateTableName($table->name) . "', $viaLink);",
+                "return \$this->hasMany($className1::class, $link)->viaTable('" . $this->generateTableName($table->name) . "', $viaLink);",
                 $className1,
                 true,
             ];
@@ -491,7 +491,7 @@ class Generator extends \app\modules\admgii\Generator
             $viaLink = $this->generateRelationLink([$table->primaryKey[1] => $fks[$table->primaryKey[1]][1]]);
             $relationName = $this->generateRelationName($relations, $className1, $db->getTableSchema($table1), $table->primaryKey[0], true);
             $relations[$className1][$relationName] = [
-                "return \$this->hasMany($className0::className(), $link)->viaTable('" . $this->generateTableName($table->name) . "', $viaLink);",
+                "return \$this->hasMany($className0::class, $link)->viaTable('" . $this->generateTableName($table->name) . "', $viaLink);",
                 $className0,
                 true,
             ];
@@ -792,7 +792,7 @@ class Generator extends \app\modules\admgii\Generator
         }
 
         if ($attributes) {
-            return "\t\t\t[\n\t\t\t\t'class' => \\yii\\behaviors\\TimestampBehavior::className(),\n\t\t\t\t'attributes' => [" . $attributes . "\n\t\t\t\t], \n\t\t\t\t'value' => new \\yii\\db\\Expression('NOW()')\n\t\t\t],\n";
+            return "\t\t\t[\n\t\t\t\t'class' => \\yii\\behaviors\\TimestampBehavior::class,\n\t\t\t\t'attributes' => [" . $attributes . "\n\t\t\t\t], \n\t\t\t\t'value' => new \\yii\\db\\Expression('NOW()')\n\t\t\t],\n";
         }
         return false;
     }

@@ -52,7 +52,7 @@ class Notification extends \yii\db\ActiveRecord
     {
         return [
 			[
-				'class' => \yii\behaviors\TimestampBehavior::className(),
+				'class' => \yii\behaviors\TimestampBehavior::class,
 				'attributes' => [
 					\yii\db\BaseActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
 					\yii\db\BaseActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at']
@@ -157,7 +157,7 @@ class Notification extends \yii\db\ActiveRecord
      */
     public function getFromUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'from_id']);
+        return $this->hasOne(User::class, ['id' => 'from_id']);
     }
 
     /**
@@ -165,7 +165,7 @@ class Notification extends \yii\db\ActiveRecord
      */
     public function getToUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'to_id']);
+        return $this->hasOne(User::class, ['id' => 'to_id']);
     }
 
     /**

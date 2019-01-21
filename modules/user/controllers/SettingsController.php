@@ -24,7 +24,7 @@ class SettingsController extends \yii\web\Controller
     {
         return [
             'access' => [
-                'class' => \app\filters\AccessControl::className(),
+                'class' => \app\filters\AccessControl::class,
                 'rules' => [
                     [
                         'allow' => true,
@@ -110,7 +110,7 @@ class SettingsController extends \yii\web\Controller
             ";
         }
 
-        $query = new ActiveQuery(Notification::className(), [
+        $query = new ActiveQuery(Notification::class, [
             'sql' => $sql,
             'params' => $params,
             'with' => ['fromUser'],

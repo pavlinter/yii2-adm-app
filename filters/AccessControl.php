@@ -17,7 +17,7 @@ class AccessControl extends \yii\filters\AccessControl
     public function init()
     {
         parent::init();
-        $this->user = Instance::ensure($this->user, User::className());
+        $this->user = Instance::ensure($this->user, User::class);
         foreach ($this->rules as $i => $rule) {
             if (is_array($rule)) {
                 $this->rules[$i] = Yii::createObject(array_merge($this->ruleConfig, $rule));

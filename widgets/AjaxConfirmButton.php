@@ -185,7 +185,7 @@ class AjaxConfirmButton extends Widget
     {
         $view = $this->getView();
         if ($this->content !== null) {
-            $view->registerJs('$(document).on("click", ".mfp-close-action", function(e){$.magnificPopup.close();})', $view::POS_READY, static::className());
+            $view->registerJs('$(document).on("click", ".mfp-close-action", function(e){$.magnificPopup.close();})', $view::POS_READY, static::class);
         }
 
         if ($this->ajaxOptions === false) {

@@ -45,7 +45,7 @@ class UserController extends \pavlinter\adm\controllers\UserController
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessControl::class,
                 'rules' => [
                     [
                         'allow' => true,
@@ -59,7 +59,7 @@ class UserController extends \pavlinter\adm\controllers\UserController
                 ],
             ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['post'],
                     'remove-avatar' => ['post'],

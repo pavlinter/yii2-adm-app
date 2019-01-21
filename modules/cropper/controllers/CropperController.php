@@ -30,7 +30,7 @@ class CropperController extends Controller
     {
         return [
             'access' => [
-                'class' => \app\filters\AccessControl::className(),
+                'class' => \app\filters\AccessControl::class,
                 'rules' => [
                     [
                         'actions' => ['avatar'],

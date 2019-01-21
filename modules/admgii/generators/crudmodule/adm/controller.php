@@ -53,7 +53,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
     {
         return [
             'access' => [
-                'class' => \pavlinter\adm\filters\AccessControl::className(),
+                'class' => \pavlinter\adm\filters\AccessControl::class,
                 'rules' => [
                     [
                         'allow' => true,
@@ -62,7 +62,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 ],
             ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['post'],
                 ],

@@ -27,7 +27,7 @@ class ContactMsg extends \yii\db\ActiveRecord
     {
         return [
             [
-                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'class' => \yii\behaviors\TimestampBehavior::class,
                 'createdAtAttribute' => 'created_at',
                 'updatedAtAttribute' => 'updated_at',
                 'attributes' => [

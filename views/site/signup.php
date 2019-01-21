@@ -45,9 +45,9 @@ $this->context->layout = '/main';
 
 
             <?php if (IS_LOCALHOST) {?>
-                <?= $form->field($model, 'verifyCode')->widget(Captcha::className()) ?>
+                <?= $form->field($model, 'verifyCode')->widget(Captcha::class) ?>
             <?php } else { ?>
-                <?= $form->field($model, 'verifyCode')->label('')->widget(\himiklab\yii2\recaptcha\ReCaptcha::className()) ?>
+                <?= $form->field($model, 'verifyCode')->label('')->widget(\himiklab\yii2\recaptcha\ReCaptcha::class) ?>
             <?php }?>
 
 

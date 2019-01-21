@@ -22,7 +22,7 @@ class AuthItemChild extends \pavlinter\adm\models\AuthItemChild
      */
     public function getItemParent()
     {
-        return $this->hasOne(AuthItem::className(), ['name' => 'parent']);
+        return $this->hasOne(AuthItem::class, ['name' => 'parent']);
     }
 
     /**
@@ -30,6 +30,6 @@ class AuthItemChild extends \pavlinter\adm\models\AuthItemChild
      */
     public function getItemChild()
     {
-        return $this->hasOne(AuthItem::className(), ['name' => 'child']);
+        return $this->hasOne(AuthItem::class, ['name' => 'child']);
     }
 }

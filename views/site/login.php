@@ -53,7 +53,7 @@ $this->context->layout = '/main';
                 'placeholder' => $model->getAttributeLabel('password'),
             ]); ?>
 
-            <?= $form->field($model, 'rememberMe')->widget(Checkbox::className(), [
+            <?= $form->field($model, 'rememberMe')->widget(Checkbox::class, [
                 'options' => [
                     'class' => 'm-r-10',
                 ],

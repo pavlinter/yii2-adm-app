@@ -73,7 +73,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
 <?= $generator->timestampBehavior($tableSchema->columns) ?>
 <?php if ($generator->modelLangClass){ ?>
             'trans' => [
-                'class' => \pavlinter\translation\TranslationBehavior::className(),
+                'class' => \pavlinter\translation\TranslationBehavior::class,
                 'translationAttributes' => [
 <?php
 

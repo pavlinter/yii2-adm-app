@@ -24,6 +24,6 @@ class AuthRule extends \pavlinter\adm\models\AuthRule
      */
     public function getAuthItems()
     {
-        return $this->hasMany(AuthItem::className(), ['rule_name' => 'name']);
+        return $this->hasMany(AuthItem::class, ['rule_name' => 'name']);
     }
 }

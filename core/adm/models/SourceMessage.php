@@ -35,14 +35,14 @@ class SourceMessage extends \pavlinter\adm\models\SourceMessage
      */
     public function getMessages()
     {
-        return $this->hasMany(Message::className(), ['id' => 'id']);
+        return $this->hasMany(Message::class, ['id' => 'id']);
     }
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getTranslations()
     {
-        return $this->hasMany(Message::className(), ['id' => 'id']);
+        return $this->hasMany(Message::class, ['id' => 'id']);
     }
 
     /**

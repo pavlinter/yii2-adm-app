@@ -22,6 +22,6 @@ class Message extends \pavlinter\adm\models\Message
      */
     public function getSourceMessage()
     {
-        return $this->hasOne(SourceMessage::className(), ['id' => 'id']);
+        return $this->hasOne(SourceMessage::class, ['id' => 'id']);
     }
 }

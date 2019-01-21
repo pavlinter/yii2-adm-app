@@ -22,7 +22,7 @@ class ContactMsgController extends Controller
     {
         return [
             'access' => [
-                'class' => \pavlinter\adm\filters\AccessControl::className(),
+                'class' => \pavlinter\adm\filters\AccessControl::class,
                 'rules' => [
                     [
                         'allow' => true,
@@ -31,7 +31,7 @@ class ContactMsgController extends Controller
                 ],
             ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['post'],
                 ],

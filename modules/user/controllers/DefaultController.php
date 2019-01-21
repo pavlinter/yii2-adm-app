@@ -15,7 +15,7 @@ class DefaultController extends \yii\web\Controller
     {
         return [
             'access' => [
-                'class' => \app\filters\AccessControl::className(),
+                'class' => \app\filters\AccessControl::class,
                 'rules' => [
                     [
                         'allow' => true,
@@ -24,7 +24,7 @@ class DefaultController extends \yii\web\Controller
                 ],
             ],
             'verbs' => [
-                'class' => \yii\filters\VerbFilter::className(),
+                'class' => \yii\filters\VerbFilter::class,
                 'actions' => [
                     'delete' => ['post'],
                 ],
