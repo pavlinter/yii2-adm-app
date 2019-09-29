@@ -1,5 +1,5 @@
 <?php
-//version 1.0.22
+//version 1.0.23
 if (YII_ENV_DEV) {
     $params = \yii\helpers\ArrayHelper::merge(
         require(__DIR__ . '/params.php'),
@@ -37,7 +37,8 @@ $config = [
     'modules' => [
         'debug' => [
             'class' => 'yii\debug\Module',
-            'allowedIPs' => ['127.0.0.1', '::1']
+            'allowedIPs' => ['127.0.0.1', '::1'],
+            'urlRuleClass' => 'pavlinter\urlmanager\UrlRule',
         ],
         'gii' => [
             'class' => 'app\modules\admgii\Module',
@@ -184,10 +185,11 @@ $config = [
     ],
     'components' => [
         'reCaptcha' => [
-            'name' => 'reCaptcha',
-            'class' => 'himiklab\yii2\recaptcha\ReCaptcha',
-            'siteKey' => '',
-            'secret' => 'test',
+            'class' => 'himiklab\yii2\recaptcha\ReCaptchaConfig',
+            'siteKeyV2' => '',
+            'secretV2' => '',
+            //'siteKeyV3' => '',
+            //'secretV3' => '',
         ],
         'ar' => [
             'class' => 'app\modules\activeResponse\components\ActiveResponse',

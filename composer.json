@@ -35,7 +35,7 @@
     "richardfan1126/yii2-js-register":"0.*",
     "yiisoft/yii2-authclient": "*",
 
-    "himiklab/yii2-recaptcha-widget" : "1.*",
+    "himiklab/yii2-recaptcha-widget" : "2.1.*",
     "bower-asset/webui-popover": "1.*",
     "bower-asset/dropzone": "4.3.*",
     "bower-asset/cropper": "2.3.*"

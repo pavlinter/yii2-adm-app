@@ -48,7 +48,7 @@ Yii::$app->params['breadcrumbs'][] = $this->title;
                 ]) ?>
             <?php } else { ?>
 
-                <?= $form->field($model, 'verifyCode')->label('')->widget(\himiklab\yii2\recaptcha\ReCaptcha::class) ?>
+                <?= $form->field($model, 'verifyCode')->label('')->widget(\himiklab\yii2\recaptcha\ReCaptcha2::class) ?>
 
             <?php }?>
 
