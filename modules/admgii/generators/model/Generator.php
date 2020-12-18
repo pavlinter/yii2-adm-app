@@ -21,13 +21,15 @@ use yii\helpers\StringHelper;
 class Generator extends \app\modules\admgii\Generator
 {
     public $db = 'db';
-    public $ns = 'app\models';
+    public $ns = 'app\modules\appadm\models';
+    public $nsMiddle = 'app\models';
     public $tableName;
     public $modelClass;
     public $modelClassQuery = true;
     public $modelClassQueryNs; //private
     public $modelClassQueryUse; //private
     public $modelLangClass;
+    public $middleModelClass;
     public $baseClass = 'yii\db\ActiveRecord';
     public $generateRelations = true;
     public $generateLabelsFromComments = false;
@@ -91,7 +93,7 @@ class Generator extends \app\modules\admgii\Generator
             [['modelClass'], 'validateModelClass', 'skipOnEmpty' => false],
             [['modelLangClass'], 'validateClass', 'params' => ['extends' => BaseActiveRecord::class]],
             [['baseClass'], 'validateClass', 'params' => ['extends' => ActiveRecord::class]],
-            [['generateRelations', 'generateLabelsFromComments'], 'boolean'],
+            [['generateRelations', 'generateLabelsFromComments', 'middleModelClass'], 'boolean'],
             [['modelClassQuery'], 'boolean'],
             [['enableI18N'], 'boolean'],
             [['useTablePrefix'], 'boolean'],
@@ -110,6 +112,7 @@ class Generator extends \app\modules\admgii\Generator
             'db' => 'Database Connection ID',
             'tableName' => 'Table Name',
             'modelClass' => 'Model Class',
+            'middleModelClass' => 'Generate Middle Model',
             'modelLangClass' => 'Model Lang Class',
             'isLang' => 'It is language model',
             'baseClass' => 'Base Class',
@@ -147,6 +150,7 @@ class Generator extends \app\modules\admgii\Generator
                 should consider the <code>tablePrefix</code> setting of the DB connection. For example, if the
                 table name is <code>tbl_post</code> and <code>tablePrefix=tbl_</code>, the ActiveRecord class
                 will return the table name as <code>{{%post}}</code>.',
+            'middleModelClass' => $this->nsMiddle . '\...',
         ]);
     }
 
@@ -202,15 +206,29 @@ class Generator extends \app\modules\admgii\Generator
                 'labels' => $this->generateLabels($tableSchema),
                 'rules' => $this->generateRules($tableSchema),
                 'relations' => isset($relations[$className]) ? $relations[$className] : [],
+                'appadmClass' => $this->ns . '\\' . $className,
             ];
 
-            $this->modelClassQueryNs = $this->ns . '\query';
+            if ($this->middleModelClass) {
+                $this->modelClassQueryNs = $this->nsMiddle . '\query';
+            } else {
+                $this->modelClassQueryNs = $this->ns . '\query';
+            }
+
             $this->modelClassQueryUse = $this->modelClassQueryNs . '\\' . $className . 'Query';
+
 
             $files[] = new CodeFile(
                 Yii::getAlias('@' . str_replace('\\', '/', $this->ns)) . '/' . $className . '.php',
                 $this->render('model.php', $params)
             );
+
+            if ($this->middleModelClass) {
+                $files[] = new CodeFile(
+                    Yii::getAlias('@' . str_replace('\\', '/', $this->nsMiddle)) . '/' . $className . '.php',
+                    $this->render('middleModel2.php', $params)
+                );
+            }
 
             if ($this->modelClassQuery) {
                 $files[] = new CodeFile(
@@ -218,6 +236,9 @@ class Generator extends \app\modules\admgii\Generator
                     $this->render('modelScopes.php', $params)
                 );
             }
+
+
+
 
         }
 

@@ -16,9 +16,12 @@ use yii\web\AssetBundle;
  */
 class TypeAheadAsset extends AssetBundle
 {
-    public $sourcePath = '@bower/typeahead.js/dist';
+    //public $sourcePath = '@bower/typeahead.js/dist';
+    public $sourcePath = '@vendor/kartik-v/yii2-widget-typeahead/src/assets';
+
+
     public $js = [
-        'typeahead.bundle.js',
+        'typeahead.bundle.min.js',
     ];
     public $depends = [
         'yii\bootstrap\BootstrapAsset',

@@ -5,6 +5,7 @@
 
 echo $form->field($generator, 'tableName');
 echo $form->field($generator, 'modelClass');
+echo $form->field($generator, 'middleModelClass')->checkbox();
 echo $form->field($generator, 'modelLangClass');
 echo $form->field($generator, 'isLang')->checkbox();
 echo $form->field($generator, 'modelClassQuery')->checkbox([
